@@ -1,0 +1,48 @@
+<?php
+
+namespace Cleanse\Event\Updates;
+
+use Schema;
+use October\Rain\Database\Updates\Migration;
+
+class AddEventsTables extends Migration
+{
+    public function up()
+    {
+        Schema::create('cleanse_event_configs', function($table)
+        {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->integer('event_id')->nullable();
+            $table->text('config_json')->nullable(); //placeholder so I do not lose this idea
+            $table->timestamps();
+        });
+
+        Schema::create('cleanse_event_event_types', function($table)
+        {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('name')->nullable();
+            $table->text('description')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('cleanse_event_events', function($table)
+        {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('name');
+            $table->text('information')->nullable();
+            $table->integer('config_id')->unsigned();
+            $table->foreign('config_id')->references('id')->on('cleanse_event_configs');
+            $table->timestamps();
+        });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('cleanse_event_events');
+        Schema::dropIfExists('cleanse_event_event_types');
+        Schema::dropIfExists('cleanse_event_configs');
+    }
+}

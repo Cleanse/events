@@ -1,0 +1,5 @@
+0.0.1:
+  - Initial version.
+  - Adding streamer database migration.
+  - add_streamers_table.php
+  - seed_initial_event_tables.php
