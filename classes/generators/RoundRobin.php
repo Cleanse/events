@@ -1,6 +1,8 @@
 <?php
 
-namespace Cleanse\Event\Classes\Types;
+namespace Cleanse\Event\Classes\Generators;
+
+use Exception;
 
 class RoundRobin
 {
@@ -23,7 +25,7 @@ class RoundRobin
     public function generate()
     {
         if (count($this->teams) <= 1) {
-            return dd("You need to specify at least 2 teams.");
+            throw new Exception('You need to specify at least 2 teams.');
         }
 
         return $this->makeSchedule();
@@ -49,10 +51,9 @@ class RoundRobin
     /** Thanks https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm */
     private function generateGroupMatches($teams)
     {
-        //if groups to team ratio doesn't make sense...
-        //maybe throw this in 'generateGroupMatches'...
+        //if there is 0-1 teams in this group, error so a balanced group:team ratio is met.
         if (count($teams) <= 1) {
-            return dd("Your team to group ratio will not work.");
+            throw new Exception('Your team to group ratio will not work.');
         }
 
         $teamCount = count($teams);
@@ -93,6 +94,8 @@ class RoundRobin
 
             $this->rotate($teams);
         }
+
+        /** Number of matches =【 N ×（ N-1 ) 】÷ 2 */
         return $matches;
     }
 
@@ -101,8 +104,7 @@ class RoundRobin
     {
         $np = (int)$np;
         if ($np <= 0) {
-            trigger_error('partition count must be greater than zero', E_USER_NOTICE);
-            return array();
+            throw new Exception('Partition count must be greater than zero.');
         }
 
         $c = count($a);
