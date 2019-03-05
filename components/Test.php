@@ -4,7 +4,7 @@ namespace Cleanse\Event\Components;
 
 use Cms\Classes\ComponentBase;
 
-use Cleanse\Event\Classes\Types\RoundRobin;
+use Cleanse\Event\Classes\Generators\RoundRobin;
 
 class Test extends ComponentBase
 {
@@ -26,13 +26,15 @@ class Test extends ComponentBase
     private function testRoundRobin()
     {
         $config = [
-            'teams' => ['Niners', 'Broncos', 'Raiders', 'Cowboys', 'Pats', 'Colts'],
+            'teams' => ['Niners'],
             'randomize' => true,
-            'groups' => 2,
+            'groups' => 1,
             'cycles' => 1
         ];
 
         $rr = new RoundRobin($config);
-        return $schedule = $rr->generate();
+        $schedule = $rr->generate();
+
+        return $rr->create($schedule);
     }
 }
