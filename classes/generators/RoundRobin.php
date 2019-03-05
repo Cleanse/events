@@ -31,6 +31,11 @@ class RoundRobin
         return $this->makeSchedule();
     }
 
+    public function create()
+    {
+        return 'Do database stuff.';
+    }
+
     private function makeSchedule()
     {
         if ($this->randomize) {
@@ -104,7 +109,7 @@ class RoundRobin
     {
         $np = (int)$np;
         if ($np <= 0) {
-            throw new Exception('Partition count must be greater than zero.');
+            throw new Exception('Array partition count must be greater than zero.');
         }
 
         $c = count($a);
