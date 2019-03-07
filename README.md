@@ -16,3 +16,7 @@ A round-robin and bracket events plugin for OctoberCMS.
 - !!! Take the *Config*, insert it into the 'event_type' factory, and do magic.
 - Use Challonge API (?) and bridge off of it for special cases (ex. adding a player roster and linking it to the 
   event_id).
+- !!! To learn more Javascript, write the app with js/html/scss for frontend tasks and use PHP as an api backend.
+
+###### Frontend? Controllers (October backend)
+- CRUD (Create, Read, Update, Delete) Forms.
