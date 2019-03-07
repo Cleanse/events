@@ -14,3 +14,5 @@ A round-robin and bracket events plugin for OctoberCMS.
 
 ###### Brainstorming
 - !!! Take the *Config*, insert it into the 'event_type' factory, and do magic.
+- Use Challonge API (?) and bridge off of it for special cases (ex. adding a player roster and linking it to the 
+  event_id).

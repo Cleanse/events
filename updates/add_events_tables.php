@@ -33,6 +33,7 @@ class AddEventsTables extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
+            $table->string('slug')->nullable();
             $table->text('information')->nullable();
             $table->integer('event_type')->unsigned();
             $table->foreign('event_type')->references('id')->on('cleanse_event_event_types');

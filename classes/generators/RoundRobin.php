@@ -31,7 +31,7 @@ class RoundRobin
         return $this->makeSchedule();
     }
 
-    public function create()
+    public function create($schedule)
     {
         return 'Do database stuff.';
     }

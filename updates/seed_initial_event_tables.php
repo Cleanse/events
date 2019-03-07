@@ -26,5 +26,11 @@ class SeedInitialEventTables extends Seeder
             'slug'        => 'double-elimination-bracket',
             'description' => 'A double elimination bracket event.',
         ]);
+
+        Type::create([
+            'name'        => 'Swiss',
+            'slug'        => 'swiss',
+            'description' => 'A round robin (group play) event.',
+        ]);
     }
 }
