@@ -7,8 +7,6 @@
     <h1>New Event Form</h1>
 
     <div class="form-wrapper p-2 border border-info">
-        <p class="lead">https://octobercms.com/docs/markup/function-form</p>
-
         <form data-request="onEventSave" data-request-update="mypartial: '#myDiv'">
 
         <div class="form-group">
@@ -23,14 +21,10 @@
 
         <hr>
 
-            <!-- This triggers a db request that gets the types AND *new* requests what fields are needed
-                 Add a config with fields and field types per 'event_type'. Formats sec of classes?
-                 $setupArray = ['number_of_teams', 'number_of_groups', 'cycles', 'randomize'];
-             -->
         <div class="form-group">
             <label for="event-type">Event Type</label>
             <select id="event-type" name="event-type" class="form-control">
-                <option selected>Select One</option>
+                <option value="" selected>Select One</option>
                 {% for type in event_types %}
                 <option value="{{ type.slug }}">{{ type.name }}</option>
                 {% endfor %}

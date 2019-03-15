@@ -7,4 +7,6 @@ use Model;
 class Type extends Model
 {
     protected $table = 'cleanse_event_event_types';
+
+    protected $jsonable = ['form_config'];
 }

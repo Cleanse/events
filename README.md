@@ -2,8 +2,8 @@
 A round-robin and bracket events plugin for OctoberCMS.
 
 ### Round Robin Group Stage
-- [ ] The teams to groups ratio will be an option on creation.
-- [ ] Teams can be either **manually or randomly** placed into groups.
+- [x] The teams to groups ratio will be an option on creation.
+- [x] Teams can be either **manually or randomly** placed into groups.
 - [x] Generate *Best-of-**X*** matches that match all teams in your respective group.
 - [Yes/No] For the overlay, should advancing to the next match be manually controlled (due to scoreboard)?
 
@@ -20,3 +20,5 @@ A round-robin and bracket events plugin for OctoberCMS.
 
 ###### Frontend? Controllers (October backend)
 - CRUD (Create, Read, Update, Delete) Forms.
+- load 'Types' for select field?
+- Append json for use in js form creation.
