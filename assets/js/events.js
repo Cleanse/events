@@ -107,8 +107,8 @@ function handleEventType() {
         //Create Config Elements
         for (let key in option) {
             if (option.hasOwnProperty(key)) {
-                let gang = new Form(eventConfig, option[key]);
-                gang.createInput();
+                let eventConfigInput = new Form(eventConfig, option[key]);
+                eventConfigInput.createInput();
             }
         }
     } else {
