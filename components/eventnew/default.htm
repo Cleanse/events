@@ -1,45 +1,43 @@
 <style>
     .test-wrap-margin {
         margin-top: 80px;
+        margin-bottom: 80px;
     }
 </style>
 <div class="container test-wrap-margin text-light">
     <h1>New Event Form</h1>
 
     <div class="form-wrapper p-2 border border-info">
-        <form data-request="onEventSave" data-request-update="mypartial: '#myDiv'">
+        <form data-request="onEventSave">
 
-        <div class="form-group">
-            <label for="event-title">Event Title</label>
-            <input id="event-title" name="event-title" type="text" class="form-control" placeholder="Event Title">
-        </div>
+            <div class="form-group">
+                <label for="event-title">Event Title</label>
+                <input id="event-title" name="event-title" type="text" class="form-control" placeholder="Event Title">
+            </div>
 
-        <div class="form-group">
-            <label for="event-description">Event Description</label>
-            <textarea id="event-description" name="event-description" class="form-control"></textarea>
-        </div>
+            <div class="form-group">
+                <label for="event-description">Event Description</label>
+                <textarea id="event-description" name="event-description" class="form-control"></textarea>
+            </div>
 
-        <hr>
+            <hr>
 
-        <div class="form-group">
-            <label for="event-type">Event Type</label>
-            <select id="event-type" name="event-type" class="form-control">
-                <option value="" selected>Select One</option>
-                {% for type in event_types %}
-                <option value="{{ type.slug }}">{{ type.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="event-type">Event Type</label>
+                <select id="event-type" name="event-type" class="form-control">
+                    <option value="" selected>Select One</option>
+                    {% for type in event_types %}
+                    <option value="{{ type.slug }}">{{ type.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <div id="event-config"></div>
+            <div id="event-config"></div>
 
-        <button type="submit" class="btn btn-info">
-            Next
-        </button>
+            <button type="submit" class="btn btn-info">
+                Next
+            </button>
 
         </form>
     </div>
 </div>
-
-<!-- Result container -->
-<div id="myDiv"></div>

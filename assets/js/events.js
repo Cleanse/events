@@ -2,41 +2,49 @@
 const types = {
     "round-robin": {
         "number_of_teams": {
-            "element": "input",
             "type": "number",
             "label": "number_of_teams",
-            "placeholder": "Number of teams.",
             "description": "# of Teams",
-            "default": 2
+            "placeholder": "Number of teams.",
+            "default": 2,
+            "options": false
         },
         "number_of_groups": {
-            "element": "input",
             "type": "number",
             "label": "number_of_groups",
-            "placeholder": "Number of groups required.",
             "description": "Groups / Divisions",
-            "default": 1
+            "placeholder": "Number of groups required.",
+            "default": 1,
+            "options": false
         },
         "cycles": {
-            "element": "input",
             "type": "number",
             "label": "cycles",
-            "placeholder": "Number of times teams face-off.",
             "description": "Times Participants Face-off (1-3)",
-            "default": 1
+            "placeholder": "Number of times teams face-off.",
+            "default": 1,
+            "options": false
         },
         "randomize": {
-            "element": "input",
-            "type": "checkbox",
+            "type": "select",
             "label": "randomize",
-            "placeholder": false,
             "description": "Randomize Groups?",
-            options: false
+            "placeholder": false,
+            "default": 0,
+            "options": [
+                {
+                    "title": "No",
+                    "value": "0"
+                },
+                {
+                    "title": "Yes",
+                    "value": "1"
+                }
+            ]
         }
     },
     'single-elimination-bracket': {
         'number_of_teams': {
-            element: 'input',
             type: 'number',
             label: 'number_of_teams',
             placeholder: 'Number of teams.',
@@ -44,7 +52,6 @@ const types = {
             options: false
         },
         'randomize': {
-            element: 'input',
             type: 'checkbox',
             label: 'randomize',
             placeholder: false,
@@ -54,7 +61,6 @@ const types = {
     },
     'double-elimination-bracket': {
         'number_of_teams': {
-            element: 'input',
             type: 'number',
             label: 'number_of_teams',
             placeholder: 'Number of teams.',
@@ -62,7 +68,6 @@ const types = {
             options: false
         },
         'randomize': {
-            element: 'input',
             type: 'checkbox',
             label: 'randomize',
             placeholder: false,
@@ -70,7 +75,6 @@ const types = {
             options: false
         },
         'grand_finals': {
-            element: 'input',
             type: 'select',
             label: 'grand_finals',
             placeholder: 'Number of teams.',
@@ -103,7 +107,8 @@ function handleEventType() {
         //Create Config Elements
         for (let key in option) {
             if (option.hasOwnProperty(key)) {
-                createConfigElement(eventConfig, key, option[key]);
+                let gang = new Form(eventConfig, option[key]);
+                gang.createInput();
             }
         }
     } else {
@@ -115,29 +120,83 @@ function clearEventConfig() {
     eventConfig.innerHTML = '';
 }
 
-function createConfigElement(parent, option, optionSettings) {
-    let formGroup = document.createElement('div');
-    formGroup.className = 'form-group';
+function Form(parent, options) {
+    this.parent           = parent;
+    this.inputType        = options.type;
+    this.inputId          = options.label;
+    this.inputDescription = options.description;
+    this.inputPlaceholder = options.placeholder;
+    this.inputDefault     = options.default ? options.default : false;
+    this.inputOptions     = options.options ? options.options : false;
 
-    let formLabel = document.createElement('label');
-    formLabel.setAttribute("for", option);
-    formLabel.innerHTML = optionSettings.description;
-    formGroup.appendChild(formLabel);
+    this.createInput = function () {
+        let inputWrapper = this.createBootstrapWrapper();
+        let inputLabel = this.createBootstrapLabel();
+        let inputContent = this.createInputContent();
 
-    let formInput = createTextInput(optionSettings);
-    formGroup.appendChild(formInput);
+        inputWrapper.appendChild(inputLabel);
+        inputWrapper.appendChild(inputContent);
+        this.parent.appendChild(inputWrapper);
+    };
 
-    parent.appendChild(formGroup);
-}
+    this.createBootstrapWrapper = function () {
+        let formGroup = document.createElement('div');
+        formGroup.className = 'form-group';
 
-function createTextInput(ops) {
-    let textInput = document.createElement(ops.element);
-    textInput.type = ops.type;
-    textInput.id = ops.label;
-    textInput.name = ops.label;
-    textInput.className = 'form-control';
+        return formGroup;
+    };
 
-    return textInput;
+    this.createBootstrapLabel = function () {
+        let formLabel = document.createElement('label');
+        formLabel.setAttribute("for", this.inputId);
+        formLabel.innerHTML = this.inputDescription;
+
+        return formLabel;
+    };
+
+    this.createInputContent = function () {
+        //switch statement for diff input types
+        switch (this.inputType) {
+            case 'select':
+                return this.createSelectInput();
+                break;
+            case 'number':
+            case 'text':
+            default:
+                return this.createTextInput();
+        }
+    };
+
+    this.createTextInput = function() {
+        let textInput = document.createElement('input');
+        textInput.type = this.inputType;
+        textInput.id = this.inputId;
+        textInput.name = this.inputId;
+        textInput.className = 'form-control';
+        textInput.placeholder = this.inputPlaceholder;
+        textInput.value = this.inputDefault;
+
+        return textInput;
+    };
+
+    this.createSelectInput = function() {
+        let selectInput = document.createElement('select');
+        selectInput.id = this.inputId;
+        selectInput.name = this.inputId;
+        selectInput.className = 'form-control';
+
+        console.log(this.inputOptions);
+
+        for (let i = 0; i < this.inputOptions.length; i++) {
+            let option = document.createElement("option");
+            option.value = this.inputOptions[i].value;
+            option.text = this.inputOptions[i].title;
+
+            selectInput.appendChild(option);
+        }
+
+        return selectInput;
+    };
 }
 
 //Listen for select form change.
