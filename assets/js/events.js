@@ -18,12 +18,25 @@ const types = {
             "options": false
         },
         "cycles": {
-            "type": "number",
+            "type": "select",
             "label": "cycles",
             "description": "Times Participants Face-off (1-3)",
-            "placeholder": "Number of times teams face-off.",
+            "placeholder": false,
             "default": 1,
-            "options": false
+            "options": [
+                {
+                    "title": "Once",
+                    "value": "1"
+                },
+                {
+                    "title": "Twice",
+                    "value": "2"
+                },
+                {
+                    "title": "Three Times",
+                    "value": "3"
+                }
+            ]
         },
         "randomize": {
             "type": "select",
@@ -44,44 +57,122 @@ const types = {
         }
     },
     'single-elimination-bracket': {
-        'number_of_teams': {
-            type: 'number',
-            label: 'number_of_teams',
-            placeholder: 'Number of teams.',
-            description: '# of Teams',
-            options: false
+        "number_of_teams": {
+            "type": "number",
+            "label": "number_of_teams",
+            "description": "# of Teams",
+            "placeholder": "Number of teams.",
+            "default": 2,
+            "options": false
         },
-        'randomize': {
-            type: 'checkbox',
-            label: 'randomize',
-            placeholder: false,
-            description: 'Randomize Groups?',
-            options: false
+        "randomize": {
+            "type": "select",
+            "label": "randomize",
+            "description": "Randomize Groups?",
+            "placeholder": false,
+            "default": 0,
+            "options": [
+                {
+                    "title": "No",
+                    "value": "0"
+                },
+                {
+                    "title": "Yes",
+                    "value": "1"
+                }
+            ]
         }
     },
     'double-elimination-bracket': {
-        'number_of_teams': {
-            type: 'number',
-            label: 'number_of_teams',
-            placeholder: 'Number of teams.',
-            description: '# of Teams',
-            options: false
+        "number_of_teams": {
+            "type": "number",
+            "label": "number_of_teams",
+            "description": "# of Teams",
+            "placeholder": "Number of teams.",
+            "default": 2,
+            "options": false
         },
-        'randomize': {
-            type: 'checkbox',
-            label: 'randomize',
-            placeholder: false,
-            description: 'Randomize Groups?',
-            options: false
+        "randomize": {
+            "type": "select",
+            "label": "randomize",
+            "description": "Randomize Groups?",
+            "placeholder": false,
+            "default": 0,
+            "options": [
+                {
+                    "title": "No",
+                    "value": "0"
+                },
+                {
+                    "title": "Yes",
+                    "value": "1"
+                }
+            ]
         },
-        'grand_finals': {
-            type: 'select',
-            label: 'grand_finals',
-            placeholder: 'Number of teams.',
-            description: '# of Teams',
-            options: [0, 1, 2]
+        "grand_finals": {
+            "type": "select",
+            "label": "grand_finals",
+            "description": "Grand Finals Options",
+            "placeholder": false,
+            "default": 1,
+            "options": [
+                {
+                    "title": "1-2 matches — winners bracket finalist has to be defeated twice.",
+                    "value": "1"
+                },
+                {
+                    "title": "One Match",
+                    "value": "2"
+                },
+                {
+                    "title": "None",
+                    "value": "3"
+                }
+            ]
         }
-    }
+    },
+    "swiss": {
+        "points_per_victory": {
+            "type": "number",
+            "label": "points_per_victory",
+            "description": "Points Per Match Win",
+            "placeholder": "1.0",
+            "default": false,
+            "options": false
+        },
+        "points_per_match_tie": {
+            "type": "number",
+            "label": "points_per_match_tie",
+            "description": "Points Per Match Tie",
+            "placeholder": "0.5",
+            "default": false,
+            "options": false
+        },
+        "points_per_win": {
+            "type": "number",
+            "label": "points_per_win",
+            "description": "Points Per Game Win",
+            "placeholder": "0.0",
+            "default": false,
+            "options": false
+        },
+        "points_per_tie": {
+            "type": "number",
+            "label": "points_per_tie",
+            "description": "Points Per Game Tie",
+            "placeholder": "0.0",
+            "default": false,
+            "options": false
+        },
+        "points_per_bye": {
+            "type": "number",
+            "label": "points_per_bye",
+            "description": "Points Per Round Bye",
+            "placeholder": "1.0",
+            "default": false,
+            "options": false
+        }
+    },
 };
 
 //Watch Select Field
