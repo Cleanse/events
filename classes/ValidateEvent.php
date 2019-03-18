@@ -17,7 +17,6 @@ class ValidateEvent
         ];
     }
 
-    //Should I pass a real value here and not rely on post()?
     public function validateEvent($eventType, $namespace)
     {
         if (!$eventType == '') {
