@@ -2,12 +2,14 @@
 
 namespace Cleanse\Event\Components;
 
+use Exception;
 use Flash;
 use ValidationException;
 use Validator;
 use Cms\Classes\ComponentBase;
 
 use Cleanse\Event\Classes\ValidateEvent;
+use Cleanse\Event\Classes\GenerateEvent;
 
 class EventNew extends ComponentBase
 {
@@ -42,7 +44,8 @@ class EventNew extends ComponentBase
     {
         $data = post();
 
-        $rules = (new ValidateEvent())->validateEvent();
+        $namespace = 'Cleanse\\Event\\Classes\Formats\\';
+        $rules = (new ValidateEvent())->validateEvent(post('event-type'), $namespace);
 
         $validation = Validator::make($data, $rules);
 
@@ -50,18 +53,12 @@ class EventNew extends ComponentBase
             throw new ValidationException($validation);
         }
 
-        Flash::success('Jobs done!');
-
-        return;
-
-        //Array merge the default event config with the event type config
-        $this->mergeConfigs($data('event-type'));
-
-        Flash::success('Worked!');
-
-        $this->page['result'] = input('event-title');
-
-        //Return and redirect to the event page.
-        return Redirect::to('event/:id');
+        try {
+            echo 'Success.';
+            //Dynamically Generate event based on post 'event-type'
+            //new GenerateEvent();
+        } catch (Exception $exception) {
+            throw new $exception;
+        }
     }
 }

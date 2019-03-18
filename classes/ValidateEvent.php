@@ -2,6 +2,8 @@
 
 namespace Cleanse\Event\Classes;
 
+use Cleanse\Event\Classes\Helpers\FactoryHelper;
+
 class ValidateEvent
 {
     private $default;
@@ -16,11 +18,10 @@ class ValidateEvent
     }
 
     //Should I pass a real value here and not rely on post()?
-    public function validateEvent()
+    public function validateEvent($eventType, $namespace)
     {
-        if (!post('event-type') == '') {
-            $eventType = $this->classifyEvent();
-            $this->type = ($this->getInstance($eventType))->rules();
+        if (!$eventType == '') {
+            $this->type = ((new FactoryHelper)->getInstance($namespace, $eventType))->rules();
         }
 
         return $this->mergeConfigs();
@@ -30,18 +31,5 @@ class ValidateEvent
     {
         $this->type = isset($this->type) ? $this->type : [];
         return array_merge($this->default, $this->type);
-    }
-
-    private function classifyEvent()
-    {
-        $type = str_replace('-', ' ', post('event-type'));
-        $type = ucwords($type);
-        return str_replace(' ', '', $type);
-    }
-
-    private function getInstance($eventType)
-    {
-        $className = 'Cleanse\\Event\\Classes\Formats\\' . $eventType;
-        return new $className();
     }
 }
