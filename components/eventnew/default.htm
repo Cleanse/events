@@ -8,7 +8,12 @@
     <h1>New Event Form</h1>
 
     <div class="form-wrapper p-2 border border-info">
-        <form data-request="onEventSave">
+        <form data-request="onEventSave"
+              data-request-validate>
+
+            <div data-validate-error>
+                <p data-message></p>
+            </div>
 
             <div class="form-group">
                 <label for="event-title">Event Title</label>
@@ -27,7 +32,7 @@
                 <select id="event-type" name="event-type" class="form-control">
                     <option value="" selected>Select One</option>
                     {% for type in event_types %}
-                    <option value="{{ type.slug }}">{{ type.name }}</option>
+                    <option value="{{ type.value }}">{{ type.display }}</option>
                     {% endfor %}
                 </select>
             </div>

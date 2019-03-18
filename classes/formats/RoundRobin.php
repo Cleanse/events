@@ -13,4 +13,13 @@ class RoundRobin
             'randomize' => ['default' => 0]
         ];
     }
+
+    public function rules()
+    {
+        return [
+            'number_of_teams' => 'required_if:event-type,round-robin',
+            'number_of_groups' => 'required_if:event-type,round-robin',
+            'cycles' => 'required_if:event-type,round-robin'
+        ];
+    }
 }

@@ -7,7 +7,7 @@ use ValidationException;
 use Validator;
 use Cms\Classes\ComponentBase;
 
-use Cleanse\Event\Models\Type;
+use Cleanse\Event\Classes\ValidateEvent;
 
 class EventNew extends ComponentBase
 {
@@ -30,20 +30,19 @@ class EventNew extends ComponentBase
 
     private function loadEventTypes()
     {
-        return Type::all();
+        return [
+            ['value' => 'round-robin', 'display' => 'Round Robin'],
+            ['value' => 'single-elimination', 'display' => 'Single Elimination Bracket'],
+            ['value' => 'double-elimination', 'display' => 'Double Elimination Bracket'],
+            ['value' => 'swiss', 'display' => 'Swiss']
+        ];
     }
 
     public function onEventSave()
     {
         $data = post();
 
-        $rules = [
-            'event-title' => 'required',
-            'event-type' => 'required',
-            'number_of_teams' => 'required_if:event-type,round-robin', //Move to json?
-            'number_of_groups' => 'required_if:event-type,round-robin', //Move to json?
-            'cycles' => 'required_if:event-type,round-robin' //Move to json?
-        ];
+        $rules = (new ValidateEvent())->validateEvent();
 
         $validation = Validator::make($data, $rules);
 
@@ -51,10 +50,18 @@ class EventNew extends ComponentBase
             throw new ValidationException($validation);
         }
 
+        Flash::success('Jobs done!');
+
+        return;
+
+        //Array merge the default event config with the event type config
+        $this->mergeConfigs($data('event-type'));
+
         Flash::success('Worked!');
 
         $this->page['result'] = input('event-title');
 
-        return ['#myDiv' => $this->renderPartial('mypartial')];
+        //Return and redirect to the event page.
+        return Redirect::to('event/:id');
     }
 }
