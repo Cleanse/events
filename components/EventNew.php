@@ -44,8 +44,8 @@ class EventNew extends ComponentBase
     {
         $data = post();
 
-        $namespace = 'Cleanse\\Event\\Classes\Formats\\';
-        $rules = (new ValidateEvent())->validateEvent(post('event-type'), $namespace);
+        $validationNamespace = 'Cleanse\\Event\\Classes\Formats\\';
+        $rules = (new ValidateEvent())->validateEvent($data['event-type'], $validationNamespace);
 
         $validation = Validator::make($data, $rules);
 
@@ -54,9 +54,8 @@ class EventNew extends ComponentBase
         }
 
         try {
-            echo 'Success.';
-            //Dynamically Generate event based on post 'event-type'
-            //new GenerateEvent();
+            $namespace = 'Cleanse\\Event\\Classes\\Generators'; //to change?
+            (new GenerateEvent())->generateEvent($data, $namespace);
         } catch (Exception $exception) {
             throw new $exception;
         }
