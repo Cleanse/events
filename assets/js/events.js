@@ -6,7 +6,7 @@ const types = {
             "label": "number_of_teams",
             "description": "# of Teams",
             "placeholder": "Number of teams.",
-            "default": 2,
+            "default": "2 (Two teams).",
             "options": false
         },
         "number_of_groups": {
@@ -14,7 +14,7 @@ const types = {
             "label": "number_of_groups",
             "description": "Groups / Divisions",
             "placeholder": "Number of groups required.",
-            "default": 1,
+            "default": "1 (One group/division).",
             "options": false
         },
         "cycles": {
@@ -22,7 +22,7 @@ const types = {
             "label": "cycles",
             "description": "Times Participants Face-off (1-3)",
             "placeholder": false,
-            "default": 1,
+            "default": "Once.",
             "options": [
                 {
                     "title": "Once",
@@ -43,7 +43,7 @@ const types = {
             "label": "randomize",
             "description": "Randomize Groups?",
             "placeholder": false,
-            "default": 0,
+            "default": "No.",
             "options": [
                 {
                     "title": "No",
@@ -62,7 +62,7 @@ const types = {
             "label": "number_of_teams",
             "description": "# of Teams",
             "placeholder": "Number of teams.",
-            "default": 2,
+            "default": "Two teams.",
             "options": false
         },
         "randomize": {
@@ -70,7 +70,7 @@ const types = {
             "label": "randomize",
             "description": "Randomize Groups?",
             "placeholder": false,
-            "default": 0,
+            "default": "No.",
             "options": [
                 {
                     "title": "No",
@@ -89,7 +89,7 @@ const types = {
             "label": "number_of_teams",
             "description": "# of Teams",
             "placeholder": "Number of teams.",
-            "default": 2,
+            "default": "2 (two teams minimum).",
             "options": false
         },
         "randomize": {
@@ -97,7 +97,7 @@ const types = {
             "label": "randomize",
             "description": "Randomize Groups?",
             "placeholder": false,
-            "default": 0,
+            "default": "No.",
             "options": [
                 {
                     "title": "No",
@@ -114,7 +114,7 @@ const types = {
             "label": "grand_finals",
             "description": "Grand Finals Options",
             "placeholder": false,
-            "default": 1,
+            "default": "1-2 matches*.",
             "options": [
                 {
                     "title": "1-2 matches — winners bracket finalist has to be defeated twice.",
@@ -179,6 +179,7 @@ const types = {
 let eventType = document.getElementById('event-type');
 let eventConfig = document.getElementById('event-config');
 
+//On Select Change, populate form with necessary fields.
 function handleEventType() {
     if (eventType.options[eventType.selectedIndex].value !== '') {
         //check if #event-config is empty, if not clear element.
@@ -207,10 +208,12 @@ function handleEventType() {
     }
 }
 
+//Clear config form before re-populating form with necessary fields.
 function clearEventConfig() {
     eventConfig.innerHTML = '';
 }
 
+//Form creation class
 function Form(parent, options) {
     this.parent           = parent;
     this.inputType        = options.type;
@@ -224,9 +227,11 @@ function Form(parent, options) {
         let inputWrapper = this.createBootstrapWrapper();
         let inputLabel = this.createBootstrapLabel();
         let inputContent = this.createInputContent();
+        let inputFeedback = this.createInputFeedback();
 
         inputWrapper.appendChild(inputLabel);
         inputWrapper.appendChild(inputContent);
+        inputWrapper.appendChild(inputFeedback);
         this.parent.appendChild(inputWrapper);
     };
 
@@ -243,6 +248,14 @@ function Form(parent, options) {
         formLabel.innerHTML = this.inputDescription;
 
         return formLabel;
+    };
+
+    this.createInputFeedback = function () {
+        let formFeedback = document.createElement('div');
+        formFeedback.innerHTML = `Default: ${this.inputDefault}`;
+        formFeedback.className = 'form-text text-muted';
+
+        return formFeedback;
     };
 
     this.createInputContent = function () {
@@ -265,7 +278,6 @@ function Form(parent, options) {
         textInput.name = this.inputId;
         textInput.className = 'form-control';
         textInput.placeholder = this.inputPlaceholder;
-        textInput.value = this.inputDefault;
 
         return textInput;
     };
