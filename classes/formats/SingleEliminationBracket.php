@@ -2,7 +2,7 @@
 
 namespace Cleanse\Event\Classes\Formats;
 
-class SingleElimination
+class SingleEliminationBracket
 {
     public function validation()
     {
