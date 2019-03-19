@@ -13,8 +13,6 @@ use Cleanse\Event\Classes\GenerateEvent;
 
 class EventNew extends ComponentBase
 {
-    public $event_types;
-
     public function componentDetails()
     {
         return [
@@ -27,17 +25,7 @@ class EventNew extends ComponentBase
     {
         $this->addJs('assets/js/events.js');
 
-        $this->event_types = $this->page['event_types'] = $this->loadEventTypes();
-    }
-
-    private function loadEventTypes()
-    {
-        return [
-            ['value' => 'round-robin', 'display' => 'Round Robin'],
-            ['value' => 'single-elimination', 'display' => 'Single Elimination Bracket'],
-            ['value' => 'double-elimination', 'display' => 'Double Elimination Bracket'],
-            ['value' => 'swiss', 'display' => 'Swiss']
-        ];
+        $this->page['event_types'] = $this->loadEventTypes();
     }
 
     public function onEventSave()
@@ -47,17 +35,35 @@ class EventNew extends ComponentBase
         $validationNamespace = 'Cleanse\\Event\\Classes\Formats\\';
         $rules = (new ValidateEvent())->validateEvent($data['event-type'], $validationNamespace);
 
-        $validation = Validator::make($data, $rules);
+        $validation = Validator::make($data, $rules['validation'], $rules['messages']);
 
         if ($validation->fails()) {
             throw new ValidationException($validation);
         }
 
         try {
-            $namespace = 'Cleanse\\Event\\Classes\\Generators'; //to change?
+            $namespace = 'Cleanse\\Event\\Classes\\Generators\\';
             (new GenerateEvent())->generateEvent($data, $namespace);
         } catch (Exception $exception) {
             throw new $exception;
         }
+    }
+
+    private function loadEventTypes()
+    {
+        return [
+            [
+                'value'   => 'round-robin',
+                'display' => 'Round Robin'],
+            [
+                'value'   => 'single-elimination-bracket',
+                'display' => 'Single Elimination Bracket'],
+            [
+                'value'   => 'double-elimination-bracket',
+                'display' => 'Double Elimination Bracket'],
+            [
+                'value'   => 'swiss',
+                'display' => 'Swiss']
+        ];
     }
 }
