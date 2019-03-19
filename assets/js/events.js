@@ -1,14 +1,6 @@
 //todo: Put in config or ajax.
 const types = {
     "round-robin": {
-        "number_of_teams": {
-            "type": "number",
-            "label": "number_of_teams",
-            "description": "# of Teams",
-            "placeholder": "Number of teams.",
-            "default": "2 (Two teams).",
-            "options": false
-        },
         "number_of_groups": {
             "type": "number",
             "label": "number_of_groups",
@@ -57,14 +49,6 @@ const types = {
         }
     },
     'single-elimination-bracket': {
-        "number_of_teams": {
-            "type": "number",
-            "label": "number_of_teams",
-            "description": "# of Teams",
-            "placeholder": "Number of teams.",
-            "default": "Two teams.",
-            "options": false
-        },
         "randomize": {
             "type": "select",
             "label": "randomize",
@@ -84,14 +68,6 @@ const types = {
         }
     },
     'double-elimination-bracket': {
-        "number_of_teams": {
-            "type": "number",
-            "label": "number_of_teams",
-            "description": "# of Teams",
-            "placeholder": "Number of teams.",
-            "default": "2 (two teams minimum).",
-            "options": false
-        },
         "randomize": {
             "type": "select",
             "label": "randomize",

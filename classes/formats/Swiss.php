@@ -2,11 +2,6 @@
 
 namespace Cleanse\Event\Classes\Formats;
 
-/**
- * Class Swiss
- * @package Cleanse\Event\Classes\Formats
- * Load this from db instead?
- */
 class Swiss
 {
     public function config()
