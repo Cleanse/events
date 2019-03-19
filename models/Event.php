@@ -10,7 +10,7 @@ use Model;
  * @property string name
  * @property string slug
  * @property string description
- * @property string type
+ * @property ?string/int? event_type
  */
 class Event extends Model
 {
