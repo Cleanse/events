@@ -1,18 +1,17 @@
-<style>
-    .test-wrap-margin {
-        margin-top: 80px;
-        margin-bottom: 80px;
-    }
-</style>
-<div class="container test-wrap-margin text-light">
-    <h1>New Event Form</h1>
+<div class="basic-page">
+    <div class="container">
+        <div class="page-title">
+            <h1>New Event Form</h1>
+            <div class="sub-box"></div>
+        </div>
+    </div>
 
-    <div class="form-wrapper p-2 border border-info">
+    <div class="container basic-content">
         <form data-request="onEventSave"
               data-request-validate>
 
-            <div data-validate-error>
-                <p data-message></p>
+            <div class="alert alert-danger d-none" role="alert" data-validate-error>
+                <p class="mb-0" data-message></p>
             </div>
 
             <div class="form-group">
@@ -25,7 +24,7 @@
                 <textarea id="event-description" name="event-description" class="form-control"></textarea>
             </div>
 
-            <div class="form-group">
+            <div class="form-group d-none">
                 <label for="event-teams">Team List</label>
                 <textarea id="event-teams" name="event-teams" class="form-control" rows="6"></textarea>
                 <small class="form-text text-muted">

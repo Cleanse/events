@@ -280,3 +280,8 @@ function Form(parent, options) {
 
 //Listen for select form change.
 eventType.onchange = handleEventType;
+
+//Hide and show error log
+$(window).on('ajaxInvalidField', function(event, fieldElement, fieldName, errorMsg, isFirst) {
+    $('.alert-danger').removeClass('d-none').addClass('visible');
+});
