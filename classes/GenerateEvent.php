@@ -2,19 +2,23 @@
 
 namespace Cleanse\Event\Classes;
 
+use Redirect;
+
 use Cleanse\Event\Classes\Helpers\FactoryHelper;
 
 class GenerateEvent
 {
-    public $data;
-
     public function generateEvent($data, $namespace)
     {
-        //Generate event format based on event-type & event-type-settings
-        $this->data = ((new FactoryHelper)->getInstance($namespace, $data['event-type']))->create(); //not rules
+        $event = ((new FactoryHelper)->getInstance($namespace, $data['event-type']))->createEvent($data);
 
-        //todo: stuff prepping db insert
+        return Redirect::to('/event/'.$event);
+    }
 
-        return Redirect::to('/event/:slug');
+    public function generateSchedule($data, $namespace)
+    {
+        $event = ((new FactoryHelper)->getInstance($namespace, $data['event-type']))->scheduleEvent();
+
+        return Redirect::to('/event/'.$event);
     }
 }

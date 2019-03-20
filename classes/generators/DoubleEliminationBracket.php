@@ -2,7 +2,7 @@
 
 namespace Cleanse\Event\Classes\Generators;
 
-class DoubleElimination
+class DoubleEliminationBracket
 {
     public $teams;
     public $randomize;

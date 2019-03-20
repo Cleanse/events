@@ -10,9 +10,21 @@ use Model;
  * @property string name
  * @property string slug
  * @property string description
- * @property ?string/int? event_type
+ * @property string type
+ * @property string config
  */
 class Event extends Model
 {
+    use \October\Rain\Database\Traits\Sluggable;
+
     protected $table = 'cleanse_event_events';
+
+    /**
+     * @var array Generate slugs for these attributes.
+     */
+    protected $slugs = ['slug' => 'name'];
+
+    public $hasMany = [
+        'matches' => 'Cleanse\Event\Models\Match'
+    ];
 }
