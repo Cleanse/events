@@ -1,0 +1,37 @@
+<div class="mt-2">
+    {{ form_open() }}
+
+    <div class="form-group">
+        <label for="name">Team Name</label>
+        <input type="text" class="form-control" id="name" aria-describedby="nameDesc" placeholder="Enter team name">
+        <small id="nameDesc" class="form-text text-muted">Add team name.</small>
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary">Add Team</button>
+
+    {{ form_close() }}
+
+
+
+    <hr>
+
+    <form
+            data-request="{{ __SELF__ }}::onAddItem"
+            data-request-update="'{{ __SELF__ }}::_list': '#result'"
+            data-request-success="$('#input-item').val('')"
+            data-request-flash>
+
+        <h3>Team List</h3>
+
+        <div class="input-group">
+            <input type="text" id="input-item" class="form-control" value="" name="newItem"
+                   placeholder="What needs to be done?">
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn btn-outline-primary" data-attach-loading>Add</button>
+            </span>
+        </div>
+
+        <ul class="list-group" id="result">
+        </ul>
+    </form>
+</div>

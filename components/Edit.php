@@ -2,6 +2,7 @@
 
 namespace Cleanse\Event\Components;
 
+use ApplicationException;
 use Exception;
 use Flash;
 use Redirect;
@@ -45,6 +46,17 @@ class Edit extends ComponentBase
     public function onEventUpdate()
     {
         return 'Ok.';
+    }
+
+    public function onAddItem()
+    {
+        $items = post('items', []);
+
+        if (($newItem = post('newItem')) != '') {
+            $items[] = $newItem;
+        }
+
+        $this->page['items'] = $items;
     }
 
     private function getEventData()

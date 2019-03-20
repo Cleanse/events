@@ -1,0 +1,10 @@
+<div class="mt-2">
+    <p>No matches/bracket yet.</p>
+    <button class="btn btn-outline-primary disabled" disabled>
+        {% if event.teams.length >= 2 %}
+        Generate Matches
+        {% else %}
+        Event Needs Teams
+        {% endif %}
+    </button>
+</div>
