@@ -10,23 +10,21 @@ use Cleanse\Event\Models\Match;
 
 class RoundRobin
 {
-    public $teams;
-    public $groups;
-    public $cycles;
-    public $randomize;
-
-    public function __construct($config)
+    public function createEvent($event)
     {
-        $this->teams = isset($config['teams']) ? $config['teams'] : [];
-        $this->groups = isset($config['groups']) ? $config['groups'] : 1;
-        $this->cycles = isset($config['cycles']) ? $config['cycles'] : 1;
-        if (!$this->cycles > 0) {
-            $this->cycles = 1;
-        }
-        $this->randomize = isset($config['randomize']) ? $config['randomize'] : false;
+        $newEvent = new Event;
+
+        $newEvent->name = $event['event-title'];
+        $newEvent->description = $event['event-description'];
+        $newEvent->type = $event['event-type'];
+        $newEvent->config = json_encode($event['event_config']);
+
+        $newEvent->save();
+
+        return $newEvent->id;
     }
 
-    public function generate()
+    public function scheduleEvent()
     {
         if (count($this->teams) <= 1) {
             //Will be handled already.
@@ -34,22 +32,6 @@ class RoundRobin
         }
 
         return $this->makeSchedule();
-    }
-
-    public function create($event)
-    {
-        $newEvent = new Event;
-
-        $newEvent->name = $event['name'];
-        $newEvent->description = $event['description'];
-        $newEvent->event_type = $event['event_type'];
-
-        $newEvent->save();
-
-        //return $newEvent;
-        //create Matches
-
-        return 'Add teams.';
     }
 
     private function makeSchedule()

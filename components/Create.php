@@ -4,14 +4,16 @@ namespace Cleanse\Event\Components;
 
 use Exception;
 use Flash;
+use Redirect;
 use ValidationException;
 use Validator;
 use Cms\Classes\ComponentBase;
 
+use Cleanse\Event\Classes\Helpers\EventTypes;
 use Cleanse\Event\Classes\ValidateEvent;
 use Cleanse\Event\Classes\GenerateEvent;
 
-class EventNew extends ComponentBase
+class Create extends ComponentBase
 {
     public function componentDetails()
     {
@@ -25,7 +27,7 @@ class EventNew extends ComponentBase
     {
         $this->addJs('assets/js/events.js');
 
-        $this->page['event_types'] = $this->loadEventTypes();
+        $this->page['event_types'] = EventTypes::load();
     }
 
     public function onEventSave()
@@ -43,27 +45,11 @@ class EventNew extends ComponentBase
 
         try {
             $namespace = 'Cleanse\\Event\\Classes\\Generators\\';
-            (new GenerateEvent())->generateEvent($data, $namespace);
+            $event = (new GenerateEvent())->generateEvent($data, $namespace);
+
+            return Redirect::to('/event/'.$event.'/edit');
         } catch (Exception $exception) {
             throw new $exception;
         }
-    }
-
-    private function loadEventTypes()
-    {
-        return [
-            [
-                'value'   => 'round-robin',
-                'display' => 'Round Robin'],
-            [
-                'value'   => 'single-elimination-bracket',
-                'display' => 'Single Elimination Bracket'],
-            [
-                'value'   => 'double-elimination-bracket',
-                'display' => 'Double Elimination Bracket'],
-            [
-                'value'   => 'swiss',
-                'display' => 'Swiss']
-        ];
     }
 }
