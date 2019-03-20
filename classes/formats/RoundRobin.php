@@ -8,10 +8,10 @@ class RoundRobin
     {
         return [
             'validation' => [
-                'number_of_groups' => 'required_if:event-type,round-robin',
+                'event_config.number_of_groups' => 'required_if:event-type,round-robin',
             ],
             'messages' => [
-                'number_of_groups.*' => 'Please enter the # of groups needed.',
+                'event_config.number_of_groups' => 'Please enter the # of groups needed.',
             ]
         ];
     }

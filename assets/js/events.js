@@ -193,7 +193,7 @@ function clearEventConfig() {
 function Form(parent, options) {
     this.parent           = parent;
     this.inputType        = options.type;
-    this.inputId          = options.label;
+    this.inputId          = `event_config[${options.label}]`;
     this.inputDescription = options.description;
     this.inputPlaceholder = options.placeholder;
     this.inputDefault     = options.default ? options.default : false;
@@ -263,8 +263,6 @@ function Form(parent, options) {
         selectInput.id = this.inputId;
         selectInput.name = this.inputId;
         selectInput.className = 'form-control';
-
-        console.log(this.inputOptions);
 
         for (let i = 0; i < this.inputOptions.length; i++) {
             let option = document.createElement("option");
