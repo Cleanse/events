@@ -1,12 +1,11 @@
-{% for item in items %}
-<li class="list-group-item">
-    <input type="hidden" name="items[]" value="{{ item }}" />
+{% for team in event.teams %}
+<div class="category-group-item d-flex justify-content-between">
+    {{ team.id }} : {{ team.name }}
 
-    {{ item }}
-
-    <button type="button"
-            class="close float-right"
-            aria-hidden="true"
-            onclick="$(this).closest('li').remove()"><i class="fas fa-trash-alt"></i></button>
-</li>
+    <a href="javascript:;"
+       data-request="{{ __SELF__ }}::onRemoveTeam"
+       data-request-update="'{{ __SELF__ }}::_list': '#roster'"
+       data-request-data="event: {{ event.id }}, team: {{ team.id }}"
+       class="list-group-item list-group-item-action">Remove Team</a>
+</div>
 {% endfor %}

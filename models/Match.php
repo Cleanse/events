@@ -21,4 +21,22 @@ class Match extends Model
     public $belongsTo = [
         'event' => 'Cleanse\Event\Models\Event'
     ];
+
+    public $hasOne = [
+        'one' => [
+            'Cleanse\Event\Models\Team',
+            'key' => 'id',
+            'otherKey' => 'team_one'
+        ],
+        'two' => [
+            'Cleanse\Event\Models\Team',
+            'key' => 'id',
+            'otherKey' => 'team_two'
+        ],
+        'winner' => [
+            'Cleanse\Event\Models\Team',
+            'key' => 'id',
+            'otherKey' => 'winner_id'
+        ]
+    ];
 }

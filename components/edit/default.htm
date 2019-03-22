@@ -7,7 +7,6 @@
         </div>
     </div>
 
-    <!-- Tabs to support team creation (todo list style) -->
     <div class="container basic-content">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -46,15 +45,6 @@
                                   class="form-control">{{ event.description }}</textarea>
                     </div>
 
-                    <!-- todo: highlight -->
-                    <div class="form-group d-none">
-                        <label for="event-teams">Team List</label>
-                        <textarea id="event-teams" name="event-teams" class="form-control" rows="6"></textarea>
-                        <small class="form-text text-muted">
-                            Each team should be on its own line.
-                        </small>
-                    </div>
-
                     <hr>
 
                     <div class="form-group">
@@ -62,8 +52,8 @@
                         <select id="event-type" name="event-type" class="form-control">
                             <option value="">Select One</option>
                             {% for type in event_types %}
-                            <option
-                                    value="{{ type.value }}" {% if event.type == type.value %}selected{% endif %}>{{ type.display }}</option>
+                            <option value="{{ type.value }}" {% if event.type == type.value %}selected{% endif %}>
+                                {{ type.display }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -79,3 +69,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    let setDefaults = function() {
+        let settings = {{ event.config|raw }};
+
+        for (const [key, value] of Object.entries(settings)) {
+            let formElementExists = document.getElementById(`event_config[${key}]`);
+            formElementExists.value = value;
+        }
+    };
+
+    window.onload = setTimeout(setDefaults, 3000);
+</script>

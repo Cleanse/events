@@ -1,4 +1,3 @@
-//todo: Put in config or ajax.
 const types = {
     "round-robin": {
         "number_of_groups": {
@@ -277,6 +276,7 @@ function Form(parent, options) {
 }
 
 //Listen for select form change.
+window.onload = handleEventType;
 eventType.onchange = handleEventType;
 
 //Hide and show error log

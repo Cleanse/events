@@ -24,7 +24,16 @@ class Event extends Model
      */
     protected $slugs = ['slug' => 'name'];
 
+    protected $fillable = ['name'];
+
     public $hasMany = [
         'matches' => 'Cleanse\Event\Models\Match'
+    ];
+
+    public $belongsToMany = [
+        'teams' => [
+            'Cleanse\Event\Models\Team',
+            'table' => 'cleanse_event_event_team'
+        ]
     ];
 }
