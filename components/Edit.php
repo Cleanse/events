@@ -47,7 +47,6 @@ class Edit extends ComponentBase
 
         $this->addJs('assets/js/events.js');
 
-        $this->page['teams'] = $this->getTeamsList();
         $this->page['event_types'] = EventTypes::load();
     }
 
@@ -61,7 +60,7 @@ class Edit extends ComponentBase
 
         $event->teams()->remove($team);
 
-        $this->page['teams'] = $event->teams();
+        $this->page['teams'] = $event->teams;
     }
 
     public function onAddTeam()
@@ -70,7 +69,7 @@ class Edit extends ComponentBase
 
         $event = Event::find(post('event'));
 
-        $this->page['teams'] = $event->teams();
+        $this->page['teams'] = $event->teams;
     }
 
     private function addTeam()
