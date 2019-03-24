@@ -2,7 +2,10 @@
 
 namespace Cleanse\Event\Models;
 
+use DB;
 use Model;
+
+use Cleanse\Event\Models\Team;
 
 /**
  * Class Event
@@ -36,4 +39,13 @@ class Event extends Model
             'table' => 'cleanse_event_event_team'
         ]
     ];
+
+    public function availableTeams()
+    {
+        return Team::whereDoesntHave('events', function ($query) {
+            $query->whereId($this->id);
+        })
+            ->orderBy('name', 'asc')
+            ->get();
+    }
 }
