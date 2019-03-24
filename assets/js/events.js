@@ -290,6 +290,7 @@ $(window).on('ajaxInvalidField', function(event, fieldElement, fieldName, errorM
 if (document.getElementById('nav-teams')) {
     window.addEventListener('load', function() {
         handleEventType();
+        setTimeout(setDefaults, 3000);
     });
 
     let setDefaults = function() {
@@ -302,5 +303,13 @@ if (document.getElementById('nav-teams')) {
         }
     };
 
-    window.onload = setTimeout(setDefaults, 3000);
+    //Remember Tabs
+    $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+        localStorage.setItem('activeTab', $(e.target).attr('href'));
+    });
+
+    let activeTab = localStorage.getItem('activeTab');
+    if(activeTab){
+        $('#nav-tab a[href="' + activeTab + '"]').tab('show');
+    }
 }
