@@ -48,4 +48,18 @@ class Event extends Model
             ->orderBy('name', 'asc')
             ->get();
     }
+
+    public function addTeam($teamData)
+    {
+        $team = Team::firstOrCreate([
+            'name' => $teamData
+        ]);
+
+        $teamKey = $team->getKey();
+        if (!$this->getAttribute('teams')->contains($teamKey)) {
+            $this->teams()->attach($teamKey);
+        }
+
+        return $this;
+    }
 }
