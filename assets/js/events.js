@@ -1,3 +1,4 @@
+//setup if page in [needs_this_set_of_methods] else [do_nothing];
 const types = {
     "round-robin": {
         "number_of_groups": {
@@ -276,10 +277,30 @@ function Form(parent, options) {
 }
 
 //Listen for select form change.
-window.onload = handleEventType;
 eventType.onchange = handleEventType;
 
 //Hide and show error log
 $(window).on('ajaxInvalidField', function(event, fieldElement, fieldName, errorMsg, isFirst) {
     $('.alert-danger').removeClass('d-none').addClass('visible');
 });
+
+/**
+ * Event Edit
+ */
+if (document.getElementById('nav-teams')) {
+    window.addEventListener('load', function() {
+        handleEventType();
+    });
+
+    let setDefaults = function() {
+
+        if (configuration) {
+            for (const [key, value] of Object.entries(configuration)) {
+                let formElementExists = document.getElementById(`event_config[${key}]`);
+                formElementExists.value = value;
+            }
+        }
+    };
+
+    window.onload = setTimeout(setDefaults, 3000);
+}
