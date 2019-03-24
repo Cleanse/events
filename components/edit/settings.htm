@@ -1,39 +1,43 @@
-<form data-request="onEventUpdate"
-      data-request-validate>
+<div class="mt-2">
+    <p class="pt-2 lead">Add Teams</p>
 
-    <div class="alert alert-danger d-none" role="alert" data-validate-error>
-        <p class="mb-0" data-message></p>
-    </div>
+    <form data-request="onEventUpdate"
+          data-request-validate>
 
-    <div class="form-group">
-        <label for="event-title">Event Title</label>
-        <input id="event-title" name="event-title" type="text" class="form-control"
-               value="{{ event.name }}" placeholder="Event Title">
-    </div>
+        <div class="alert alert-danger d-none" role="alert" data-validate-error>
+            <p class="mb-0" data-message></p>
+        </div>
 
-    <div class="form-group">
-        <label for="event-description">Event Description</label>
-        <textarea id="event-description" name="event-description"
-                  class="form-control">{{ event.description }}</textarea>
-    </div>
+        <div class="form-group">
+            <label for="event-title">Event Title</label>
+            <input id="event-title" name="event-title" type="text" class="form-control"
+                   value="{{ event.name }}" placeholder="Event Title">
+        </div>
 
-    <hr>
+        <div class="form-group">
+            <label for="event-description">Event Description</label>
+            <textarea id="event-description" name="event-description"
+                      class="form-control">{{ event.description }}</textarea>
+        </div>
 
-    <div class="form-group">
-        <label for="event-type">Event Type</label>
-        <select id="event-type" name="event-type" class="form-control">
-            <option value="">Select One</option>
-            {% for type in event_types %}
-            <option value="{{ type.value }}" {% if event.type == type.value %}selected{% endif %}>
-                {{ type.display }}</option>
-            {% endfor %}
-        </select>
-    </div>
+        <hr>
 
-    <div id="event-config"></div>
+        <div class="form-group">
+            <label for="event-type">Event Type</label>
+            <select id="event-type" name="event-type" class="form-control">
+                <option value="">Select One</option>
+                {% for type in event_types %}
+                <option value="{{ type.value }}" {% if event.type == type.value %}selected{% endif %}>
+                    {{ type.display }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <button type="submit" class="btn btn-info">
-        Next
-    </button>
+        <div id="event-config"></div>
 
-</form>
+        <button type="submit" class="btn btn-info">
+            Next
+        </button>
+
+    </form>
+</div>

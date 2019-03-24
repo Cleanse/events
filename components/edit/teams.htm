@@ -37,6 +37,16 @@
     <h3>Team List for <span class="text-primary">{{ event.name }}</span></h3>
     <p>Team count: {{ event.teams.count }}</p>
     <div id="roster" class="category-group">
-        {% partial __SELF__~'::list' %}
+        {% for team in event.teams %}
+        <form
+                data-request="{{ __SELF__ }}::onRemoveTeam"
+                data-request-data="event: {{ event.id }}, team: {{ team.id }}">
+            <div class="category-group-item d-flex justify-content-between">
+                {{ team.name }}
+
+                <button class="btn btn-outline-primary" type="submit">Remove Team</button>
+            </div>
+        </form>
+        {% endfor %}
     </div>
 </div>
