@@ -1,0 +1,42 @@
+<div class="mt-2">
+    <p class="pt-2 lead">Add Teams</p>
+    <div class="row">
+        <div class="col-md-6">
+            <form data-request="onAddTeam">
+                <input type="hidden" name="event" id="event" value="{{ event.id }}">
+                <div class="input-group">
+                    <label for="new-team" class="sr-only">New Team</label>
+                    <input type="text" id="new-team" name="new-team" class="form-control">
+                    <button class="btn btn-outline-primary" type="submit">Add New Team</button>
+                </div>
+            </form>
+        </div>
+
+        {% if event.availableTeams.count >= 1 %}
+        <div class="col-md-6">
+            <form data-request="onAddTeam">
+                <input type="hidden" name="eid" id="eid" value="{{ event.id }}">
+                <div class="input-group">
+                    <label for="available-teams" class="sr-only">Teams Available</label>
+                    <select id="available-teams" name="available-teams" class="form-control"
+                            aria-label="Teams Available" aria-describedby="avail-button">
+                        <option value="">Select A Team</option>
+                        {% for ateam in event.availableTeams %}
+                        <option value="{{ ateam.name }}">{{ ateam.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-outline-primary" type="submit">Add Available Team</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+    <hr>
+
+    <h3>Team List for <span class="text-primary">{{ event.name }}</span></h3>
+    <p>Team count: {{ event.teams.count }}</p>
+    <div id="roster" class="category-group">
+        {% partial __SELF__~'::list' %}
+    </div>
+</div>

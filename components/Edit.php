@@ -60,24 +60,28 @@ class Edit extends ComponentBase
 
         $event->teams()->remove($team);
 
-        $this->page['teams'] = $event->teams;
+        return Redirect::to('/event/'.$eventId.'/edit');
     }
 
     public function onAddTeam()
     {
-        $this->addTeam();
+        $eId = $this->addTeam();
 
-        $event = Event::find(post('event'));
-
-        $this->page['teams'] = $event->teams;
+        return Redirect::to('/event/'.$eId.'/edit');
     }
 
     private function addTeam()
     {
-        $event = Event::find(post('event'));
-        $event->teams()->create([
-            'name' => post('newTeam'),
-        ]);
+        $eventId = post('eid') ?: post('event');
+        $team = post('new-team') ?: post('available-teams');
+        if (!isset($team) || !isset($eventId)) {
+            return [];
+        }
+
+        Event::find($eventId)
+            ->addTeam($team);
+
+        return $eventId;
     }
 
     private function getEventData()
@@ -85,10 +89,5 @@ class Edit extends ComponentBase
         $id = $this->property('event');
 
         return Event::find($id);
-    }
-
-    private function getTeamsList()
-    {
-        return Event::find(1)->teams;
     }
 }

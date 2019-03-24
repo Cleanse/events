@@ -20,67 +20,19 @@
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-
             <div class="tab-pane fade show active" id="nav-teams" role="tabpanel" aria-labelledby="nav-teams-tab">
-                {% partial __SELF__~'::_add-team.htm' %}
+                {% partial __SELF__~'::teams' %}
             </div>
             <div class="tab-pane fade" id="nav-settings" role="tabpanel" aria-labelledby="nav-settings-tab">
-                <form data-request="onEventUpdate"
-                      data-request-validate>
-
-                    <div class="alert alert-danger d-none" role="alert" data-validate-error>
-                        <p class="mb-0" data-message></p>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="event-title">Event Title</label>
-                        <input id="event-title" name="event-title" type="text" class="form-control"
-                               value="{{ event.name }}" placeholder="Event Title">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="event-description">Event Description</label>
-                        <textarea id="event-description" name="event-description"
-                                  class="form-control">{{ event.description }}</textarea>
-                    </div>
-
-                    <hr>
-
-                    <div class="form-group">
-                        <label for="event-type">Event Type</label>
-                        <select id="event-type" name="event-type" class="form-control">
-                            <option value="">Select One</option>
-                            {% for type in event_types %}
-                            <option value="{{ type.value }}" {% if event.type == type.value %}selected{% endif %}>
-                                {{ type.display }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div id="event-config"></div>
-
-                    <button type="submit" class="btn btn-info">
-                        Next
-                    </button>
-
-                </form>
+                {% partial __SELF__~'::settings' %}
             </div>
             <div class="tab-pane fade" id="nav-matches" role="tabpanel" aria-labelledby="nav-matches-tab">
-                {% partial __SELF__~'::_no-matches.htm' %}
+                {% partial __SELF__~'::matches' %}
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    let setDefaults = function() {
-        let settings = {{ event.config|raw }};
-
-        for (const [key, value] of Object.entries(settings)) {
-            let formElementExists = document.getElementById(`event_config[${key}]`);
-            formElementExists.value = value;
-        }
-    };
-
-    window.onload = setTimeout(setDefaults, 3000);
+    const configuration = {{ event.config|raw }};
 </script>
