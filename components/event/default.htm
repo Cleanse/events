@@ -8,7 +8,11 @@
     </div>
 
     <div class="container basic-content">
-        <img class="img-fluid"
-             src="//static-cdn.jtvnw.net/jtv_user_pictures/panel-23161357-image-2b912549-31b2-4e8f-af17-de5abc9d2ffb">
+
+        <h3>Teams Qualified</h3>
+        {% for et in event.teams %}
+        <p>{{ et.name }}</p>
+        {% endfor %}
+
     </div>
 </div>

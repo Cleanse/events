@@ -2,12 +2,15 @@
 
 namespace Cleanse\Event\Components;
 
+use Redirect;
 use Cms\Classes\ComponentBase;
 
 use Cleanse\Event\Models\Event as EventData;
 
 class Event extends ComponentBase
 {
+    private $event;
+
     public function componentDetails()
     {
         return [
@@ -30,9 +33,11 @@ class Event extends ComponentBase
 
     public function onRun()
     {
-        $this->addJs('assets/js/events.js');
+        $this->event = $this->page['event'] = $this->getEventData();
 
-        $this->page['event'] = $this->getEventData();
+        if (!$this->event) {
+            return Redirect::to('/events');
+        }
     }
 
     private function getEventData()
