@@ -1,1 +1,21 @@
-<h3>Match List</h3>
+<div class="mt-2">
+    <p class="pt-2 lead">Manage Matches</p>
+
+    {% if event.matches.count <= 1 %}
+        {% if event.teams.count <= 1 %}
+        <button id="more-teams" class="btn btn-outline-secondary">Teams</button>
+        {% else %}
+        <div>
+            <form data-request="{{ __SELF__ }}::onEventSchedule"
+                  data-request-confirm="Are you sure?">
+                <input type="hidden" name="eid" value="{{ event.id }}">
+                <input type="hidden" name="type" value="{{ event.type }}">
+                <p>Your <span class="text-info">'{{ event.type }}'</span> event has: <strong>{{ event.teams.count }} Teams</strong></p>
+                <button type="submit" class="btn btn-outline-primary">Generate Schedule</button>
+            </form>
+        </div>
+        {% endif %}
+    {% else %}
+        Show matches.
+    {% endif %}
+</div>
