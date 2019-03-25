@@ -38,11 +38,6 @@ class RoundRobin
         return $getEvent->id;
     }
 
-    public function deleteEvent($event)
-    {
-        return '';
-    }
-
     public function scheduleEvent()
     {
         if (count($this->teams) <= 1) {

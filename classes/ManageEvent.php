@@ -4,7 +4,7 @@ namespace Cleanse\Event\Classes;
 
 use Cleanse\Event\Classes\Helpers\FactoryHelper;
 
-class GenerateEvent
+class ManageEvent
 {
     public function generateEvent($data, $namespace, $cud = 'create')
     {
@@ -17,6 +17,15 @@ class GenerateEvent
         }
 
         return ((new FactoryHelper)->getInstance($namespace, $data['event-type']))->createEvent($data);
+    }
+
+    public function deleteEvent($event)
+    {
+        $getEvent = Event::find($event['id']);
+
+        $getEvent->active = false;
+
+        $getEvent->save();
     }
 
     //todo: return proper value after scheduling

@@ -8,7 +8,7 @@ use Validator;
 use Cms\Classes\ComponentBase;
 
 use Cleanse\Event\Classes\ValidateEvent;
-use Cleanse\Event\Classes\GenerateEvent;
+use Cleanse\Event\Classes\ManageEvent;
 use Cleanse\Event\Classes\Helpers\EventTypes;
 use Cleanse\Event\Models\Event;
 use Cleanse\Event\Models\Team;
@@ -65,9 +65,22 @@ class Edit extends ComponentBase
 
         try {
             $namespace = 'Cleanse\\Event\\Classes\\Generators\\';
-            $event = (new GenerateEvent())->generateEvent($data, $namespace, 'update');
+            $event = (new ManageEvent())->generateEvent($data, $namespace, 'update');
 
             return Redirect::to('/event/'.$event.'/edit');
+        } catch (Exception $exception) {
+            throw new $exception;
+        }
+    }
+
+    public function onEventDelete()
+    {
+        $data = post();
+
+        try {
+            (new ManageEvent())->deleteEvent($data);
+
+            return Redirect::to('/events');
         } catch (Exception $exception) {
             throw new $exception;
         }

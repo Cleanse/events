@@ -11,7 +11,7 @@ use Cms\Classes\ComponentBase;
 
 use Cleanse\Event\Classes\Helpers\EventTypes;
 use Cleanse\Event\Classes\ValidateEvent;
-use Cleanse\Event\Classes\GenerateEvent;
+use Cleanse\Event\Classes\ManageEvent;
 
 class Create extends ComponentBase
 {
@@ -45,7 +45,7 @@ class Create extends ComponentBase
 
         try {
             $namespace = 'Cleanse\\Event\\Classes\\Generators\\';
-            $event = (new GenerateEvent())->generateEvent($data, $namespace);
+            $event = (new ManageEvent())->generateEvent($data, $namespace);
 
             return Redirect::to('/event/'.$event.'/edit');
         } catch (Exception $exception) {

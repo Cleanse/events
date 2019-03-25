@@ -21,11 +21,6 @@ class SingleEliminationBracket
         return '';
     }
 
-    public function deleteEvent($event)
-    {
-        return '';
-    }
-
     public function scheduleEvent()
     {
         return $this->makeSchedule();
