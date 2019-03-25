@@ -47,6 +47,7 @@ class Edit extends ComponentBase
 
         $this->addJs('assets/js/events.js');
 
+        $this->page['conf'] = $this->event->config;
         $this->page['event_types'] = EventTypes::load();
     }
 
@@ -71,6 +72,11 @@ class Edit extends ComponentBase
         } catch (Exception $exception) {
             throw new $exception;
         }
+    }
+
+    public function onEventSchedule()
+    {
+        return Redirect::to('/events/manage');
     }
 
     public function onEventDelete()

@@ -23,7 +23,11 @@ class Team extends Model
      */
     protected $slugs = ['slug' => 'name'];
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'config'];
+
+    protected $casts = [
+        'config' => 'array',
+    ];
 
     /**
      * Logo

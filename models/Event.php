@@ -28,7 +28,11 @@ class Event extends Model
      */
     protected $slugs = ['slug' => 'name'];
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'config'];
+
+    protected $casts = [
+        'config' => 'array',
+    ];
 
     public $hasMany = [
         'matches' => 'Cleanse\Event\Models\Match'
