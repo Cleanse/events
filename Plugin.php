@@ -21,10 +21,10 @@ class Plugin extends PluginBase
         return [
             'Cleanse\Event\Components\Create' => 'cleanseEventCreateEvent',
             'Cleanse\Event\Components\Edit'   => 'cleanseEventEditEvent',
-            //'Cleanse\Event\Components\Events' => 'cleanseEventListEvents',
+            'Cleanse\Event\Components\Manage' => 'cleanseEventManageEvents',
 
+            'Cleanse\Event\Components\Events'  => 'cleanseEventEvents',
             'Cleanse\Event\Components\Event' => 'cleanseEventViewEvent',
-            //'Cleanse\Event\Components\List'  => 'cleanseEventList',
         ];
     }
 }

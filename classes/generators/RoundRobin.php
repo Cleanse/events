@@ -67,6 +67,7 @@ class RoundRobin
 
     /**
      * Thanks https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm
+     * ToDo: Reminder to support seeding to balance multiple groups/divisions
      */
     private function generateGroupMatches($teams)
     {

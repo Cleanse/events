@@ -11,7 +11,8 @@ class ManageEvent
         if ($cud == 'update') {
             return ((new FactoryHelper)->getInstance($namespace, $data['event-type']))->updateEvent($data);
         } else if ($cud == 'delete') {
-            return ((new FactoryHelper)->getInstance($namespace, $data['event-type']))->deleteEvent($data);
+            $this->deleteEvent($data);
+            return true;
         }
 
         return ((new FactoryHelper)->getInstance($namespace, $data['event-type']))->createEvent($data);
