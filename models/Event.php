@@ -10,11 +10,12 @@ use Cleanse\Event\Models\Team;
 /**
  * Class Event
  * @package Cleanse\Event\Models
- * @property string name
- * @property string slug
- * @property string description
- * @property string type
- * @property string config
+ * @property string  name
+ * @property string  slug
+ * @property string  description
+ * @property string  type
+ * @property string  config
+ * @property integer active
  */
 class Event extends Model
 {
