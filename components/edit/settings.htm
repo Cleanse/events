@@ -1,8 +1,9 @@
 <div class="mt-2">
-    <p class="pt-2 lead">Add Teams</p>
+    <p class="pt-2 lead">Edit Event Settings</p>
 
     <form data-request="onEventUpdate"
           data-request-validate>
+        <input type="hidden" name="eid" value="{{ event.id }}">
 
         <div class="alert alert-danger d-none" role="alert" data-validate-error>
             <p class="mb-0" data-message></p>

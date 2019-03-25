@@ -2,13 +2,13 @@
 
 namespace Cleanse\Event\Components;
 
-use ApplicationException;
-use Flash;
 use Redirect;
 use ValidationException;
 use Validator;
 use Cms\Classes\ComponentBase;
 
+use Cleanse\Event\Classes\ValidateEvent;
+use Cleanse\Event\Classes\GenerateEvent;
 use Cleanse\Event\Classes\Helpers\EventTypes;
 use Cleanse\Event\Models\Event;
 use Cleanse\Event\Models\Team;
@@ -50,6 +50,29 @@ class Edit extends ComponentBase
         $this->page['event_types'] = EventTypes::load();
     }
 
+    public function onEventUpdate()
+    {
+        $data = post();
+
+        $validationNamespace = 'Cleanse\\Event\\Classes\Formats\\';
+        $rules = (new ValidateEvent())->validateEvent($data['event-type'], $validationNamespace);
+
+        $validation = Validator::make($data, $rules['validation'], $rules['messages']);
+
+        if ($validation->fails()) {
+            throw new ValidationException($validation);
+        }
+
+        try {
+            $namespace = 'Cleanse\\Event\\Classes\\Generators\\';
+            $event = (new GenerateEvent())->generateEvent($data, $namespace, 'update');
+
+            return Redirect::to('/event/'.$event.'/edit');
+        } catch (Exception $exception) {
+            throw new $exception;
+        }
+    }
+
     public function onRemoveTeam()
     {
         $eventId = post('event');
@@ -70,6 +93,9 @@ class Edit extends ComponentBase
         return Redirect::to('/event/'.$eId.'/edit');
     }
 
+    /**
+     * Class only.
+     */
     private function addTeam()
     {
         $eventId = post('eid') ?: post('event');
