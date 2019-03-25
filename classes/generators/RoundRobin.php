@@ -24,6 +24,25 @@ class RoundRobin
         return $newEvent->id;
     }
 
+    public function updateEvent($event)
+    {
+        $getEvent = Event::find($event['eid']);
+
+        $getEvent->name = $event['event-title'];
+        $getEvent->description = $event['event-description'];
+        $getEvent->type = $event['event-type'];
+        $getEvent->config = json_encode($event['event_config']);
+
+        $getEvent->save();
+
+        return $getEvent->id;
+    }
+
+    public function deleteEvent($event)
+    {
+        return '';
+    }
+
     public function scheduleEvent()
     {
         if (count($this->teams) <= 1) {

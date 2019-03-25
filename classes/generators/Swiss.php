@@ -4,7 +4,22 @@ namespace Cleanse\Event\Classes\Generators;
 
 class Swiss
 {
-    public function generate()
+    public function createEvent($event)
+    {
+        return '';
+    }
+
+    public function updateEvent($event)
+    {
+        return '';
+    }
+
+    public function deleteEvent($event)
+    {
+        return '';
+    }
+
+    public function scheduleEvent()
     {
         return $this->makeSchedule();
     }
