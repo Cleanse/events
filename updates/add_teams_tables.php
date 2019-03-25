@@ -23,6 +23,7 @@ class AddTeamsTables extends Migration
         {
             $table->integer('event_id')->unsigned();
             $table->integer('team_id')->unsigned();
+            $table->integer('seed')->unsigned()->nullable();
             $table->primary(['event_id', 'team_id']);
         });
     }

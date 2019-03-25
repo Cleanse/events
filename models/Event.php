@@ -37,7 +37,8 @@ class Event extends Model
     public $belongsToMany = [
         'teams' => [
             'Cleanse\Event\Models\Team',
-            'table' => 'cleanse_event_event_team'
+            'table' => 'cleanse_event_event_team',
+            'pivot' => ['seed']
         ]
     ];
 
