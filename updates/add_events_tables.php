@@ -18,6 +18,7 @@ class AddEventsTables extends Migration
             $table->text('description')->nullable();
             $table->string('type');
             $table->json('config')->nullable();
+            $table->boolean('active')->default(false);
             $table->timestamps();
         });
 
