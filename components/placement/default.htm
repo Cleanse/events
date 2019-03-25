@@ -1,0 +1,31 @@
+<div class="basic-page">
+    <div class="container">
+        <div class="page-title">
+            <h1><a href="/event/{{ event.id }}/edit">Event</a> &gt; Placement</h1>
+            <div class="sub-box"></div>
+            <p class="mt-1 small text-primary">{{ event.description }}</p>
+        </div>
+    </div>
+
+    <div class="container basic-content">
+
+        <div class="row">
+            <div class="col-lg-6">
+                <h3>Teams Qualified</h3>
+                {% for et in teams %}
+                <p>{{ et.pivot.seed }}: {{ et.name }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="col-lg-6">
+                Event Preview
+                <div id="preview">{{ event.config.randomize }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //JS element generator?
+    const configuration = {{ event.config|json_encode|raw }};
+</script>

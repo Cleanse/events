@@ -191,13 +191,13 @@ function clearEventConfig() {
 
 //Form creation class
 function Form(parent, options) {
-    this.parent           = parent;
-    this.inputType        = options.type;
-    this.inputId          = `event_config[${options.label}]`;
+    this.parent = parent;
+    this.inputType = options.type;
+    this.inputId = `event_config[${options.label}]`;
     this.inputDescription = options.description;
     this.inputPlaceholder = options.placeholder;
-    this.inputDefault     = options.default ? options.default : false;
-    this.inputOptions     = options.options ? options.options : false;
+    this.inputDefault = options.default ? options.default : false;
+    this.inputOptions = options.options ? options.options : false;
 
     this.createInput = function () {
         let inputWrapper = this.createBootstrapWrapper();
@@ -247,7 +247,7 @@ function Form(parent, options) {
         }
     };
 
-    this.createTextInput = function() {
+    this.createTextInput = function () {
         let textInput = document.createElement('input');
         textInput.type = this.inputType;
         textInput.id = this.inputId;
@@ -258,7 +258,7 @@ function Form(parent, options) {
         return textInput;
     };
 
-    this.createSelectInput = function() {
+    this.createSelectInput = function () {
         let selectInput = document.createElement('select');
         selectInput.id = this.inputId;
         selectInput.name = this.inputId;
@@ -280,7 +280,7 @@ function Form(parent, options) {
 eventType.onchange = handleEventType;
 
 //Hide and show error log
-$(window).on('ajaxInvalidField', function(event, fieldElement, fieldName, errorMsg, isFirst) {
+$(window).on('ajaxInvalidField', function (event, fieldElement, fieldName, errorMsg, isFirst) {
     $('.alert-danger').removeClass('d-none').addClass('visible');
 });
 
@@ -288,13 +288,12 @@ $(window).on('ajaxInvalidField', function(event, fieldElement, fieldName, errorM
  * Event Edit
  */
 if (document.getElementById('nav-teams')) {
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
         handleEventType();
         setTimeout(setDefaults, 2000);
     });
 
-    let setDefaults = function() {
-
+    let setDefaults = function () {
         if (configuration) {
             for (const [key, value] of Object.entries(configuration)) {
                 let formElementExists = document.getElementById(`event_config[${key}]`);
@@ -304,12 +303,21 @@ if (document.getElementById('nav-teams')) {
     };
 
     //Remember Tabs
-    $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+    $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
         localStorage.setItem('activeTab', $(e.target).attr('href'));
     });
 
     let activeTab = localStorage.getItem('activeTab');
-    if(activeTab){
+    if (activeTab) {
         $('#nav-tab a[href="' + activeTab + '"]').tab('show');
+    }
+
+    let teamsTab = document.getElementById('more-teams');
+    if (teamsTab) {
+        teamsTab.onclick = inputChange;
+
+        function inputChange() {
+            $('#nav-tab a[href="#nav-teams"]').tab('show');
+        }
     }
 }

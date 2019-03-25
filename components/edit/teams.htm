@@ -34,7 +34,11 @@
 
     <hr>
 
-    <h3>Team List</h3>
+    <div class="d-flex justify-content-between">
+        <h3>Team List</h3>
+        <a class="btn btn-outline-info" href="/event/{{ event.id }}/placement">Team Placement</a>
+    </div>
+
     <p>Team count: {{ event.teams.count }}</p>
     <div id="roster" class="category-group">
         {% for team in event.teams %}

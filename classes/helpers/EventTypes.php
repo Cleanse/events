@@ -10,6 +10,12 @@ class EventTypes
             [
                 'value'   => 'round-robin',
                 'display' => 'Round Robin'],
+        ];
+    }
+
+    public static function inactive()
+    {
+        return [
             [
                 'value'   => 'single-elimination-bracket',
                 'display' => 'Single Elimination Bracket'],
