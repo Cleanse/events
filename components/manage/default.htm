@@ -8,6 +8,13 @@
         </div>
 
         <div class="container basic-content">
+            <div class="d-flex justify-content-between">
+                <a class="btn btn-outline-primary" href="/event/create">Create New Event</a>
+                <a class="btn btn-outline-info" href="/event/create">Manage Teams</a>
+            </div>
+
+            <hr>
+
             <h3>Active Events</h3>
             <div class="category-group">
                 {% for e in events %}
