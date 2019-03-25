@@ -41,4 +41,11 @@
         </button>
 
     </form>
+
+    <div class="d-flex flex-row-reverse" data-request-data="id: {{ event.id }}">
+        <button class="btn btn-outline-danger pull-right"
+                data-request="onEventDelete"
+                data-request-confirm="Are you sure?">
+            Delete Event?</button>
+    </div>
 </div>

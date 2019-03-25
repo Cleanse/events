@@ -290,7 +290,7 @@ $(window).on('ajaxInvalidField', function(event, fieldElement, fieldName, errorM
 if (document.getElementById('nav-teams')) {
     window.addEventListener('load', function() {
         handleEventType();
-        setTimeout(setDefaults, 3000);
+        setTimeout(setDefaults, 2000);
     });
 
     let setDefaults = function() {

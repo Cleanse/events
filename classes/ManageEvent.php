@@ -8,11 +8,9 @@ class ManageEvent
 {
     public function generateEvent($data, $namespace, $cud = 'create')
     {
-        if ($cud = 'update') {
+        if ($cud == 'update') {
             return ((new FactoryHelper)->getInstance($namespace, $data['event-type']))->updateEvent($data);
-        }
-
-        if ($cud = 'delete') {
+        } else if ($cud == 'delete') {
             return ((new FactoryHelper)->getInstance($namespace, $data['event-type']))->deleteEvent($data);
         }
 
