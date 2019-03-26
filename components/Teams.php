@@ -2,13 +2,14 @@
 
 namespace Cleanse\Event\Components;
 
-use Cms\Classes\ComponentBase;
-
 use Flash;
+use Input;
 use Redirect;
 use Session;
 use Validator;
 use ValidationException;
+use System\Models\File;
+use Cms\Classes\ComponentBase;
 
 use Cleanse\Event\Models\Team;
 
@@ -24,6 +25,9 @@ class Teams extends ComponentBase
 
     public function onRun()
     {
+        $this->addCss('assets/css/events.css');
+        $this->addJs('assets/js/events.js');
+
         $this->page['teams'] = $this->getTeams();
     }
 
@@ -55,6 +59,17 @@ class Teams extends ComponentBase
 
         $newTeam->save();
 
+        if (Input::hasFile('logo')) {
+            $uploadedFile = Input::file('logo');
+
+            $file = new File;
+            $file->data = $uploadedFile;
+            $file->is_public = true;
+            $file->save();
+
+            $newTeam->logo()->add($file);
+        }
+
         Flash::success($newTeam->name);
         Session::flash('flashSuccess', true);
 
@@ -75,5 +90,24 @@ class Teams extends ComponentBase
         $getTeam->save();
 
         return Redirect::to('/events/teams/manage');
+    }
+
+    public function onUpdateLogo()
+    {
+        $team = Team::find(post('id'));
+
+        if (Input::hasFile('logo')) {
+            $uploadedFile = Input::file('logo');
+
+            $file = new File;
+            $file->data = $uploadedFile;
+            $file->is_public = true;
+            $file->save();
+
+            $team->logo()->add($file);
+        }
+
+        Flash::success($team->name);
+        Session::flash('flashSuccess', true);
     }
 }
