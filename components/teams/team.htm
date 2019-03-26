@@ -28,32 +28,32 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <img class="img-fluid" src="{{ team.logo.path }}">
-            </div>
-            <div class="col-lg-6">
                 {{ form_open({ request: __SELF__~'::onUpdateLogo', files: true }) }}
                 <input type="hidden" name="id" value="{{ team.id }}">
-                    <div class="form-group">
-                        <label for="image-file">Team Logo</label>
-                        <div class="input-group image-preview mb-2">
-                            <input class="form-control image-preview-filename">
-                            <span class="input-group-btn">
+                <div class="form-group">
+                    <label for="image-file">Team Logo</label>
+                    <div class="input-group image-preview mb-2">
+                        <input class="form-control image-preview-filename">
+                        <span class="input-group-btn">
                                 <button type="button" class="btn btn-outline-primary image-preview-clear"
                                         style="display:none;"><i class="fa fa-remove"></i> Clear
                                 </button>
                             </span>
-                            <span class="input-group-btn">
+                        <span class="input-group-btn">
                                 <div class="btn btn-primary image-preview-input">
                                     <i class="fa fa-folder-open"></i>
                                     <span class="image-preview-input-title">Choose File</span>
                                     <input type="file" accept="image/png, image/jpeg, image/gif" id="image-file" name="logo">
                                 </div>
                             </span>
-                        </div>
                     </div>
+                </div>
 
                 <button class="btn btn-outline-info">Update Logo</button>
                 {{ form_close() }}
+            </div>
+            <div class="col-lg-6">
+                <img class="img-fluid" src="{{ team.logo.path }}">
             </div>
         </div>
 
