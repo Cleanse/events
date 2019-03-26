@@ -22,6 +22,7 @@ class Plugin extends PluginBase
             'Cleanse\Event\Components\Create'    => 'cleanseEventCreateEvent',
             'Cleanse\Event\Components\Edit'      => 'cleanseEventEditEvent',
             'Cleanse\Event\Components\Manage'    => 'cleanseEventManageEvents',
+            'Cleanse\Event\Components\Teams'     => 'cleanseEventManageTeams',
 
             'Cleanse\Event\Components\Placement' => 'cleanseEventTeamPlacement',
 

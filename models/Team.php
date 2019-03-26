@@ -11,6 +11,7 @@ use Model;
  * @property string slug
  * @property string initials
  * @property string logo
+ * @property string description
  */
 class Team extends Model
 {
@@ -23,7 +24,7 @@ class Team extends Model
      */
     protected $slugs = ['slug' => 'name'];
 
-    protected $fillable = ['name', 'config'];
+    protected $fillable = ['name', 'description', 'config'];
 
     protected $casts = [
         'config' => 'array',

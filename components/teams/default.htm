@@ -1,0 +1,55 @@
+<div class="basic-page" id="manage-event-teams">
+    <div class="container">
+        <div class="page-title">
+            <h1><i class="fas fa-user-lock"></i> <a href="/events/manage">Manage</a> Teams</h1>
+            <div class="sub-box"></div>
+            <p class="text-primary lead">
+                Manage (desc, logo, etc.) your event teams.</p>
+        </div>
+
+        <div class="container basic-content">
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-outline-info"
+                        data-request="onLoadCreation"
+                        data-request-update="'{{ __SELF__ }}::new': '#teamResult'"
+                        data-toggle="modal"
+                        data-target="#teamModal">
+                    Create New Team
+                </button>
+
+                {% flash %}
+                <p id="flash">Team: <span class="text-info">{{ message }}</span> was created.</p>
+                {% endflash %}
+            </div>
+
+            <hr>
+
+            <h3>Team List</h3>
+            <div class="category-group">
+                {% for t in teams %}
+                <div class="border border-secondary p-3 d-flex justify-content-between">
+                    <div class="team-info">
+                        {{ t.name }}
+                        <p><small class="text-secondary">{{ t.description }}</small></p>
+                    </div>
+
+                    <div class="actions">
+                        <button type="button" class="btn btn-outline-primary"
+                                data-request="onRequestTeam"
+                                data-request-data="id: {{ t.id }}"
+                                data-request-update="'{{ __SELF__ }}::team': '#teamResult'"
+                                data-toggle="modal"
+                                data-target="#teamModal">
+                            Edit {{ t.name }}
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div id="result">
+                {% partial '@edit' %}
+            </div>
+        </div>
+    </div>
+</div>
