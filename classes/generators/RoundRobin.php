@@ -38,10 +38,9 @@ class RoundRobin
         return $getEvent->id;
     }
 
-    public function scheduleEvent()
+    public function scheduleEvent($event)
     {
-        if (count($this->teams) <= 1) {
-            //Will be handled already.
+        if (count($event->teams) <= 1) {
             throw new Exception('You need to specify at least 2 teams.');
         }
 

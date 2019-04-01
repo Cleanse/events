@@ -36,7 +36,9 @@
 
     <div class="d-flex justify-content-between">
         <h3>Team List</h3>
+        {% if event.teams.count >= 1 %}
         <a class="btn btn-outline-info" href="/event/{{ event.id }}/placement">Team Placement</a>
+        {% endif %}
     </div>
 
     <p>Team count: {{ event.teams.count }}</p>

@@ -276,8 +276,10 @@ function Form(parent, options) {
     };
 }
 
-//Listen for select form change.
-eventType.onchange = handleEventType;
+if (document.getElementById('event-type') || document.getElementById('nav-teams')) {
+    //Listen for select form change.
+    eventType.onchange = handleEventType;
+}
 
 //Hide and show error log
 $(window).on('ajaxInvalidField', function (event, fieldElement, fieldName, errorMsg, isFirst) {
@@ -288,11 +290,6 @@ $(window).on('ajaxInvalidField', function (event, fieldElement, fieldName, error
  * Event Edit
  */
 if (document.getElementById('nav-teams')) {
-    window.addEventListener('load', function () {
-        handleEventType();
-        setTimeout(setDefaults, 2000);
-    });
-
     let setDefaults = function () {
         if (configuration) {
             for (const [key, value] of Object.entries(configuration)) {
@@ -302,7 +299,12 @@ if (document.getElementById('nav-teams')) {
         }
     };
 
-    //Remember Tabs
+    window.addEventListener('load', function () {
+        handleEventType();
+        setTimeout(setDefaults, 2000);
+    });
+
+    //Start Remember Which Tab
     $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
         localStorage.setItem('activeTab', $(e.target).attr('href'));
     });
@@ -311,6 +313,7 @@ if (document.getElementById('nav-teams')) {
     if (activeTab) {
         $('#nav-tab a[href="' + activeTab + '"]').tab('show');
     }
+    //End Remember Which Tab
 
     let teamsTab = document.getElementById('more-teams');
     if (teamsTab) {
@@ -320,4 +323,24 @@ if (document.getElementById('nav-teams')) {
             $('#nav-tab a[href="#nav-teams"]').tab('show');
         }
     }
+}
+
+//Teams
+/**
+ * Event Edit
+ */
+if (document.getElementById('manage-event-teams')) {
+    $(document).on('click', ".image-preview-clear", function () {
+        $('.image-preview-filename').val("");
+        $('.image-preview-clear').hide();
+        $('.image-preview-input input:file').val("");
+        $(".image-preview-input-title").text("Browse");
+    });
+
+    $(document).on('change', "#image-file:file", function () {
+        let file = this.files[0];
+        $(".image-preview-input-title").text("Re-Select");
+        $(".image-preview-clear").show();
+        $(".image-preview-filename").val(file.name);
+    });
 }
