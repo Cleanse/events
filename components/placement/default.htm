@@ -12,14 +12,43 @@
         <div class="row">
             <div class="col-lg-6">
                 <h3>Teams Qualified</h3>
-                {% for et in teams %}
-                <p>{{ et.pivot.seed }}: {{ et.name }}</p>
-                {% endfor %}
+                <p class="text-warning"><small>Might need to hit UP or DOWN a few times... Sorry.</small></p>
+
+                <div class="d-flex justify-content-start">
+                    <div class="mr-1 d-flex flex-column align-items-stretch">
+                        {% for i in 1..event.teams.count %}
+                        <div class="mb-3">
+                            <p class="text-primary"><strong>{{ i }}.</strong></p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <form data-request="{{ __SELF__ }}::onReorderPlacement">
+                        <input type="hidden" name="id" value="{{ event.id }}">
+                        <div class="placement-container">
+                            {% set defaultSeed = 1 %}
+                            {% for et in teams %}
+                            <div class="mb-3 d-flex justify-content-start align-items-stretch">
+                                <p class="text-white"><strong>{{ et.name }}</strong></p>
+                                <label class="sr-only" for="placement[{{ et.id }}][]">{{ et.name }} Placement Rank</label>
+                                <input type="hidden" id="placement[{{ et.id }}][]" name="placement[{{ et.id }}][]"
+                                       class="form-control" value="{{ et.pivot.seed ?? defaultSeed }}">
+                                <a class="ml-2 p-1 text-info" onclick="placementUp(this.parentNode)">
+                                    <i class="fas fa-arrow-up"></i></a>
+                                <a class="p-1 text-info" onclick="placementDown(this.parentNode)">
+                                    <i class="fas fa-arrow-down"></i></a>
+                            </div>
+                            {% set defaultSeed = defaultSeed + 1 %}
+                            {% endfor %}
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-primary">Reorder Teams</button>
+                    </form>
+                </div>
             </div>
 
             <div class="col-lg-6">
                 Event Preview
-                <div id="preview">{{ event.config.randomize }}</div>
+                <div id="placement-preview"><em><u class="text-secondary">Event First Round Preview</u></em></div>
             </div>
         </div>
     </div>

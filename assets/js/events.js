@@ -344,3 +344,20 @@ if (document.getElementById('manage-event-teams')) {
         $(".image-preview-filename").val(file.name);
     });
 }
+
+let placementPreview = document.getElementById('placement-preview');
+if (placementPreview) {
+    function placementUp(row) {
+        let prevRow = row.previousSibling;
+        if (prevRow) {
+            row.parentNode.insertBefore(row, prevRow);
+        }
+    }
+
+    function placementDown(row) {
+        let nextRow = row.nextSibling;
+        if (nextRow) {
+            row.parentNode.insertBefore(row, nextRow.nextSibling);
+        }
+    }
+}
