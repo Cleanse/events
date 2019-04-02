@@ -1,4 +1,7 @@
 <div class="mt-2">
+    <p class="text-warning text-center"><small><i class="fas fa-exclamation-triangle"></i> If you're using seeding,
+        redo your placements after either adding or removing a team! Will make it easier when I can go back and add in
+        a smarter reordering system. <i class="fas fa-exclamation-triangle"></i></small></p>
     <p class="pt-2 lead">Add Teams</p>
     <div class="row">
         <div class="col-md-6">
@@ -37,7 +40,7 @@
     <div class="d-flex justify-content-between">
         <h3>Team List</h3>
         {% if event.teams.count >= 1 %}
-        <a class="btn btn-outline-info" href="/event/{{ event.id }}/placement">Team Placement</a>
+        <a class="btn btn-warning" href="/event/{{ event.id }}/placement">Team Placement</a>
         {% endif %}
     </div>
 
@@ -48,7 +51,7 @@
                 data-request="{{ __SELF__ }}::onRemoveTeam"
                 data-request-data="event: {{ event.id }}, team: {{ team.id }}">
             <div class="category-group-item d-flex justify-content-between">
-                {{ team.name }}
+                {{ team.name }} (Seed: {{ team.pivot.seed ?? 'None' }})
 
                 <button class="btn btn-outline-primary" type="submit">Remove Team</button>
             </div>
