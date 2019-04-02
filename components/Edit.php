@@ -54,8 +54,7 @@ class Edit extends ComponentBase
     {
         $data = post();
 
-        $validationNamespace = 'Cleanse\\Event\\Classes\Formats\\';
-        $rules = (new ValidateEvent())->validateEvent($data['event-type'], $validationNamespace);
+        $rules = (new ValidateEvent())->validateEvent($data['event-type']);
 
         $validation = Validator::make($data, $rules['validation'], $rules['messages']);
 
@@ -64,8 +63,7 @@ class Edit extends ComponentBase
         }
 
         try {
-            $namespace = 'Cleanse\\Event\\Classes\\Generators\\';
-            $event = (new ManageEvent())->generateEvent($data, $namespace, 'update');
+            $event = (new ManageEvent())->generateEvent($data, 'update');
 
             return Redirect::to('/event/'.$event.'/edit');
         } catch (Exception $exception) {
