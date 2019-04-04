@@ -2,6 +2,7 @@
 
 namespace Cleanse\Event\Components;
 
+use Cleanse\Event\Classes\ManageEvent;
 use Redirect;
 use Cms\Classes\ComponentBase;
 
@@ -37,7 +38,8 @@ class Placement extends ComponentBase
         $this->event = $this->page['event'] = $this->getEventData();
 
         if (!$this->event) {
-            return Redirect::to('/event/create');
+            Redirect::to('/event/create');
+            return;
         }
 
         $this->addJs('assets/js/events.js');
@@ -76,5 +78,13 @@ class Placement extends ComponentBase
         }
 
         //return $test;
+    }
+
+    private function placementPreview()
+    {
+        $event = Event::find(1);
+
+        $preview = (new ManageEvent())->generateSchedule($event);
+        return $preview;
     }
 }

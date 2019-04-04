@@ -47,7 +47,8 @@ class Edit extends ComponentBase
 
         $this->addJs('assets/js/events.js');
 
-        $this->page['event_types'] = EventTypes::load();
+        $this->page['event_types']  = EventTypes::load();
+        $this->page['config_event'] = $this->fixJsonEncode();
     }
 
     public function onEventUpdate()
@@ -73,7 +74,9 @@ class Edit extends ComponentBase
 
     public function onEventSchedule()
     {
-        return Redirect::to('/events/manage');
+        $event = Event::find(post('id'));
+        $live = (new ManageEvent())->generateSchedule($event, true);
+        return Redirect::to('/event/'.$live);
     }
 
     public function onEventDelete()
@@ -131,5 +134,15 @@ class Edit extends ComponentBase
         $id = $this->property('event');
 
         return Event::find($id);
+    }
+
+    private function fixJsonEncode()
+    {
+        $json = [];
+        foreach ($this->event->config as $key => $config) {
+            $json[$key] = $config;
+        }
+
+        return json_encode($json);
     }
 }

@@ -6,7 +6,7 @@ A round-robin and bracket events plugin for OctoberCMS.
 - [x] Teams can be either **manually or randomly** placed into groups.
 - [x] Generate *Best-of-**X*** matches that match all teams in your respective group.
 
-### Tournament
+### Bracket Stage
 - [ ] Generate *Best-of-**X*** single-elimination bracket.
 - [ ] Generate *Best-of-**X*** double-elimination bracket.
 - [ ] Option to grab the top **X** teams from a *Round Robin Group Stage* event.
@@ -19,4 +19,4 @@ A round-robin and bracket events plugin for OctoberCMS.
 - !!! Eventual idea: Event/Overlay SAAS.
 - [x] 'Generate' the event based on a Class by event-type.
 - [Yes/No] For the overlay, should advancing to the next match be manually controlled (due to scoreboard)?
-- '/event/:id/manage' route needs to be added for managing the overlay.
+- [ ] '/event/:id/manage' route needs to be added for managing the overlay.

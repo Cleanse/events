@@ -19,13 +19,16 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
+            //CRUD
             'Cleanse\Event\Components\Create'    => 'cleanseEventCreateEvent',
             'Cleanse\Event\Components\Edit'      => 'cleanseEventEditEvent',
             'Cleanse\Event\Components\Manage'    => 'cleanseEventManageEvents',
             'Cleanse\Event\Components\Teams'     => 'cleanseEventManageTeams',
 
+            //Todo
             'Cleanse\Event\Components\Placement' => 'cleanseEventTeamPlacement',
 
+            //Frontend
             'Cleanse\Event\Components\Events'    => 'cleanseEventEvents',
             'Cleanse\Event\Components\Event'     => 'cleanseEventViewEvent',
         ];

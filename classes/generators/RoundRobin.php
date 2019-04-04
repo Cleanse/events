@@ -10,6 +10,8 @@ use Cleanse\Event\Models\Match;
 
 class RoundRobin
 {
+    private $event;
+
     public function createEvent($event)
     {
         $newEvent = new Event;
@@ -17,7 +19,7 @@ class RoundRobin
         $newEvent->name = $event['event-title'];
         $newEvent->description = $event['event-description'];
         $newEvent->type = $event['event-type'];
-        $newEvent->config = json_encode($event['event_config']);
+        $newEvent->config = $event['event_config'];
 
         $newEvent->save();
 
@@ -31,26 +33,33 @@ class RoundRobin
         $getEvent->name = $event['event-title'];
         $getEvent->description = $event['event-description'];
         $getEvent->type = $event['event-type'];
-        $getEvent->config = json_encode($event['event_config']);
+        $getEvent->config = $event['event_config'];
 
         $getEvent->save();
 
         return $getEvent->id;
     }
 
-    public function scheduleEvent($event)
+    public function scheduleEvent($event, $create)
     {
-        if (count($event->teams) <= 1) {
-            throw new Exception('You need to specify at least 2 teams.');
+        $this->event = $event;
+
+        if ($create) {
+            return $this->makeSchedule();
         }
 
+        return $this->makePlacement();
+
+        /**
+         * Todo: Remove below method, create a method that will skip db entrees unless '$create' = true.
+         */
         return $this->makeSchedule();
     }
 
     private function makeSchedule()
     {
-        if ($this->randomize) {
-            shuffle($this->teams);
+        if ($this->event->config->randomize) {
+            shuffle($this->event->teams);
         }
 
         //Divide teams into groups.
@@ -116,5 +125,16 @@ class RoundRobin
 
         /** Number of matches =【 N ×（ N-1 ) 】÷ 2 */
         return $matches;
+    }
+
+    private function makePlacement()
+    {
+        return 'Data for Preview.';
+    }
+
+    private function seedingAndGroups()
+    {
+        //Split up top seeds into each groups.
+        return 'G Unit.';
     }
 }

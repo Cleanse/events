@@ -28,6 +28,8 @@ class Event extends Model
      */
     protected $slugs = ['slug' => 'name'];
 
+    protected $jsonable = ['config'];
+
     protected $fillable = ['name', 'config'];
 
     protected $casts = [

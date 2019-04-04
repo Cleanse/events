@@ -20,7 +20,7 @@ class DoubleEliminationBracket
         return '';
     }
 
-    public function scheduleEvent()
+    public function scheduleEvent($event, $create)
     {
         return $this->makeSchedule();
     }

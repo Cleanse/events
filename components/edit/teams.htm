@@ -1,8 +1,8 @@
 <div class="mt-2">
+    <p class="pt-2 lead">Manage Teams</p>
     <p class="text-warning text-center"><small><i class="fas fa-exclamation-triangle"></i> If you're using seeding,
         redo your placements after either adding or removing a team! Will make it easier when I can go back and add in
         a smarter reordering system. <i class="fas fa-exclamation-triangle"></i></small></p>
-    <p class="pt-2 lead">Add Teams</p>
     <div class="row">
         <div class="col-md-6">
             <form data-request="onAddTeam">
@@ -39,8 +39,11 @@
 
     <div class="d-flex justify-content-between">
         <h3>Team List</h3>
+        {% set test_v = event.config.randomize %}
+        {% if not event.config.randomize %}
         {% if event.teams.count >= 1 %}
-        <a class="btn btn-warning" href="/event/{{ event.id }}/placement">Team Placement</a>
+        <a class="btn btn-warning" href="/event/{{ event.id }}/placement">Team Placement ({{ test_v }})</a>
+        {% endif %}
         {% endif %}
     </div>
 

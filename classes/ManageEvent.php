@@ -35,8 +35,8 @@ class ManageEvent
     }
 
     //todo: return proper value after scheduling
-    public function generateSchedule($data)
+    public function generateSchedule($data, $create = false)
     {
-        return ((new FactoryHelper)->getInstance($this->namespace, $data['event-type']))->scheduleEvent($data);
+        return ((new FactoryHelper)->getInstance($this->namespace, $data['event-type']))->scheduleEvent($data, $create);
     }
 }
