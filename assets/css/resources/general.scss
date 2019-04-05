@@ -1,0 +1,160 @@
+
+$claws: #24428E;
+$fangs: #AB001C;
+
+body {
+  font-family: 'Raleway', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'PT Sans Narrow', sans-serif;
+}
+
+.bg-dark {
+  background-color: #222222;
+}
+
+.overlay-wrapper {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.overlay-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.xiv-block,
+.pvpaissa-block {
+  width: 325px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #24428E;
+  border-bottom-left-radius: .5rem;
+  border-bottom-right-radius: .5rem;
+  color: #fff;
+
+  img {
+    height: 64px;
+  }
+}
+
+.overlay-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+}
+
+.overlay-content-wrapper {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.next-match-header {
+  width: 635px;
+  margin: 0 auto;
+  color: #fff;
+  text-align: center;
+
+  h1 {
+    margin: .5rem 0 .25rem;
+    padding: .5rem 4rem;
+    text-transform: uppercase;
+    background: #24428E;
+    background: -moz-linear-gradient(top, #24428E 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+    background: -webkit-linear-gradient(top, #24428E 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+    background: linear-gradient(to bottom, #24428E 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#24428E', endColorstr='#7db9e8', GradientType=0);
+    box-shadow: 0px 1px 1px #4B4B4B;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    border-radius: .5rem;
+    font-size: 3rem;
+    text-shadow: 1px 2px 1px #000;
+    line-height: 44px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 2.5rem;
+  }
+}
+
+.teams-wrapper {
+  position: absolute;
+  top: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.team-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 620px;
+  padding: 2rem;
+
+  .team-data {
+    width: 576px;
+  }
+
+  h2 {
+    color: #fff;
+    font-size: 6rem;
+  }
+
+  h3 {
+    color: #fff;
+    font-size: 3rem;
+    text-transform: uppercase;
+  }
+}
+
+.team-one,
+.team-two {
+  padding-top: 1rem;
+  text-align: center;
+
+  img {
+    display: inline-block;
+  }
+}
+
+.team-one {
+  border-bottom: 3px solid $claws;
+}
+
+.team-two {
+  border-bottom: 3px solid $fangs;
+}
+
+.versus {
+  position: absolute;
+  top: 350px;
+  margin: 0 auto;
+  height: 170px;
+  width: 100%;
+  background: url('/plugins/cleanse/broadcast/assets/images/fwc-versus.png') no-repeat center center;
+}
+
+.overlay-footer {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 270px;
+  background: url('/plugins/cleanse/broadcast/assets/images/fwc-footer.png') no-repeat bottom center;
+  -webkit-background-size: contain;
+  background-size: contain;
+}

@@ -20,3 +20,8 @@ A round-robin and bracket events plugin for OctoberCMS.
 - [x] 'Generate' the event based on a Class by event-type.
 - [Yes/No] For the overlay, should advancing to the next match be manually controlled (due to scoreboard)?
 - [ ] '/event/:id/manage' route needs to be added for managing the overlay.
+
+### Bracket Columns
+- Round 1 spacing
+- Round 2-7 spacing, includes toggleable lower bracket(?)
+- Up to 7 cols?

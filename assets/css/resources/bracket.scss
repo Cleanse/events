@@ -1,0 +1,157 @@
+/** 1920 x 690 */
+.bracket {
+  position: absolute;
+  top: 133px;
+  height: 690px;
+  margin: 0 10px;
+
+  &.single-eight {
+    display: flex;
+    flex-wrap: nowrap;
+
+    .round {
+      width: 450px;
+      display: flex;
+      flex-direction: column;
+
+      &:nth-child(2) {
+        margin-top: 71px;
+
+        .match:first-child {
+          margin-bottom: 172px;
+        }
+      }
+
+      &.final-round {
+        margin-top: 215px;
+
+        .match:first-child {
+          margin-bottom: 120px;
+        }
+      }
+
+      &.seeding {
+        margin-top: 33px;
+
+        .seeds {
+          .seed {
+            background: mediumpurple;
+          }
+
+          .seed:first-child {
+            background: darkseagreen;
+            font-size: 1.5rem;
+            font-weight: bold;
+          }
+        }
+      }
+
+      .match-pair {
+        .match {
+          margin-bottom: 30px;
+        }
+
+        //.match:first-child {
+        //  margin-bottom: 30px;
+        //}
+      }
+    }
+
+    //.round:first-child {
+    //  justify-content: space-between!important;
+    //}
+
+    .round:not(:last-child) {
+      margin-right: 33px;
+    }
+  }
+}
+
+.match-wrapper {
+  position: absolute;
+  width: 13rem;
+  height: 3.875rem;
+}
+
+.match {
+  border-radius: .25rem;
+
+  &.active {
+    box-shadow: 0px 0px 15px 5px rgba(182, 184, 184, .75);
+  }
+}
+
+.match-header {
+  padding: .25rem;
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+  background: rgba(0, 0, 0, 0.33);
+  color: #fff;
+}
+
+.opponent-1 {
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+  background: $claws;
+}
+
+.opponent-2 {
+  border-bottom-left-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+  background: $fangs;
+}
+
+.opponent-1,
+.opponent-2,
+.seed {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+
+  .name {
+    flex-grow: 1;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .datacenter,
+  .score {
+    padding: 0 .5rem;
+    font-family: 'PT Mono', monospace;
+    font-size: 2rem;
+  }
+
+  .datacenter-eu {
+    background: #003399;
+    color: #FECC00;
+  }
+
+  .datacenter-jp {
+    background: #fff;
+    color: #BC002D;
+  }
+
+  .datacenter-na {
+    background: #B32134;
+    color: #3B3B6D;
+  }
+}
+
+svg .link {
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  shape-rendering: crispEdges;
+}
+
+svg .link.winner {
+  fill: none;
+  stroke: #d9d9d9;
+  stroke-width: 62.5;
+}
+
+svg.bracket-links .link.winner {
+  stroke: #ff0000;
+}

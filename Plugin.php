@@ -31,6 +31,11 @@ class Plugin extends PluginBase
             //Frontend
             'Cleanse\Event\Components\Events'    => 'cleanseEventEvents',
             'Cleanse\Event\Components\Event'     => 'cleanseEventViewEvent',
+
+            //Overlays
+            'Cleanse\Event\Components\OverlayMatch' => 'cleanseEventOverlayMatch',
+            'Cleanse\Event\Components\OverlayScore' => 'cleanseEventOverlayScore',
+            'Cleanse\Event\Components\OverlayBracket' => 'cleanseEventOverlayBracket'
         ];
     }
 }
