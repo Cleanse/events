@@ -29,7 +29,7 @@ class ValidateEvent
     public function validateEvent($eventType)
     {
         if (!$eventType == '') {
-            $this->type = ((new FactoryHelper)->getInstance($this->namespace, $eventType))->validation();
+            $this->type = ((new FactoryHelper)->getInstance($this->namespace, $eventType))->rules();
         }
 
         return $this->mergeConfigs();

@@ -1,14 +1,15 @@
 <?php
 
-namespace Cleanse\Event\Classes\Generators;
+namespace Cleanse\Event\Classes\Formats\BracketSingle;
 
 /**
- * http://www.gottfriedville.net/mathprob/misc-dblelim.html
- * http://www.denegames.ca/tournaments/index.html
+ * https://github.com/xoco70/laravel-tournaments/blob/master/src/TreeGen/CreateSingleEliminationTree.php
  * https://www.slideshare.net/MontecriZz/single-and-double-elimination-tournament
- * Number of matches =（N-1）× 2 ＋ 1
+ * G = N - 1 (Game amount equals Number of entries minus 1.
+ * Bye = least power2 higher than N. 2x2=4x2=8x2=16x2=32...
+ * 6 teams, 8-6 = 2 byes.
  */
-class DoubleEliminationBracket
+class Generator
 {
     public function createEvent($event)
     {

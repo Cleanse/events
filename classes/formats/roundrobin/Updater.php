@@ -1,11 +1,11 @@
 <?php
 
-namespace Cleanse\Event\Classes\Updaters;
+namespace Cleanse\Event\Classes\Formats\RoundRobin;
 
 use Cleanse\Event\Models\Event;
 use Cleanse\Event\Models\Match;
 
-class RoundRobin
+class Updater
 {
     public function __construct($config)
     {

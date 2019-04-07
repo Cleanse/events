@@ -1,10 +1,10 @@
 <?php
 
-namespace Cleanse\Event\Classes\Formats;
+namespace Cleanse\Event\Classes\Formats\RoundRobin;
 
-class RoundRobin
+class Validation
 {
-    public function validation()
+    public function rules()
     {
         return [
             'validation' => [

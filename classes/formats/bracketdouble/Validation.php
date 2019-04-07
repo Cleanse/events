@@ -1,10 +1,10 @@
 <?php
 
-namespace Cleanse\Event\Classes\Formats;
+namespace Cleanse\Event\Classes\Formats\BracketDouble;
 
-class DoubleEliminationBracket
+class Validation
 {
-    public function validation()
+    public function rules()
     {
         return [
             'validation' => [],

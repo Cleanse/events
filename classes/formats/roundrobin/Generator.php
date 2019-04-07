@@ -1,6 +1,6 @@
 <?php
 
-namespace Cleanse\Event\Classes\Generators;
+namespace Cleanse\Event\Classes\Formats\RoundRobin;
 
 use Exception;
 
@@ -8,7 +8,7 @@ use Cleanse\Event\Classes\Helpers\RoundRobinHelper;
 use Cleanse\Event\Models\Event;
 use Cleanse\Event\Models\Match;
 
-class RoundRobin
+class Generator
 {
     private $event;
 

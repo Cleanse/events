@@ -1,8 +1,14 @@
 <?php
 
-namespace Cleanse\Event\Classes\Generators;
+namespace Cleanse\Event\Classes\Formats\BracketDouble;
 
-class Swiss
+/**
+ * http://www.gottfriedville.net/mathprob/misc-dblelim.html
+ * http://www.denegames.ca/tournaments/index.html
+ * https://www.slideshare.net/MontecriZz/single-and-double-elimination-tournament
+ * Number of matches =（N-1）× 2 ＋ 1
+ */
+class Generator
 {
     public function createEvent($event)
     {

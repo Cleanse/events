@@ -1,11 +1,11 @@
 <?php
 
-namespace Cleanse\Event\Classes\Updaters;
+namespace Cleanse\Event\Classes\Formats\BracketDouble;
 
 use Cleanse\Event\Models\Event;
 use Cleanse\Event\Models\Match;
 
-class DoubleElimination
+class Updater
 {
     public function __construct($config)
     {
