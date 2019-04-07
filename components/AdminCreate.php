@@ -13,7 +13,7 @@ use Cleanse\Event\Classes\Helpers\EventTypes;
 use Cleanse\Event\Classes\ValidateEvent;
 use Cleanse\Event\Classes\ManageEvent;
 
-class Create extends ComponentBase
+class AdminCreate extends ComponentBase
 {
     public function componentDetails()
     {

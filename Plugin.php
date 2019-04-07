@@ -19,22 +19,20 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            //CRUD
-            'Cleanse\Event\Components\Create'    => 'cleanseEventCreateEvent',
-            'Cleanse\Event\Components\Edit'      => 'cleanseEventEditEvent',
-            'Cleanse\Event\Components\Manage'    => 'cleanseEventManageEvents',
-            'Cleanse\Event\Components\Teams'     => 'cleanseEventManageTeams',
-
-            //Todo
-            'Cleanse\Event\Components\Placement' => 'cleanseEventTeamPlacement',
+            //Admin
+            'Cleanse\Event\Components\AdminCreate'    => 'cleanseEventAdminCreate',
+            'Cleanse\Event\Components\AdminEdit'      => 'cleanseEventAdminEdit',
+            'Cleanse\Event\Components\AdminManage'    => 'cleanseEventAdminManage',
+            'Cleanse\Event\Components\AdminTeams'     => 'cleanseEventAdminTeams',
+            'Cleanse\Event\Components\AdminPlacement' => 'cleanseEventAdminPlacement',
 
             //Frontend
-            'Cleanse\Event\Components\Events'    => 'cleanseEventEvents',
-            'Cleanse\Event\Components\Event'     => 'cleanseEventViewEvent',
+            'Cleanse\Event\Components\Events' => 'cleanseEventEvents',
+            'Cleanse\Event\Components\Event'  => 'cleanseEventViewEvent',
 
-            //Overlays
-            'Cleanse\Event\Components\OverlayMatch' => 'cleanseEventOverlayMatch',
-            'Cleanse\Event\Components\OverlayScore' => 'cleanseEventOverlayScore',
+            //Broadcast
+            'Cleanse\Event\Components\OverlayMatch'   => 'cleanseEventOverlayMatch',
+            'Cleanse\Event\Components\OverlayScore'   => 'cleanseEventOverlayScore',
             'Cleanse\Event\Components\OverlayBracket' => 'cleanseEventOverlayBracket'
         ];
     }

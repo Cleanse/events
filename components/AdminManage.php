@@ -6,7 +6,7 @@ use Cms\Classes\ComponentBase;
 
 use Cleanse\Event\Models\Event;
 
-class Manage extends ComponentBase
+class AdminManage extends ComponentBase
 {
     public function componentDetails()
     {

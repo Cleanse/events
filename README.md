@@ -12,8 +12,14 @@ A round-robin and bracket events plugin for OctoberCMS.
 - [ ] Option to grab the top **X** teams from a *Round Robin Group Stage* event.
 
 ###### Brainstorming
-- Generators: '$this->create()' Event, then return Redirect::to('/event/:id') where teams can be added...
-- Generators: '$this->schedule()'
+- Events Admin '/events/a/:slug'
+  - Admin{ComponentId}
+- Events Broadcast '/broadcast/event/latest' and/or '/broadcast/event/:slug/:scene?'
+  - Broadcast{ComponentId}
+- Events Frontend  '/events/:slug'
+  - {ComponentId} (list of events and event)
+- Events CRUD API  ?? '/api/broadcast/event/:slug'
+- *Events Sign up system? (maybe whoever takes over can add it in. I can if SAAS project is interesting.*
 
 ###### Frontend? Controllers (October backend)
 - !!! Eventual idea: Event/Overlay SAAS.
@@ -21,7 +27,9 @@ A round-robin and bracket events plugin for OctoberCMS.
 - [Yes/No] For the overlay, should advancing to the next match be manually controlled (due to scoreboard)?
 - [ ] '/event/:id/manage' route needs to be added for managing the overlay.
 
-### Bracket Columns
-- Round 1 spacing
-- Round 2-7 spacing, includes toggleable lower bracket(?)
-- Up to 7 cols?
+### Week of April 8th TODO
+- [ ] Get match creation done [admin].
+- [ ] Get broadcast match order done [broadcast].
+- [ ] Get broadcast event (and match) activating (and updating) done [broadcast].
+- [ ] Get list of scenes needed for The Feast World Cup from Kaze [broadcast].
+- [ ] Think about re-formatting configs for the many formats.

@@ -13,7 +13,7 @@ use Cms\Classes\ComponentBase;
 
 use Cleanse\Event\Models\Team;
 
-class Teams extends ComponentBase
+class AdminTeams extends ComponentBase
 {
     public function componentDetails()
     {

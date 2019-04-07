@@ -191,18 +191,18 @@ function clearEventConfig() {
 
 //Form creation class
 function Form(parent, options) {
-    this.parent = parent;
-    this.inputType = options.type;
-    this.inputId = `event_config[${options.label}]`;
+    this.parent           = parent;
+    this.inputType        = options.type;
+    this.inputId          = `event_config[${options.label}]`;
     this.inputDescription = options.description;
     this.inputPlaceholder = options.placeholder;
-    this.inputDefault = options.default ? options.default : false;
-    this.inputOptions = options.options ? options.options : false;
+    this.inputDefault     = options.default ? options.default : false;
+    this.inputOptions     = options.options ? options.options : false;
 
     this.createInput = function () {
-        let inputWrapper = this.createBootstrapWrapper();
-        let inputLabel = this.createBootstrapLabel();
-        let inputContent = this.createInputContent();
+        let inputWrapper  = this.createBootstrapWrapper();
+        let inputLabel    = this.createBootstrapLabel();
+        let inputContent  = this.createInputContent();
         let inputFeedback = this.createInputFeedback();
 
         inputWrapper.appendChild(inputLabel);
@@ -249,10 +249,10 @@ function Form(parent, options) {
 
     this.createTextInput = function () {
         let textInput = document.createElement('input');
-        textInput.type = this.inputType;
-        textInput.id = this.inputId;
-        textInput.name = this.inputId;
-        textInput.className = 'form-control';
+        textInput.type        = this.inputType;
+        textInput.id          = this.inputId;
+        textInput.name        = this.inputId;
+        textInput.className   = 'form-control';
         textInput.placeholder = this.inputPlaceholder;
 
         return textInput;
@@ -260,8 +260,8 @@ function Form(parent, options) {
 
     this.createSelectInput = function () {
         let selectInput = document.createElement('select');
-        selectInput.id = this.inputId;
-        selectInput.name = this.inputId;
+        selectInput.id        = this.inputId;
+        selectInput.name      = this.inputId;
         selectInput.className = 'form-control';
 
         for (let i = 0; i < this.inputOptions.length; i++) {

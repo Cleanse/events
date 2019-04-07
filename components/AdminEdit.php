@@ -13,7 +13,7 @@ use Cleanse\Event\Classes\Helpers\EventTypes;
 use Cleanse\Event\Models\Event;
 use Cleanse\Event\Models\Team;
 
-class Edit extends ComponentBase
+class AdminEdit extends ComponentBase
 {
     private $event;
 

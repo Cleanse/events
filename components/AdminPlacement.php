@@ -9,7 +9,7 @@ use Cms\Classes\ComponentBase;
 use Cleanse\Event\Models\Event;
 use Cleanse\Event\Models\Team;
 
-class Placement extends ComponentBase
+class AdminPlacement extends ComponentBase
 {
     public $event;
 
