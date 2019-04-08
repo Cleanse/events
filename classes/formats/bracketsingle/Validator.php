@@ -2,7 +2,7 @@
 
 namespace Cleanse\Event\Classes\Formats\BracketSingle;
 
-class Validation
+class Validator
 {
     public function rules()
     {

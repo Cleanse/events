@@ -2,7 +2,7 @@
 
 namespace Cleanse\Event\Classes\Formats\RoundRobin;
 
-class Validation
+class Validator
 {
     public function rules()
     {

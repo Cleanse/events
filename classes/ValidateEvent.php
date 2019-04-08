@@ -8,7 +8,7 @@ class ValidateEvent
 {
     private $rules;
     private $type;
-    private $namespace;
+    private $source;
 
     public function __construct()
     {
@@ -23,13 +23,16 @@ class ValidateEvent
             ]
         ];
 
-        $this->namespace = 'Cleanse\\Event\\Classes\Formats\\';
+        $this->source = [
+            'namespace' => 'Cleanse\\Event\\Classes\Formats\\',
+            'target'    => 'Validator'
+        ];
     }
 
     public function validateEvent($eventType)
     {
         if (!$eventType == '') {
-            $this->type = ((new FactoryHelper)->getInstance($this->namespace, $eventType))->rules();
+            $this->type = ((new FactoryHelper)->getInstance($this->source, $eventType))->rules();
         }
 
         return $this->mergeConfigs();

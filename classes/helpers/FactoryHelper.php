@@ -4,9 +4,9 @@ namespace Cleanse\Event\Classes\Helpers;
 
 class FactoryHelper
 {
-    public function getInstance($namespace, $eventType)
+    public function getInstance($source, $eventType)
     {
-        $className = $namespace . $this->classifyString($eventType);
+        $className = $source['namespace'] . $this->classifyString($eventType) . '\\' . $source['target'];
         return new $className();
     }
 
