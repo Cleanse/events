@@ -18,6 +18,6 @@ class ManageEvent
 
     public function generateSchedule($data, $create = false)
     {
-        return ((new FactoryHelper)->getInstance($this->source, $data['event-type']))->scheduleEvent($data, $create);
+        return ((new FactoryHelper)->getInstance($this->source, $data->type))->scheduleEvent($data, $create);
     }
 }

@@ -41,6 +41,11 @@ class RoundRobinHelper
         return $result;
     }
 
+    public static function seed_partition(array $teams, $groups = 1, $pad = false)
+    {
+        return [];
+    }
+
     /**
      * Thanks to 'mnito'.
      */

@@ -6,13 +6,14 @@
         <button id="more-teams" class="btn btn-outline-secondary">Teams</button>
         {% else %}
         <div>
-            <form data-request="{{ __SELF__ }}::onEventSchedule"
-                  data-request-confirm="Are you sure?">
-                <input type="hidden" name="eid" value="{{ event.id }}">
-                <input type="hidden" name="type" value="{{ event.type }}">
-                <p>Your <span class="text-info">'{{ event.type }}'</span> event has: <strong>{{ event.teams.count }} Teams</strong></p>
+            {{ form_open({ request: __SELF__~'::onEventSchedule' }) }}
+                <input type="hidden" name="id" value="{{ event.id }}">
+                <p>
+                    Your <span class="text-info">'{{ event.type }}'</span> event has:
+                    <strong>{{ event.teams.count }} Teams</strong>
+                </p>
                 <button type="submit" class="btn btn-outline-primary">Generate Schedule</button>
-            </form>
+            {{ form_close() }}
         </div>
         {% endif %}
     {% else %}

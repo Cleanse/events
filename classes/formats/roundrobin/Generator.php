@@ -12,35 +12,7 @@ class Generator
 {
     private $event;
 
-    public function createEvent($event)
-    {
-        $newEvent = new Event;
-
-        $newEvent->name = $event['event-title'];
-        $newEvent->description = $event['event-description'];
-        $newEvent->type = $event['event-type'];
-        $newEvent->config = $event['event_config'];
-
-        $newEvent->save();
-
-        return $newEvent->id;
-    }
-
-    public function updateEvent($event)
-    {
-        $getEvent = Event::find($event['eid']);
-
-        $getEvent->name = $event['event-title'];
-        $getEvent->description = $event['event-description'];
-        $getEvent->type = $event['event-type'];
-        $getEvent->config = $event['event_config'];
-
-        $getEvent->save();
-
-        return $getEvent->id;
-    }
-
-    public function scheduleEvent($event, $create)
+    public function scheduleEvent($event, $create = true)
     {
         $this->event = $event;
 
@@ -48,22 +20,23 @@ class Generator
             return $this->makeSchedule();
         }
 
+        //Might scrap.
         return $this->makePlacement();
-
-        /**
-         * Todo: Remove below method, create a method that will skip db entrees unless '$create' = true.
-         */
-        return $this->makeSchedule();
     }
 
     private function makeSchedule()
     {
-        if ($this->event->config->randomize) {
-            shuffle($this->event->teams);
-        }
+        if ($this->event->config['randomize'] > 0) {
+            $teams = $this->event->teams->pluck('id')->toArray();
+            shuffle($teams);
 
-        //Divide teams into groups.
-        $groupTeams = RoundRobinHelper::array_partition($this->teams, $this->groups);
+            //Divide teams into groups.
+            $groupTeams = RoundRobinHelper::array_partition($teams, $this->event->config['number_of_groups']);
+        } else {
+            $teams = $this->event->teams->pluck('pivot.seed')->toArray();
+            //Divide teams into groups.
+            $groupTeams = RoundRobinHelper::seed_partition($teams, $this->event->config['number_of_groups']);
+        }
 
         $matches = [];
         foreach ($groupTeams as $group) {
@@ -76,9 +49,14 @@ class Generator
     /**
      * Thanks https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm
      * ToDo: Reminder to support seeding to balance multiple groups/divisions
+     *
+     * @param $teams
+     * @return array
+     * @throws Exception
      */
     private function generateGroupMatches($teams)
     {
+        dd($teams);
         //if there is 0-1 teams in this group, error so a balanced group:team ratio is met.
         if (count($teams) <= 1) {
             throw new Exception('Your team to group ratio will not work.');

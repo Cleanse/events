@@ -45,6 +45,7 @@ class AdminPlacement extends ComponentBase
         $this->addJs('assets/js/events.js');
 
         $this->page['teams'] = $this->event->teams()->orderBy('pivot_seed', 'asc')->get();
+        $this->page['config_event'] = $this->fixJsonEncode();
     }
 
     public function onReorderPlacement()
@@ -86,5 +87,15 @@ class AdminPlacement extends ComponentBase
 
         $preview = (new ManageEvent())->generateSchedule($event);
         return $preview;
+    }
+
+    private function fixJsonEncode()
+    {
+        $json = [];
+        foreach ($this->event->config as $key => $config) {
+            $json[$key] = $config;
+        }
+
+        return json_encode($json);
     }
 }
