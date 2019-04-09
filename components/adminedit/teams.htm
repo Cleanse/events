@@ -5,7 +5,7 @@
         a smarter reordering system. <i class="fas fa-exclamation-triangle"></i></small></p>
     <div class="row">
         <div class="col-md-6">
-            <form data-request="onAddTeam">
+            <form data-request="onCreateTeam">
                 <input type="hidden" name="event" id="event" value="{{ event.id }}">
                 <div class="input-group">
                     <label for="new-team" class="sr-only">New Team</label>
@@ -17,7 +17,7 @@
 
         {% if event.availableTeams.count >= 1 %}
         <div class="col-md-6">
-            <form data-request="onAddTeam">
+            <form data-request="onCreateTeam">
                 <input type="hidden" name="eid" id="eid" value="{{ event.id }}">
                 <div class="input-group">
                     <label for="available-teams" class="sr-only">Teams Available</label>

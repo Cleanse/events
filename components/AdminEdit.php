@@ -64,7 +64,7 @@ class AdminEdit extends ComponentBase
         }
 
         try {
-            $event = (new ManageEvent())->generateEvent($data, 'update');
+            $event = $this->updateEvent($data);
 
             return Redirect::to('/event/'.$event.'/edit');
         } catch (Exception $exception) {
@@ -72,24 +72,24 @@ class AdminEdit extends ComponentBase
         }
     }
 
-    public function onEventSchedule()
-    {
-        $event = Event::find(post('id'));
-        $live = (new ManageEvent())->generateSchedule($event, true);
-        return Redirect::to('/event/'.$live);
-    }
-
     public function onEventDelete()
     {
         $data = post();
 
         try {
-            (new ManageEvent())->deleteEvent($data);
+            $this->deleteEvent($data);
 
             return Redirect::to('/events');
         } catch (Exception $exception) {
             throw new $exception;
         }
+    }
+
+    public function onCreateTeam()
+    {
+        $eId = $this->createTeam();
+
+        return Redirect::to('/event/'.$eId.'/edit');
     }
 
     public function onRemoveTeam()
@@ -105,17 +105,41 @@ class AdminEdit extends ComponentBase
         return Redirect::to('/event/'.$eventId.'/edit');
     }
 
-    public function onAddTeam()
+    //todo: Create matches.
+    public function onEventSchedule()
     {
-        $eId = $this->addTeam();
-
-        return Redirect::to('/event/'.$eId.'/edit');
+        $event = Event::find(post('id'));
+        //$live = (new ManageEvent())->generateSchedule($event, true);
+        return Redirect::to('/event/'.$live);
     }
 
     /**
      * Class only.
      */
-    private function addTeam()
+    private function updateEvent($event)
+    {
+        $getEvent = Event::find($event['eid']);
+
+        $getEvent->name = $event['event-title'];
+        $getEvent->description = $event['event-description'];
+        $getEvent->type = $event['event-type'];
+        $getEvent->config = $event['event_config'];
+
+        $getEvent->save();
+
+        return $getEvent->id;
+    }
+
+    private function deleteEvent($event)
+    {
+        $getEvent = Event::find($event['id']);
+
+        $getEvent->active = false;
+
+        $getEvent->save();
+    }
+
+    private function createTeam()
     {
         $eventId = post('eid') ?: post('event');
         $team = post('new-team') ?: post('available-teams');

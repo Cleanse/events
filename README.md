@@ -1,11 +1,6 @@
 # Events Plugin (WIP)
 A round-robin and bracket events plugin for OctoberCMS.
 
-### Round Robin Group Stage
-- [x] The teams to groups ratio will be an option on creation.
-- [x] Teams can be either **manually or randomly** placed into groups.
-- [x] Generate *Best-of-**X*** matches that match all teams in your respective group.
-
 ### Bracket Stage
 - [ ] Generate *Best-of-**X*** single-elimination bracket.
 - [ ] Generate *Best-of-**X*** double-elimination bracket.
@@ -20,10 +15,12 @@ A round-robin and bracket events plugin for OctoberCMS.
   - {ComponentId} (list of events and event)
 - Events CRUD API  ?? '/api/broadcast/event/:slug'
 - *Events Sign up system? (maybe whoever takes over can add it in. I can if SAAS project is interesting.*
+- Database will contain the access to different formats. "formats" directory will have sub-folders with a proper
+naming scheme to import the entire format config, creation, update scheme.
+- ValidateEvent, ManageEvent, UpdateEvent, 
 
 ###### Frontend? Controllers (October backend)
 - !!! Eventual idea: Event/Overlay SAAS.
-- [x] 'Generate' the event based on a Class by event-type.
 - [Yes/No] For the overlay, should advancing to the next match be manually controlled (due to scoreboard)?
 - [ ] '/event/:id/manage' route needs to be added for managing the overlay.
 
@@ -33,3 +30,5 @@ A round-robin and bracket events plugin for OctoberCMS.
 - [ ] Get broadcast event (and match) activating (and updating) done [broadcast].
 - [ ] Get list of scenes needed for The Feast World Cup from Kaze [broadcast].
 - [ ] Think about re-formatting configs for the many formats.
+- [ ] Add winner table(?)
+- [ ] 'Delete' method hides the event (todo: public list will hide 'deleted' events)
