@@ -10,6 +10,7 @@ use Cleanse\Event\Models\Team;
 /**
  * Class Event
  * @package Cleanse\Event\Models
+ * @property integer id
  * @property string  name
  * @property string  slug
  * @property string  description
@@ -67,6 +68,16 @@ class Event extends Model
         if (!$this->getAttribute('teams')->contains($teamKey)) {
             $this->teams()->attach($teamKey);
         }
+
+        return $this;
+    }
+
+    public function addMatch($matchData)
+    {
+        $this->matches()->create([
+            'team_one' => $matchData['team_one'],
+            'team_two' => $matchData['team_two']
+        ]);
 
         return $this;
     }

@@ -2,7 +2,14 @@
 
 namespace Cleanse\Event\Classes\Generators;
 
-class MatchScheduler
+use Cleanse\Event\Models\Event;
+
+class MatchGenerator
 {
-    public $event;
+    public function createMatch($id, $teamOne, $teamTwo)
+    {
+        $event = Event::find($id);
+
+        $event->addMatch($teamOne, $teamTwo);
+    }
 }

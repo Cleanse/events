@@ -51,6 +51,7 @@ class AdminEdit extends ComponentBase
         $this->page['config_event'] = $this->fixJsonEncode();
     }
 
+    //Event
     public function onEventUpdate()
     {
         $data = post();
@@ -85,6 +86,7 @@ class AdminEdit extends ComponentBase
         }
     }
 
+    //Team
     public function onCreateTeam()
     {
         $eId = $this->createTeam();
@@ -109,7 +111,7 @@ class AdminEdit extends ComponentBase
     public function onEventSchedule()
     {
         $event = Event::find(post('id'));
-        //$live = (new ManageEvent())->generateSchedule($event, true);
+        $live = (new ManageEvent())->generateSchedule($event, true); //Make event 'active'
         return Redirect::to('/event/'.$live);
     }
 

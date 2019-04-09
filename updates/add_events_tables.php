@@ -22,16 +22,27 @@ class AddEventsTables extends Migration
             $table->timestamps();
         });
 
+        Schema::create('cleanse_event_broadcasts', function($table)
+        {
+            $table->engine = 'InnoDB';
+            $table->string('id')->unique()->index();
+            $table->integer('event_id')->unsigned()->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('cleanse_event_matches', function($table)
         {
             $table->engine = 'InnoDB';
             $table->string('id')->unique()->index();
             $table->integer('event_id')->unsigned()->nullable();
+            $table->integer('broadcast_id')->unsigned()->nullable();
             $table->integer('team_one')->unsigned()->nullable();
             $table->integer('team_two')->unsigned()->nullable();
             $table->integer('team_one_score')->unsigned()->nullable();
             $table->integer('team_two_score')->unsigned()->nullable();
             $table->integer('winner_id')->unsigned()->nullable();
+            $table->integer('order')->unsigned()->nullable();
+            $table->integer('lineup')->unsigned()->nullable();
             $table->timestamps();
         });
     }
@@ -39,6 +50,7 @@ class AddEventsTables extends Migration
     public function down()
     {
         Schema::dropIfExists('cleanse_event_matches');
+        Schema::dropIfExists('cleanse_event_broadcasts');
         Schema::dropIfExists('cleanse_event_events');
     }
 }
