@@ -6,19 +6,19 @@ class EventTypes
 {
     public static function load()
     {
-        //Load from database?
+        //Put in config file?
         return [
             [
                 'value'   => 'round-robin',
                 'display' => 'Round Robin'
             ],
             [
-                'value'   => 'single-elimination-bracket',
-                'display' => 'Single Elimination Bracket'
+                'value'   => 'bracket-single',
+                'display' => 'Bracket: Single Elimination'
             ],
             [
-                'value'   => 'double-elimination-bracket',
-                'display' => 'Double Elimination Bracket'
+                'value'   => 'bracket-double',
+                'display' => 'Bracket: Double Elimination'
             ],
             [
                 'value'   => 'swiss',

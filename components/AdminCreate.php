@@ -3,7 +3,6 @@
 namespace Cleanse\Event\Components;
 
 use Exception;
-use Flash;
 use Redirect;
 use ValidationException;
 use Validator;
@@ -11,7 +10,7 @@ use Cms\Classes\ComponentBase;
 
 use Cleanse\Event\Classes\Helpers\EventTypes;
 use Cleanse\Event\Classes\ValidateEvent;
-use Cleanse\Event\Classes\ManageEvent;
+use Cleanse\Event\Models\Event;
 
 class AdminCreate extends ComponentBase
 {
@@ -30,7 +29,7 @@ class AdminCreate extends ComponentBase
         $this->page['event_types'] = EventTypes::load();
     }
 
-    public function onEventSave()
+    public function onCreateEvent()
     {
         $data = post();
 
@@ -43,11 +42,25 @@ class AdminCreate extends ComponentBase
         }
 
         try {
-            $event = (new ManageEvent())->generateEvent($data);
+            $event = $this->createEvent($data);
 
             return Redirect::to('/event/'.$event.'/edit');
         } catch (Exception $exception) {
             throw new $exception;
         }
+    }
+
+    public function createEvent($event)
+    {
+        $newEvent = new Event;
+
+        $newEvent->name = $event['event-title'];
+        $newEvent->description = $event['event-description'];
+        $newEvent->type = $event['event-type'];
+        $newEvent->config = $event['event_config'];
+
+        $newEvent->save();
+
+        return $newEvent->id;
     }
 }

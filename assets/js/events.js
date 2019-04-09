@@ -48,7 +48,7 @@ const types = {
             ]
         }
     },
-    'single-elimination-bracket': {
+    'bracket-single': {
         "randomize": {
             "type": "select",
             "label": "randomize",
@@ -67,7 +67,7 @@ const types = {
             ]
         }
     },
-    'double-elimination-bracket': {
+    'bracket-double': {
         "randomize": {
             "type": "select",
             "label": "randomize",
