@@ -6,10 +6,10 @@ use Cleanse\Event\Models\Event;
 
 class MatchGenerator
 {
-    public function createMatch($id, $teamOne, $teamTwo)
+    public function createMatch($id, $match, $order)
     {
         $event = Event::find($id);
 
-        $event->addMatch($teamOne, $teamTwo);
+        $event->addMatch($match[0], $match[1], $order);
     }
 }

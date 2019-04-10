@@ -72,12 +72,24 @@ class Event extends Model
         return $this;
     }
 
-    public function addMatch($matchData)
+    public function addMatch($teamOne, $teamTwo, $order = 1)
     {
-        $this->matches()->create([
-            'team_one' => $matchData['team_one'],
-            'team_two' => $matchData['team_two']
-        ]);
+        $match = [
+            'team_one' => $teamOne,
+            'team_two' => $teamTwo
+        ];
+
+        if ($this->type == 'round-robin') {
+            $type = ['takes_place_during' => $order];
+        } else if ($this->type == 'bracket-single' || $this->type === 'bracket-double') {
+            $type = ['order' => $order];
+        } else {
+            $type = ['order' => $order];
+        }
+
+        $matchMerge = array_merge($match, $type);
+
+        $this->matches()->create($matchMerge);
 
         return $this;
     }

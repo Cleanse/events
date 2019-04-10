@@ -21,7 +21,7 @@ class Match extends Model
 {
     protected $table = 'cleanse_event_matches';
 
-    protected $fillable = ['team_one', 'team_two'];
+    protected $fillable = ['team_one', 'team_two', 'takes_place_during', 'order'];
 
     public $belongsTo = [
         'event'     => 'Cleanse\Event\Models\Event',

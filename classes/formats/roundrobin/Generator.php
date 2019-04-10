@@ -5,8 +5,7 @@ namespace Cleanse\Event\Classes\Formats\RoundRobin;
 use Exception;
 
 use Cleanse\Event\Classes\Helpers\RoundRobinHelper;
-use Cleanse\Event\Models\Event;
-use Cleanse\Event\Models\Match;
+use Cleanse\Event\Classes\Generators\MatchGenerator;
 
 class Generator
 {
@@ -17,7 +16,11 @@ class Generator
         $this->event = $event;
 
         if ($create) {
-            return $this->makeSchedule();
+            $matches = $this->makeSchedule();
+
+            $this->createMatches($matches);
+
+            return $this->event->id;
         }
 
         //Might scrap.
@@ -33,8 +36,9 @@ class Generator
             //Divide teams into groups.
             $groupTeams = RoundRobinHelper::array_partition($teams, $this->event->config['number_of_groups']);
         } else {
-            $teams = $this->event->teams->pluck('pivot.seed')->toArray();
-            //Divide teams into groups.
+            $teams = $this->event->teams->pluck('id', 'pivot.seed')->toArray();
+
+            //Create seeded groups.
             $groupTeams = RoundRobinHelper::seed_partition($teams, $this->event->config['number_of_groups']);
         }
 
@@ -48,6 +52,7 @@ class Generator
 
     /**
      * Thanks https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm
+     * https://phpro.org/examples/Create-Round-Robin-Using-PHP.html
      * ToDo: Reminder to support seeding to balance multiple groups/divisions
      *
      * @param $teams
@@ -56,12 +61,6 @@ class Generator
      */
     private function generateGroupMatches($teams)
     {
-        dd($teams);
-        //if there is 0-1 teams in this group, error so a balanced group:team ratio is met.
-        if (count($teams) <= 1) {
-            throw new Exception('Your team to group ratio will not work.');
-        }
-
         $teamCount = count($teams);
 
         //Check if team count is odd.
@@ -73,7 +72,7 @@ class Generator
         $halfTeamCount = $teamCount / 2;
 
         //Setup amount of times teams face-off.
-        $cycle = $this->cycles * ($teamCount - 1);
+        $cycle = $this->event->config['cycles'] * ($teamCount - 1);
         if ($cycle === null) {
             $cycle = $teamCount - 1;
         }
@@ -101,18 +100,17 @@ class Generator
             RoundRobinHelper::rotate($teams);
         }
 
-        /** Number of matches =【 N ×（ N-1 ) 】÷ 2 */
         return $matches;
     }
 
-    private function makePlacement()
+    private function createMatches($matches)
     {
-        return 'Data for Preview.';
-    }
-
-    private function seedingAndGroups()
-    {
-        //Split up top seeds into each groups.
-        return 'G Unit.';
+        $order = 1;
+        foreach ($matches as $group) {
+            foreach ($group as $match) {
+                (new MatchGenerator)->createMatch($this->event->id, $match, $order);
+            }
+            $order++;
+        }
     }
 }

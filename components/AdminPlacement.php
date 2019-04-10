@@ -59,7 +59,9 @@ class AdminPlacement extends ComponentBase
     {
         $id = $this->property('event');
 
-        return Event::find($id);
+        $event = Event::find($id);
+
+        return $event;
     }
 
     private function reorderPlacement()
