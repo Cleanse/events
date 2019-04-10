@@ -41,9 +41,46 @@ class RoundRobinHelper
         return $result;
     }
 
-    public static function seed_partition(array $teams, $groups = 1, $pad = false)
+    /**
+     * Pool 1: Rank 1, 8, 9, 16, 17
+     * Pool 2: Rank 2, 7, 10, 15
+     * Pool 3: Rank 3, 6, 11, 14
+     * Pool 4: Rank 4, 5, 12, 13
+     */
+    public static function seed_partition(array $teams, $groups = 1)
     {
-        return [];
+        $teamCount = count($teams);
+
+        $seeds = range(1, $teamCount);
+        $seeds = array_chunk($seeds, $groups);
+
+        $g = 1;
+        $orderedList = [];
+        foreach ($seeds as $chunk) {
+            if ($g % 2 === 0) {
+                $chunk = array_reverse($chunk);
+            }
+
+            foreach ($chunk as $item => $value) {
+                $orderedList[] = $value;
+            }
+
+            $g++;
+        }
+
+        $divisions = [];
+        $r = 1;
+        foreach ($orderedList as $seed) {
+            $divisions[$r][] = $teams[$seed];
+
+            if ($r % $groups !== 0) {
+                $r++;
+            } else {
+                $r = 1;
+            }
+        }
+
+        return $divisions;
     }
 
     /**
