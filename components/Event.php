@@ -38,12 +38,25 @@ class Event extends ComponentBase
         if (!$this->event) {
             return Redirect::to('/events');
         }
+
+        $this->page['matches'] = $this->orderMatches();
     }
 
     private function getEventData()
     {
         $id = $this->property('event');
 
-        return EventData::find($id);
+        $event = EventData::find($id);
+
+        return $event;
+    }
+
+    private function orderMatches()
+    {
+        if ($this->event->type == 'round-robin') {
+            return $this->event->matches->groupBy('takes_place_during');
+        } else {
+            return $this->event->matches->groupBy('order');
+        }
     }
 }
