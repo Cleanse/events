@@ -15,16 +15,11 @@ class Generator
     {
         $this->event = $event;
 
-        if ($create) {
-            $matches = $this->makeSchedule();
+        $matches = $this->makeSchedule();
 
-            $this->createMatches($matches);
+        $this->createMatches($matches);
 
-            return $this->event->id;
-        }
-
-        //Might scrap.
-        return $this->makePlacement();
+        return $this->event->id;
     }
 
     private function makeSchedule()
