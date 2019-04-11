@@ -72,15 +72,11 @@ class AdminPlacement extends ComponentBase
         $event = Event::find($eventId);
 
         $i = 1;
-        $test[] = [];
         foreach($placement as $key => $value) {
-            //$test[] = [$key, $value, $i];
             $event->teams()->updateExistingPivot($key, ['seed' => $i]);
 
             $i++;
         }
-
-        //return $test;
     }
 
     private function placementPreview()
