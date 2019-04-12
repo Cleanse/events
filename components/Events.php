@@ -23,7 +23,8 @@ class Events extends ComponentBase
 
     public function getEvents()
     {
-        return Event::orderBy('id', 'desc')
-        ->get();
+        return Event::where('active', '=', 1)
+            ->orderBy('id', 'desc')
+            ->get();
     }
 }
