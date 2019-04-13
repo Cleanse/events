@@ -26,14 +26,7 @@ naming scheme to import the entire format config, creation, update scheme.~~
 - [Yes/No] For the overlay, should advancing to the next match be manually controlled (due to scoreboard)?
 - [ ] '/event/:id/manage' route needs to be added for managing the overlay.
 
-### Week of April 8th TODO
-- [ ] Get broadcast match order done [broadcast].
-- [ ] Get broadcast event (and match) activating (and updating) done [broadcast].
-  - Similar to teams and events, create a matches not broadcasted method in Model.
-- [x] Think about re-formatting configs for the many formats. (Decided that things are ok as is)
-- [x] Add winner table. (Decided against, but may reconsider. Can simply get winner of 'last match' per event.)
-- [x] 'Delete' method hides the event (todo: public list will hide 'deleted' events)
-
 ### Week of April 15th TODO
 - [ ] Get match creation done (partially done) [admin].
 - [ ] Get list of scenes needed for The Feast World Cup from Kaze [broadcast]
+- [ ] Find a cleaner way of getting 'whereDoesntHave' implemented.

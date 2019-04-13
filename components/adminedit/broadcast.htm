@@ -9,7 +9,8 @@
                 {% for broadcast in event.broadcasts %}
                 <li>
                     <a href="/event/broadcast/{{ broadcast.id }}">{{ broadcast.name }}
-                        ({{ broadcast.scheduled_at|date("m/d/Y") }})</a>
+                        ({{ broadcast.scheduled_at|date("m/d/Y") }}) [Matches: {{ broadcast.matches.count }}]</a>
+                    <small>Add Remove Broadcast Button With Confirmation.</small>
                 </li>
                 {% endfor %}
             </ul>
@@ -56,7 +57,4 @@
             {{ form_close() }}
         </div>
     </div>
-
-    --
-    By default, set the broadcast name = 'Event Name #{{ event.broadcasts.count }}'
 </div>

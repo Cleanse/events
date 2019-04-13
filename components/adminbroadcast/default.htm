@@ -8,6 +8,39 @@
     </div>
 
     <div class="container basic-content">
-        {{ broadcast|json_encode }}
+        <div class="row">
+            <div class="col-lg-6">
+                <h3>Broadcastable Matches</h3>
+                {% for m in broadcast.event.broadcastableMatches %}
+                {{ form_open({ request: __SELF__~'::onAddBroadcastMatch' }) }}
+                <input type="hidden" name="broadcast" value="{{ broadcast.id }}">
+                <input type="hidden" name="match" value="{{ m.id }}">
+                <input type="hidden" name="count" value="{{ broadcast.matches.count + 1 }}">
+                    <div class="category-group-item d-flex justify-content-between">
+                        {{ m.one.name }} vs {{ m.two.name }}
+
+                        <button class="btn btn-outline-primary" type="submit">Add Match</button>
+                    </div>
+                {{ form_close() }}
+                {% endfor %}
+            </div>
+
+            <div class="col-lg-6">
+                <h3>Current Broadcast Lineup</h3>
+                <p>Broadcast Order | Broadcast Match</p>
+                {% for bm in broadcast.matches %}
+                {{ form_open({ request: __SELF__~'::onRemoveBroadcastMatch' }) }}
+                <input type="hidden" name="broadcast" value="{{ broadcast.id }}">
+                <input type="hidden" name="match" value="{{ bm.id }}">
+                    <div class="category-group-item d-flex justify-content-between">
+                        {{ bm.lineup }} |
+                        {{ bm.one.name }} vs {{ bm.two.name }}
+
+                        <button class="btn btn-outline-primary" type="submit">Remove Match</button>
+                    </div>
+                {{ form_close() }}
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>

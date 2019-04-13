@@ -125,6 +125,13 @@ class AdminEdit extends ComponentBase
         return Redirect::to('/event/broadcast/'.$broadcastId);
     }
 
+    public function onDeleteBroadcast()
+    {
+        $broadcastId = $this->deleteBroadcast();
+
+        return Redirect::to('/event/broadcast/'.$broadcastId);
+    }
+
     /**
      * Class only.
      */
@@ -216,5 +223,10 @@ class AdminEdit extends ComponentBase
         $test = $event->broadcasts()->create($broadcast);
 
         return $test->id;
+    }
+
+    private function deleteBroadcast()
+    {
+        //
     }
 }

@@ -19,12 +19,13 @@ class Team extends Model
 
     protected $table = 'cleanse_event_teams';
 
-    /**
-     * @var array Generate slugs for this attribute.
-     */
     protected $slugs = ['slug' => 'name'];
 
-    protected $fillable = ['name', 'description', 'config'];
+    protected $fillable = [
+        'name',
+        'description',
+        'config'
+    ];
 
     protected $casts = [
         'config' => 'array',

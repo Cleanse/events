@@ -32,7 +32,9 @@ class Event extends Model
 
     protected $jsonable = ['config'];
 
-    protected $fillable = ['name', 'config'];
+    protected $fillable = [
+        'name', 'config'
+    ];
 
     protected $casts = [
         'config' => 'array',
@@ -50,15 +52,6 @@ class Event extends Model
             'pivot' => ['seed']
         ]
     ];
-
-    public function availableTeams()
-    {
-        return Team::whereDoesntHave('events', function ($query) {
-            $query->whereId($this->id);
-        })
-            ->orderBy('name', 'asc')
-            ->get();
-    }
 
     public function addTeam($teamData)
     {
@@ -96,11 +89,12 @@ class Event extends Model
         return $this;
     }
 
-    public function broadcastableMatches()
+    public function availableTeams()
     {
-        return Match::where('event_id', '=', $this->id)
-            ->whereNull('lineup')
-            ->orderBy('id', 'asc')
+        return Team::whereDoesntHave('events', function ($query) {
+            $query->whereId($this->id);
+        })
+            ->orderBy('name', 'asc')
             ->get();
     }
 }
