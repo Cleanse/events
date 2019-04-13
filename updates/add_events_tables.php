@@ -39,7 +39,6 @@ class AddEventsTables extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('event_id')->unsigned()->nullable();
-            $table->integer('broadcast_id')->unsigned()->nullable();
             $table->integer('team_one')->unsigned()->nullable();
             $table->integer('team_two')->unsigned()->nullable();
             $table->integer('team_one_score')->unsigned()->nullable();
@@ -47,13 +46,21 @@ class AddEventsTables extends Migration
             $table->integer('winner_id')->unsigned()->nullable();
             $table->integer('takes_place_during')->unsigned()->nullable();
             $table->integer('order')->unsigned()->nullable();
-            $table->integer('lineup')->unsigned()->nullable();
             $table->timestamps();
+        });
+
+        Schema::create('cleanse_event_broadcast_match', function($table)
+        {
+            $table->integer('broadcast_id')->unsigned();
+            $table->integer('match_id')->unsigned();
+            $table->integer('lineup')->unsigned()->nullable();
+            $table->primary(['broadcast_id', 'match_id']);
         });
     }
 
     public function down()
     {
+        Schema::dropIfExists('cleanse_event_broadcast_match');
         Schema::dropIfExists('cleanse_event_matches');
         Schema::dropIfExists('cleanse_event_broadcasts');
         Schema::dropIfExists('cleanse_event_events');
