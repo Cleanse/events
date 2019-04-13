@@ -16,7 +16,7 @@ class Generator
 {
     private $event;
 
-    public function scheduleEvent($event, $create = true)
+    public function scheduleEvent($event)
     {
         $this->event = $event;
 

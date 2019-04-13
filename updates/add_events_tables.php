@@ -27,6 +27,10 @@ class AddEventsTables extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('event_id')->unsigned()->nullable();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->string('url')->nullable();
+            $table->timestamp('scheduled_at')->nullable();
             $table->timestamps();
         });
 

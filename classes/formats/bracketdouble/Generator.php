@@ -20,7 +20,7 @@ class Generator
         return '';
     }
 
-    public function scheduleEvent($event, $create)
+    public function scheduleEvent($event)
     {
         return $this->makeSchedule();
     }

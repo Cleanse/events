@@ -113,9 +113,9 @@ class AdminEdit extends ComponentBase
     public function onEventSchedule()
     {
         $event = Event::find(post('id'));
-        $live = (new ManageEvent())->generateSchedule($event, true);
+        $live = (new ManageEvent())->generateSchedule($event);
 
-        return Redirect::to('/event/'.$live);
+        return Redirect::to('/event/'.$live.'/edit');
     }
 
     public function onCreateBroadcast()

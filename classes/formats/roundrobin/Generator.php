@@ -11,7 +11,7 @@ class Generator
 {
     private $event;
 
-    public function scheduleEvent($event, $create = true)
+    public function scheduleEvent($event)
     {
         $this->event = $event;
 
@@ -47,9 +47,7 @@ class Generator
 
     /**
      * Thanks https://en.wikipedia.org/wiki/Round-robin_tournament#Scheduling_algorithm
-     * https://phpro.org/examples/Create-Round-Robin-Using-PHP.html
-     * ToDo: Reminder to support seeding to balance multiple groups/divisions
-     *
+     * Thanks https://phpro.org/examples/Create-Round-Robin-Using-PHP.html
      * @param $teams
      * @return array
      * @throws Exception
