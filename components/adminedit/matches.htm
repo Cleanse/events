@@ -17,6 +17,36 @@
         </div>
         {% endif %}
     {% else %}
-        Show matches.
+    <h3>Matchups</h3>
+    <div id="format-partial">
+        <!-- RR -->
+        {% set group = 1 %}
+        {% for division in matches %}
+        {% set match_order = 1 %}
+        <div class="round-robin-group mb-2">
+            <h6>Group {{ group }}</h6>
+            {% for match in division %}
+            <div class="match active border border-primary d-flex align-items-stretch">
+                <div class="match-order p-3">
+                    <div class="match-header"><h5>{{ match_order }}</h5></div>
+                </div>
+
+                <div class="match-data mx-2 flex-fill d-flex flex-column">
+                    <div class="d-flex justify-content-between{% if match.winner_id == match.team_one %} winner{% endif %}">
+                        <span class="name">{{ match.one.name }}</span>
+                        <span class="score">{{ match.team_one_score ?? 0 }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between bg-dark{% if match.winner_id == match.team_two %} winner{% endif %}">
+                        <span class="name">{{ match.two.name }}</span>
+                        <span class="score">{{ match.team_two_score ?? 0 }}</span>
+                    </div>
+                </div>
+            </div>
+            {% set match_order = match_order+1 %}
+            {% endfor %}
+        </div>
+        {% set group = group+1 %}
+        {% endfor %}
+    </div>
     {% endif %}
 </div>

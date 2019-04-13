@@ -1,20 +1,62 @@
 <div class="mt-2">
-    <p class="pt-2 lead">Stream Broadcast Settings</p>
-    <p>List of matches</p>
+    <p class="pt-2 lead">Manage Stream Broadcast</p>
     <hr>
-    <button>Manage Overlays</button>
-</div>
+    <div class="row">
+        {% if event.broadcasts.count > 0 %}
+        <div class="col-lg-6">
+            <h3>Current Broadcasts</h3>
+            <ul>
+                {% for broadcast in event.broadcasts %}
+                <li>
+                    <a href="/event/broadcast/{{ broadcast.id }}">{{ broadcast.name }}
+                        ({{ broadcast.scheduled_at|date("m/d/Y") }})</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <div class="col-lg-6 broadcastForm">
+            <p class="lead text-primary">Create Broadcast</p>
+            {{ form_open({ request: __SELF__~'::onCreateBroadcast' }) }}
+            <input type="hidden" name="be_id" value="{{ event.id }}">
 
-<ul>
-    <li>
-        Re-order Matches for broadcast.
-        <ul>
-            <li>Add 'Broadcast' model, have match order in there?</li>
-            <li>Broadcast: id, event_id, broadcast_order_list_id</li>
-            <li><em>Need to set validation so certain orders are not allowed?</em></li>
-        </ul>
-    </li>
-    <li>Open in a modal overlay from this page in-case a match needs to be broadcast 'out of order'.</li>
-    <li>Use broadcast plugin already created?</li>
-    <li>Use code from broadcast plugin already created?</li>
-</ul>
+            <div class="form-group">
+                <label class="sr-only" for="name">Broadcast Title</label>
+                <input type="text" class="form-control" id="name"
+                       name="name" placeholder="Broadcast Title. ex: Day One" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label class="sr-only" for="date">Approximate Start Date</label>
+                    <input type="date" class="form-control" id="date"
+                           name="date" required>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label class="sr-only" for="time">Approximate Start Time</label>
+                    <input type="time" class="form-control" id="time"
+                           name="time" step="900" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="sr-only" for="description">Broadcast Description</label>
+                <textarea class="form-control" id="description"
+                          name="description" rows="3" placeholder="Broadcast description."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="sr-only" for="name">Broadcast URL</label>
+                <input type="text" class="form-control" id="url"
+                       name="url" placeholder="Broadcast Stream Link">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Create Broadcast</button>
+            {{ form_close() }}
+        </div>
+    </div>
+
+    --
+    By default, set the broadcast name = 'Event Name #{{ event.broadcasts.count }}'
+</div>

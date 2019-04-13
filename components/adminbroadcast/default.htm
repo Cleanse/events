@@ -1,0 +1,13 @@
+<div class="basic-page">
+    <div class="container">
+        <div class="page-title">
+            <h1><a href="/event/{{ broadcast.event_id }}/edit">Event</a> Broadcast</h1>
+            <div class="sub-box"></div>
+            <p class="mt-1 small text-primary">{{ broadcast.name }}</p>
+        </div>
+    </div>
+
+    <div class="container basic-content">
+        {{ broadcast|json_encode }}
+    </div>
+</div>

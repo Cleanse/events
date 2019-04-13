@@ -2,6 +2,7 @@
 
 namespace Cleanse\Event\Components;
 
+use Cleanse\Event\Models\Broadcast;
 use Redirect;
 use ValidationException;
 use Validator;
@@ -9,6 +10,7 @@ use Cms\Classes\ComponentBase;
 
 use Cleanse\Event\Classes\ValidateEvent;
 use Cleanse\Event\Classes\ManageEvent;
+use Cleanse\Event\Classes\Helpers\DateTimeHelper;
 use Cleanse\Event\Classes\Helpers\EventTypes;
 use Cleanse\Event\Models\Event;
 use Cleanse\Event\Models\Team;
@@ -49,6 +51,7 @@ class AdminEdit extends ComponentBase
 
         $this->page['event_types']  = EventTypes::load();
         $this->page['config_event'] = $this->fixJsonEncode();
+        $this->page['matches']      = $this->orderMatches();
     }
 
     //Event
@@ -107,12 +110,19 @@ class AdminEdit extends ComponentBase
         return Redirect::to('/event/'.$eventId.'/edit');
     }
 
-    //todo: Create matches.
     public function onEventSchedule()
     {
         $event = Event::find(post('id'));
-        $live = (new ManageEvent())->generateSchedule($event, true); //Make event 'active'
+        $live = (new ManageEvent())->generateSchedule($event, true);
+
         return Redirect::to('/event/'.$live);
+    }
+
+    public function onCreateBroadcast()
+    {
+        $broadcastId = $this->createBroadcast();
+
+        return Redirect::to('/event/broadcast/'.$broadcastId);
     }
 
     /**
@@ -170,5 +180,41 @@ class AdminEdit extends ComponentBase
         }
 
         return json_encode($json);
+    }
+
+    private function orderMatches()
+    {
+        if ($this->event->type == 'round-robin') {
+            return $this->event->matches->groupBy('takes_place_during');
+        } else {
+            return $this->event->matches->groupBy('order');
+        }
+    }
+
+    private function createBroadcast()
+    {
+        $post = post();
+
+        $day = $post['date'];
+        $time = $post['time'];
+
+        $eventDateTime = DateTimeHelper::editDateTimeFormat($day, $time);
+
+        $broadcast = [
+            'name'         => $post['name'],
+            'description'  => $post['description'] ?: '',
+            'url'          => $post['url'] ?: '',
+            'scheduled_at' => $eventDateTime
+        ];
+
+        $event = Event::find($post['be_id']);
+
+        if (!isset($event)) {
+            return $post['be_id'];
+        }
+
+        $test = $event->broadcasts()->create($broadcast);
+
+        return $test->id;
     }
 }

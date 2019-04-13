@@ -6,6 +6,7 @@ use DB;
 use Model;
 
 use Cleanse\Event\Models\Team;
+use Cleanse\Event\Models\Match;
 
 /**
  * Class Event
@@ -38,7 +39,8 @@ class Event extends Model
     ];
 
     public $hasMany = [
-        'matches' => 'Cleanse\Event\Models\Match'
+        'matches'    => 'Cleanse\Event\Models\Match',
+        'broadcasts' => 'Cleanse\Event\Models\Broadcast'
     ];
 
     public $belongsToMany = [
@@ -92,5 +94,13 @@ class Event extends Model
         $this->matches()->create($matchMerge);
 
         return $this;
+    }
+
+    public function broadcastableMatches()
+    {
+        return Match::where('event_id', '=', $this->id)
+            ->whereNull('lineup')
+            ->orderBy('id', 'asc')
+            ->get();
     }
 }
