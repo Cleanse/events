@@ -166,8 +166,14 @@ class AdminEdit extends ComponentBase
             return [];
         }
 
-        Event::find($eventId)
-            ->addTeam($team);
+        $event = Event::find($eventId);
+
+        if (count($event->matches) > 0) {
+            dd('no');
+            return $eventId;
+        }
+
+        $event->addTeam($team);
 
         return $eventId;
     }
