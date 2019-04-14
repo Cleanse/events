@@ -113,9 +113,9 @@ class AdminEdit extends ComponentBase
     public function onEventSchedule()
     {
         $event = Event::find(post('id'));
-        $live = (new ManageEvent())->generateSchedule($event);
+        $eventId = (new ManageEvent())->generateSchedule($event);
 
-        return Redirect::to('/event/'.$live.'/edit');
+        return Redirect::to('/event/'.$eventId.'/edit');
     }
 
     public function onCreateBroadcast()
@@ -127,9 +127,12 @@ class AdminEdit extends ComponentBase
 
     public function onDeleteBroadcast()
     {
-        $broadcastId = $this->deleteBroadcast();
+        $broadcastId = post('id');
+        $eventId = post('event');
 
-        return Redirect::to('/event/broadcast/'.$broadcastId);
+        $this->deleteBroadcast($broadcastId);
+
+        return Redirect::to('/event/'.$eventId.'/edit');
     }
 
     /**
@@ -231,8 +234,14 @@ class AdminEdit extends ComponentBase
         return $test->id;
     }
 
-    private function deleteBroadcast()
+    private function deleteBroadcast($id)
     {
-        //
+        $broadcast = Broadcast::find($id);
+
+        if (!isset($broadcast)) {
+            return;
+        }
+
+        $broadcast->delete();
     }
 }

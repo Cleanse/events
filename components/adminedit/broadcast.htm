@@ -10,7 +10,9 @@
                 <li>
                     <a href="/event/broadcast/{{ broadcast.id }}">{{ broadcast.name }}
                         ({{ broadcast.scheduled_at|date("m/d/Y") }}) [Matches: {{ broadcast.matches.count }}]</a>
-                    <small>Add Remove Broadcast Button With Confirmation.</small>
+                    {{ form_ajax('onDeleteBroadcast', { data: { id: broadcast.id, event: event.id }, confirm: 'Really delete this broadcast?' }) }}
+                    <button type="submit" class="btn btn-danger btn-block">Delete Broadcast</button>
+                    {{ form_close() }}
                 </li>
                 {% endfor %}
             </ul>
