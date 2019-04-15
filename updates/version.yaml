@@ -4,4 +4,6 @@
 1.0.2:
   - Added teams to the system.
   - add_teams_tables.php
-1.0.3: Added Broadcast Featureset.
+1.0.3:
+  - Added Broadcast Featureset.
+  - seed_teams_table.php

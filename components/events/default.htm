@@ -9,9 +9,14 @@
             <div class="category-group">
                 {% for event in events %}
                 <div class="category-group-item">
-                    {{ event.name }}
+                    <a href="/event/{{ event.slug }}">{{ event.name }}</a>
                 </div>
                 {% endfor %}
+            </div>
+
+            <div class="search-for-team-or-player">
+                <h4>Search</h4>
+                ???
             </div>
         </div>
     </div>

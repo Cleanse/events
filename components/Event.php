@@ -5,7 +5,7 @@ namespace Cleanse\Event\Components;
 use Redirect;
 use Cms\Classes\ComponentBase;
 
-use Cleanse\Event\Models\Event as EventData;
+use Cleanse\Event\Models\Event as EventModel;
 
 class Event extends ComponentBase
 {
@@ -23,7 +23,7 @@ class Event extends ComponentBase
     {
         return [
             'event' => [
-                'title'       => 'Event ID',
+                'title'       => 'Event Slug',
                 'description' => 'Event identification.',
                 'default'     => '{{ :event }}',
                 'type'        => 'string',
@@ -44,9 +44,9 @@ class Event extends ComponentBase
 
     private function getEventData()
     {
-        $id = $this->property('event');
+        $slug = $this->property('event');
 
-        $event = EventData::find($id);
+        $event = EventModel::where('slug', '=', $slug)->first();
 
         return $event;
     }
