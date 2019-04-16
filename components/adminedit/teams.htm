@@ -1,8 +1,10 @@
 <div class="mt-2">
     <p class="pt-2 lead">Manage Teams</p>
-    <p class="text-warning text-center"><small><i class="fas fa-exclamation-triangle"></i> If you're using seeding,
+    {% if event.matches.count == 0 %}
+    <p class="text-warning"><small><i class="fas fa-exclamation-triangle"></i> If you're using seeding,
         redo your placements after either adding or removing a team! Will make it easier when I can go back and add in
         a smarter reordering system. <i class="fas fa-exclamation-triangle"></i></small></p>
+
     <div class="row">
         <div class="col-md-6">
             <form data-request="onCreateTeam">
@@ -61,4 +63,17 @@
         </form>
         {% endfor %}
     </div>
+    {% else %}
+    <p class="text-danger text-center">
+        <small><i class="fas fa-exclamation-triangle"></i>Once matches are generated, you can no longer add or remove
+            teams.<i class="fas fa-exclamation-triangle"></i></small>
+    </p>
+
+    <p>Team count: {{ event.teams.count }}</p>
+    <ul>
+        {% for team in event.teams %}
+        <li><a href="/events/teams/manage">{{ team.name }} (Seed: {{ team.pivot.seed ?? 'None' }})</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 </div>

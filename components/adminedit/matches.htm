@@ -2,20 +2,24 @@
     <p class="pt-2 lead">Manage Matches</p>
 
     {% if event.matches.count <= 1 %}
-        {% if event.teams.count <= 1 %}
-        <button id="more-teams" class="btn btn-outline-secondary">Teams</button>
-        {% else %}
-        <div>
-            {{ form_open({ request: __SELF__~'::onEventSchedule' }) }}
-                <input type="hidden" name="id" value="{{ event.id }}">
-                <p>
-                    Your <span class="text-info">'{{ event.type }}'</span> event has:
-                    <strong>{{ event.teams.count }} Teams</strong>
-                </p>
-                <button type="submit" class="btn btn-outline-primary">Generate Schedule</button>
-            {{ form_close() }}
-        </div>
-        {% endif %}
+    {% if event.teams.count <= 1 %}
+    <p class="text-danger">
+        Before you can generate any <strong>matches</strong>, you need to add teams to the event.
+    </p>
+    {% else %}
+    <div>
+        {{ form_open({ request: __SELF__~'::onEventSchedule' }) }}
+            <input type="hidden" name="id" value="{{ event.id }}">
+            <p>
+                Your <span class="text-info">'{{ event.type }}'</span> event has:
+                <strong>{{ event.teams.count }} Teams</strong>
+            </p>
+            <button type="submit" class="btn btn-outline-primary">Generate Schedule</button>
+        {{ form_close() }}
+        <p class="text-danger"> <i class="fas fa-exclamation-triangle"></i> Once matches are generated, you can no longer
+            add or remove teams.</p>
+    </div>
+    {% endif %}
     {% else %}
     <h3>Matchups</h3>
     <div id="format-partial">

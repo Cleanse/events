@@ -1,6 +1,7 @@
 <div class="mt-2">
     <p class="pt-2 lead">Manage Stream Broadcast</p>
     <hr>
+    {% if event.matches.count > 0 %}
     <div class="row">
         {% if event.broadcasts.count > 0 %}
         <div class="col-lg-6">
@@ -59,4 +60,8 @@
             {{ form_close() }}
         </div>
     </div>
+    {% else %}
+    <p class="text-danger">Before you can generate any <strong>broadcasts</strong>, you need to add matches to the
+        event.</p>
+    {% endif %}
 </div>
