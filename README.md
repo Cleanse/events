@@ -2,7 +2,7 @@
 A round-robin and bracket events plugin for OctoberCMS.
 
 ### Bracket Stage
-- [ ] Generate *Best-of-**X*** single-elimination bracket.
+- [x] Generate *Best-of-**X*** single-elimination bracket.
 - [ ] Generate *Best-of-**X*** double-elimination bracket.
 - [ ] ~~Option to grab the top **X** teams from a *Round Robin Group Stage* event.~~
 
@@ -21,6 +21,7 @@ naming scheme to import the entire format config, creation, update scheme.~~
 - Overlay ('/event/:id/broadcast') will work similarly to '/event/:id/placement' does.
 - Editing a match will pop out similarly to editing a team (using a modal).
 - Needs 'user' or 'role' support. Right now, all admin can control all events etc.
+- After matches are generated, hide 'event type settings' from Settings tab.
 
 ###### Frontend? Controllers (October backend)
 - !!! Eventual idea: Event/Overlay SAAS.
@@ -28,6 +29,6 @@ naming scheme to import the entire format config, creation, update scheme.~~
 - [ ] '/event/:id/manage' route needs to be added for managing the overlay.
 
 ### Week of April 15th TODO
-- [ ] Get match creation done (partially done) [admin].
+- [ ] Get match creation done (double elim) [admin].
 - [ ] Get list of scenes needed for The Feast World Cup from Kaze [broadcast]
-- [ ] Create partials for event admin match list. (RR sorta done, Bracket Single, Double, and Swiss todo)
+- [ ] Create partials for event admin match list. (RR sorta done; Bracket Single, Double todo)

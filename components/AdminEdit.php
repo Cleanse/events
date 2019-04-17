@@ -2,7 +2,6 @@
 
 namespace Cleanse\Event\Components;
 
-use Cleanse\Event\Models\Broadcast;
 use Redirect;
 use ValidationException;
 use Validator;
@@ -14,6 +13,8 @@ use Cleanse\Event\Classes\Helpers\DateTimeHelper;
 use Cleanse\Event\Classes\Helpers\EventTypes;
 use Cleanse\Event\Models\Event;
 use Cleanse\Event\Models\Team;
+use Cleanse\Event\Models\Match;
+use Cleanse\Event\Models\Broadcast;
 
 class AdminEdit extends ComponentBase
 {
@@ -47,6 +48,7 @@ class AdminEdit extends ComponentBase
             return Redirect::to('/event/create');
         }
 
+        $this->addCss('assets/css/events.css');
         $this->addJs('assets/js/events.js');
 
         $this->page['event_types']  = EventTypes::load();
@@ -135,6 +137,11 @@ class AdminEdit extends ComponentBase
         return Redirect::to('/event/'.$eventId.'/edit');
     }
 
+    public function onRequestMatchUpdate()
+    {
+        $this->page['match'] = Match::find(post('id'));
+    }
+
     /**
      * Class only.
      */
@@ -203,7 +210,7 @@ class AdminEdit extends ComponentBase
         if ($this->event->type == 'round-robin') {
             return $this->event->matches->groupBy('takes_place_during');
         } else {
-            return $this->event->matches->groupBy('order');
+            return $this->event->matches->sortBy('order');
         }
     }
 

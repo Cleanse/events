@@ -68,7 +68,7 @@ const types = {
         },
         "third_place": {
             "type": "select",
-            "label": "third_place",
+            "label": "third_place_match",
             "description": "Third Place Match?",
             "placeholder": false,
             "default": "Yes. Useful when you need in-depth seeding.",
@@ -125,7 +125,7 @@ const types = {
         },
         "third_place": {
             "type": "select",
-            "label": "third_place",
+            "label": "third_place_match",
             "description": "Third Place Match?",
             "placeholder": false,
             "default": "Yes. Useful when you need in-depth seeding.",

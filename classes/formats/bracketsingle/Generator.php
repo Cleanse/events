@@ -29,57 +29,83 @@ class Generator
 
     private function makeSchedule()
     {
+        $teamsWithSeed = $this->getTeamsWithSeeds();
+
+        //Pair the teams for opening round
+        $groupTeams = $this->getInitialRoundPrepared($teamsWithSeed);
+
+        //Setup match order for bracket
+        $orderedMatches = $this->reOrderMatches($groupTeams);
+
+        return $orderedMatches;
+    }
+
+    private function getTeamsWithSeeds()
+    {
         if ($this->event->config['randomize'] > 0) {
             $teams = $this->event->teams->pluck('id')->toArray();
             shuffle($teams);
 
-            $teamSeed = $this->fauxSeeding($teams);
-
-//            foreach($teams as $key => $value) {
-//                dd($value);
-//            }
-
-            dd($teamSeed); //compare this to below
+            $teamsWithSeed = $this->fauxSeeding($teams);
         } else {
-            $teams = $this->event->teams->pluck('id', 'pivot.seed')->toArray();
-
-            //Create seeded groups.
-            $groupTeams = RoundRobinHelper::seed_partition($teams, $this->event->config['number_of_groups']);
+            $teamsWithSeed = $this->event->teams->pluck('id', 'pivot.seed')->toArray();
         }
 
-        $matches = [];
-        foreach ($groupTeams as $group) {
-            $matches[] = $this->generateGroupMatches($group);
-        }
-
-        return $matches;
+        return $teamsWithSeed;
     }
 
-    private function createMatches($matches)
+    private function getInitialRoundPrepared($teams)
     {
-        $order = 1;
-        foreach ($matches as $group) {
-            foreach ($group as $match) {
-                (new MatchGenerator)->createMatch($this->event->id, $match, $order);
+        $teamCount = count($teams);
+        $matchesCount = $teamCount / 2;
+
+        $seeds = range(1, $teamCount);
+        $seeds = array_chunk($seeds, $matchesCount);
+
+        $g = 1;
+        $orderedList = [];
+        foreach ($seeds as $chunk) {
+            if ($g % 2 === 0) {
+                $chunk = array_reverse($chunk);
             }
-            $order++;
+
+            foreach ($chunk as $item => $value) {
+                $orderedList[] = $value;
+            }
+
+            $g++;
         }
+
+        $divisions = [];
+        $r = 1;
+        foreach ($orderedList as $seed) {
+            $divisions[$r][] = $teams[$seed];
+
+            if ($r % $matchesCount !== 0) {
+                $r++;
+            } else {
+                $r = 1;
+            }
+        }
+
+        return $divisions;
     }
 
-//    private function reorderPlacement()
-//    {
-//        $placement = post('placement');
-//        $eventId = post('id');
-//
-//        $event = Event::find($eventId);
-//
-//        $i = 1;
-//        foreach($placement as $key => $value) {
-//            $event->teams()->updateExistingPivot($key, ['seed' => $i]);
-//
-//            $i++;
-//        }
-//    }
+    private function reOrderMatches($matches)
+    {
+        $branches = count($matches);
+
+        $newOrder = [];
+        for ($o = 1; $o <= $branches; $o++) {
+            $match = reset($matches);
+            $newOrder[$o] = $match;
+            array_shift($matches);
+
+            $matches = array_reverse($matches);
+        }
+
+        return $newOrder;
+    }
 
     private function fauxSeeding($placement)
     {
@@ -95,5 +121,54 @@ class Generator
         }
 
         return array_combine($seeds, $placement);
+    }
+
+    //Might be useful? Prob not... Prob...
+    private function getBracketSize($size)
+    {
+        $bracketSize = 2;
+
+        switch ($size) {
+            case ($size <= 2):
+                $bracketSize = 2;
+                break;
+            case ($size <= 4):
+                $bracketSize = 4;
+                break;
+            case ($size <= 8):
+                $bracketSize = 8;
+                break;
+            case ($size <= 16):
+                $bracketSize = 16;
+                break;
+            case ($size <= 32):
+                $bracketSize = 32;
+                break;
+        }
+
+        return $bracketSize;
+    }
+
+    private function createMatches($matches)
+    {
+        $order = 1;
+        foreach ($matches as $match) {
+            (new MatchGenerator)->createMatch($this->event->id, $match, $order);
+            $order++;
+        }
+
+        $maxMatches = count($this->event->teams) - 1;
+        if (isset($this->event->config['third_place_match']) && $this->event->config['third_place_match'] > 0) {
+            $maxMatches = $maxMatches + 1;
+        }
+
+        $leftover = $maxMatches - ($order - 1);
+
+        for ($i = 1; $i <= $leftover; $i++) {
+            $match = [null, null];
+            (new MatchGenerator)->createMatch($this->event->id, $match, $order);
+
+            $order++;
+        }
     }
 }
