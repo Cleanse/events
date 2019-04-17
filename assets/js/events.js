@@ -54,7 +54,7 @@ const types = {
             "label": "randomize",
             "description": "Randomize Groups?",
             "placeholder": false,
-            "default": "No.",
+            "default": "No",
             "options": [
                 {
                     "title": "No",
@@ -63,6 +63,23 @@ const types = {
                 {
                     "title": "Yes",
                     "value": "1"
+                }
+            ]
+        },
+        "third_place": {
+            "type": "select",
+            "label": "third_place",
+            "description": "Third Place Match?",
+            "placeholder": false,
+            "default": "Yes. Useful when you need in-depth seeding.",
+            "options": [
+                {
+                    "title": "Yes",
+                    "value": "1"
+                },
+                {
+                    "title": "No",
+                    "value": "0"
                 }
             ]
         }
@@ -105,50 +122,25 @@ const types = {
                     "value": "3"
                 }
             ]
+        },
+        "third_place": {
+            "type": "select",
+            "label": "third_place",
+            "description": "Third Place Match?",
+            "placeholder": false,
+            "default": "Yes. Useful when you need in-depth seeding.",
+            "options": [
+                {
+                    "title": "Yes",
+                    "value": "1"
+                },
+                {
+                    "title": "No",
+                    "value": "0"
+                }
+            ]
         }
-    },
-    "swiss": {
-        "points_per_victory": {
-            "type": "number",
-            "label": "points_per_victory",
-            "description": "Points Per Match Win",
-            "placeholder": "1.0",
-            "default": false,
-            "options": false
-        },
-        "points_per_match_tie": {
-            "type": "number",
-            "label": "points_per_match_tie",
-            "description": "Points Per Match Tie",
-            "placeholder": "0.5",
-            "default": false,
-            "options": false
-        },
-        "points_per_win": {
-            "type": "number",
-            "label": "points_per_win",
-            "description": "Points Per Game Win",
-            "placeholder": "0.0",
-            "default": false,
-            "options": false
-        },
-        "points_per_tie": {
-            "type": "number",
-            "label": "points_per_tie",
-            "description": "Points Per Game Tie",
-            "placeholder": "0.0",
-            "default": false,
-            "options": false
-        },
-        "points_per_bye": {
-            "type": "number",
-            "label": "points_per_bye",
-            "description": "Points Per Round Bye",
-            "placeholder": "1.0",
-            "default": false,
-            "options": false
-        }
-    },
+    }
 };
 
 //Watch Select Field
