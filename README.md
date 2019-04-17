@@ -1,11 +1,6 @@
 # Events Plugin (WIP)
 A round-robin and bracket events plugin for OctoberCMS.
 
-### Bracket Stage
-- [x] Generate *Best-of-**X*** single-elimination bracket.
-- [ ] Generate *Best-of-**X*** double-elimination bracket.
-- [ ] ~~Option to grab the top **X** teams from a *Round Robin Group Stage* event.~~
-
 ###### Brainstorming
 - Events Admin '/events/a/:slug'
   - Admin{ComponentId}
@@ -29,6 +24,4 @@ naming scheme to import the entire format config, creation, update scheme.~~
 - [ ] '/event/:id/manage' route needs to be added for managing the overlay.
 
 ### Week of April 15th TODO
-- [ ] Get match creation done (double elim) [admin].
 - [ ] Get list of scenes needed for The Feast World Cup from Kaze [broadcast]
-- [ ] Create partials for event admin match list. (RR sorta done; Bracket Single, Double todo)

@@ -111,15 +111,11 @@ const types = {
             "options": [
                 {
                     "title": "1-2 matches — winners bracket finalist has to be defeated twice.",
-                    "value": "1"
-                },
-                {
-                    "title": "One Match",
                     "value": "2"
                 },
                 {
-                    "title": "None",
-                    "value": "3"
+                    "title": "One Match",
+                    "value": "1"
                 }
             ]
         },
