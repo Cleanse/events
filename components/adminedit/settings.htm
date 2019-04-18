@@ -1,9 +1,18 @@
 <div class="mt-2">
     <p class="pt-2 lead">Edit Event Settings</p>
 
+    {% if event.matches.count > 0 %}
+    <p class="text-danger">
+        <i class="fas fa-exclamation-triangle"></i>
+        Note that because matches were generated, you can no longer modify the settings.
+    </p>
+    {% endif %}
+
+    {% if event.matches.count == 0 %}
     <form data-request="onEventUpdate"
           data-request-validate>
         <input type="hidden" name="eid" value="{{ event.id }}">
+        {% endif %}
 
         <div class="alert alert-danger d-none" role="alert" data-validate-error>
             <p class="mb-0" data-message></p>
@@ -36,16 +45,23 @@
 
         <div id="event-config"></div>
 
+        {% if event.matches.count == 0 %}
         <button type="submit" class="btn btn-outline-primary">
             Save Settings
         </button>
 
     </form>
+    {% else %}
+    <p class="text-danger">
+        <i class="fas fa-exclamation-triangle"></i>
+        Note that because matches were generated, you can no longer modify the settings.
+    </p>
+    {% endif %}
 
     <div class="d-flex flex-row-reverse" data-request-data="id: {{ event.id }}">
         <button class="btn btn-outline-danger pull-right"
                 data-request="onEventDelete"
                 data-request-confirm="Are you sure?">
-            Delete Event?</button>
+            Hide Event From Public?</button>
     </div>
 </div>
