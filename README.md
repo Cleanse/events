@@ -25,3 +25,7 @@ naming scheme to import the entire format config, creation, update scheme.~~
 
 ### Week of April 15th TODO
 - [ ] Get list of scenes needed for The Feast World Cup from Kaze [broadcast]
+- [ ] Use https://github.com/xoco70/laravel-tournaments/blob/master/src/TreeGen/CreateSingleEliminationTree.php
+  - Get Round names and use for backend display.
+  - Need to create round robin overlay system that can load groups individually? Maybe a way to to fit a big Round
+    Robin stage (JP).

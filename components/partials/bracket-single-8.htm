@@ -1,0 +1,123 @@
+<div class="next-match-header">
+    <h1>Regional Qualifier</h1>
+    <p id="best-of">{{ event.name }}</p>
+</div>
+
+<div class="bracket single-8">
+    <div class="round">
+        <div class="match-pair">
+            <div class="match active">
+                <div class="match-header">Match 1</div>
+                <div class="opponent-1">
+                    <span class="name">{{ event.matches[0].one.name}}</span>
+                    <span class="score">{{ event.matches[0].team_one_score ?? 0 }}</span>
+                </div>
+                <div class="opponent-2">
+                    <span class="name">{{ event.matches[0].two.name}}</span>
+                    <span class="score">{{ event.matches[0].team_two_score ?? 0 }}</span>
+                </div>
+                <span></span>
+            </div>
+            <div class="match">
+                <div class="match-header">Match 2</div>
+                <div class="opponent-1">
+                    <span class="name">{{ event.matches[1].one.name}}</span>
+                    <span class="score">{{ event.matches[1].team_one_score ?? 0 }}</span>
+                </div>
+                <div class="opponent-2">
+                    <span class="name">{{ event.matches[1].two.name}}</span>
+                    <span class="score">{{ event.matches[1].team_two_score ?? 0 }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="match-pair">
+            <div class="match">
+                <div class="match-header">Match 3</div>
+                <div class="opponent-1">
+                    <span class="name">{{ event.matches[2].one.name}}</span>
+                    <span class="score">{{ event.matches[2].team_one_score ?? 0 }}</span>
+                </div>
+                <div class="opponent-2">
+                    <span class="name">{{ event.matches[2].two.name}}</span>
+                    <span class="score">{{ event.matches[2].team_two_score ?? 0 }}</span>
+                </div>
+            </div>
+            <div class="match">
+                <div class="match-header">Match 4</div>
+                <div class="opponent-1">
+                    <span class="name">{{ event.matches[3].one.name}}</span>
+                    <span class="score">{{ event.matches[3].team_one_score ?? 0 }}</span>
+                </div>
+                <div class="opponent-2">
+                    <span class="name">{{ event.matches[3].two.name}}</span>
+                    <span class="score">{{ event.matches[3].team_two_score ?? 0 }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="round">
+        <div class="match-pair">
+            <div class="match">
+                <div class="match-header">Match 5</div>
+                <div class="opponent-1">
+                    <span class="name">{{ event.matches[4].one.name}}</span>
+                    <span class="score">{{ event.matches[4].team_one_score ?? 0 }}</span>
+                </div>
+                <div class="opponent-2">
+                    <span class="name">{{ event.matches[4].two.name}}</span>
+                    <span class="score">{{ event.matches[4].team_two_score ?? 0 }}</span>
+                </div>
+            </div>
+            <div class="match">
+                <div class="match-header">Match 6</div>
+                <div class="opponent-1">
+                    <span class="name">{{ event.matches[5].one.name}}</span>
+                    <span class="score">{{ event.matches[5].team_one_score ?? 0 }}</span>
+                </div>
+                <div class="opponent-2">
+                    <span class="name">{{ event.matches[5].two.name}}</span>
+                    <span class="score">{{ event.matches[5].team_two_score ?? 0 }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="final-round round">
+        <div class="match final">
+            <div class="match-header">Finals</div>
+            <div class="opponent-1">
+                <span class="name">{{ event.matches[7].one.name}}</span>
+                <span class="score">{{ event.matches[7].team_one_score ?? 0 }}</span>
+            </div>
+            <div class="opponent-2">
+                <span class="name">{{ event.matches[7].two.name}}</span>
+                <span class="score">{{ event.matches[7].team_two_score ?? 0 }}</span>
+            </div>
+        </div>
+
+        <div class="match third">
+            <div class="match-header">Third Place</div>
+            <div class="opponent-1">
+                <span class="name">{{ event.matches[6].one.name}}</span>
+                <span class="score">{{ event.matches[6].team_one_score ?? 0 }}</span>
+            </div>
+            <div class="opponent-2">
+                <span class="name">{{ event.matches[6].two.name}}</span>
+                <span class="score">{{ event.matches[6].team_two_score ?? 0 }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="seeding round">
+        {% if seed_one %}
+        <div class="seeds">
+            <div class="seed">{{ seed_one }}</div>
+            <div class="seed">{{ seed_two }}</div>
+            <div class="seed">{{ seed_three }}</div>
+            <div class="seed">{{ seed_four }}</div>
+        </div>
+        {% endif %}
+    </div>
+</div>

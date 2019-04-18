@@ -1,9 +1,10 @@
-.single-eight {
+/** 1920 x 690 */
+.double-8 {
   display: flex;
   flex-wrap: nowrap;
 
   .round {
-    width: 450px;
+    width: 384px; /* 320 if we add a col for Seed table */
     display: flex;
     flex-direction: column;
 
@@ -18,8 +19,16 @@
     &.final-round {
       margin-top: 215px;
 
+      .match.third {
+        width:420px;
+      }
+
       .match:first-child {
         margin-bottom: 120px;
+      }
+
+      .final {
+        font-weight: bold;
       }
     }
 
@@ -122,6 +131,10 @@
       z-index: -1;
       animation: animatedGradient 10s ease alternate infinite;
       background-size: 100% 100%;
+    }
+
+    .match-header {
+      font-weight: bold;
     }
   }
 }

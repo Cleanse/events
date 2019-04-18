@@ -123,32 +123,6 @@ class Generator
         return array_combine($seeds, $placement);
     }
 
-    //Might be useful? Prob not... Prob...
-    private function getBracketSize($size)
-    {
-        $bracketSize = 2;
-
-        switch ($size) {
-            case ($size <= 2):
-                $bracketSize = 2;
-                break;
-            case ($size <= 4):
-                $bracketSize = 4;
-                break;
-            case ($size <= 8):
-                $bracketSize = 8;
-                break;
-            case ($size <= 16):
-                $bracketSize = 16;
-                break;
-            case ($size <= 32):
-                $bracketSize = 32;
-                break;
-        }
-
-        return $bracketSize;
-    }
-
     private function createMatches($matches)
     {
         $order = 1;
