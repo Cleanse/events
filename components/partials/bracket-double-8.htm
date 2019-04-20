@@ -1,6 +1,6 @@
 <div class="next-match-header">
-    <h1>Regional Qualifier</h1>
-    <p id="best-of">{{ event.name }}</p>
+    <h1>{{ event.name }}</h1>
+    <p id="best-of">{{ event.description }}</p>
 </div>
 
 <div class="bracket double-8">
@@ -120,4 +120,34 @@
         </div>
         {% endif %}
     </div>
+</div>
+
+<div class="lower-bracket">
+    <!-- Start Lower Bracket -->
+    <div class="lower-bracket">
+        <div class="match">
+            <div class="match-header">Match 5</div>
+            <div class="opponent-1">
+                <span class="name">{{ event.matches[4].one.name}}</span>
+                <span class="score">{{ event.matches[4].team_one_score ?? 0 }}</span>
+            </div>
+            <div class="opponent-2">
+                <span class="name">{{ event.matches[4].two.name}}</span>
+                <span class="score">{{ event.matches[4].team_two_score ?? 0 }}</span>
+            </div>
+        </div>
+
+        <div class="match">
+            <div class="match-header">Match 6</div>
+            <div class="opponent-1">
+                <span class="name">{{ event.matches[5].one.name}}</span>
+                <span class="score">{{ event.matches[5].team_one_score ?? 0 }}</span>
+            </div>
+            <div class="opponent-2">
+                <span class="name">{{ event.matches[6].two.name}}</span>
+                <span class="score">{{ event.matches[6].team_two_score ?? 0 }}</span>
+            </div>
+        </div>
+    </div>
+    <!-- End Lower Bracket -->
 </div>

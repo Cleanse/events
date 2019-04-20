@@ -2,6 +2,10 @@
 $claws: #24428E;
 $fangs: #AB001C;
 
+$eu-color: #52b04f;
+$jp-color: #9472c4;
+$na-color: #ed515b;
+
 body {
   background: rgba(255, 255, 255, 0);
   font-family: 'Raleway', sans-serif;
@@ -119,6 +123,21 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 3rem;
     text-transform: uppercase;
   }
+
+  &.eu {
+    background: url('../images/region-eu.png') no-repeat center center;
+    background-size: 60%;
+  }
+
+  &.jp {
+    background: url('../images/region-jp.png') no-repeat center center;
+    background-size: 45%;
+  }
+
+  &.na {
+    background: url('../images/region-na.png') no-repeat center center;
+    background-size: 40%;
+  }
 }
 
 .team-one,
@@ -133,10 +152,18 @@ h1, h2, h3, h4, h5, h6 {
 
 .team-one {
   border-bottom: 3px solid $claws;
+
+  h2, h3 {
+    text-shadow: $claws 1px 0 10px;
+  }
 }
 
 .team-two {
   border-bottom: 3px solid $fangs;
+
+  h2, h3 {
+    text-shadow: $fangs 1px 0 10px;
+  }
 }
 
 .versus {
