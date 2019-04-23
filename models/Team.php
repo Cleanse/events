@@ -46,4 +46,17 @@ class Team extends Model
             'pivot' => ['seed']
         ]
     ];
+
+    public function getLogoThumb($size = 48, $options = null)
+    {
+        if (is_string($options)) {
+            $options = ['default' => $options];
+        } elseif (!is_array($options)) {
+            $options = [];
+        }
+
+        if ($this->logo) {
+            return $this->logo->getThumb($size, $size, $options);
+        }
+    }
 }
