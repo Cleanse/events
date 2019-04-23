@@ -1,4 +1,4 @@
-<div class="overlay-wrapper" style="background: #666;">
+<div class="overlay-wrapper">
     <div class="overlay-header">
         <div class="xiv-block">
             <img class="xiv-logo" src="/themes/pvpaissa_organization/assets/images/xiv-logo-sm.png">
@@ -10,13 +10,9 @@
 
     <div class="overlay-content">
         <div class="overlay-content-wrapper">
-            {% partial __SELF__~'::matchup' %}
+            {% partial __SELF__~'::'~event.type~'-'~size %}
         </div>
     </div>
 
     <div class="overlay-footer"></div>
 </div>
-
-<!--
-'~event.type~'-'~size
--->

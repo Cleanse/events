@@ -23,7 +23,7 @@ naming scheme to import the entire format config, creation, update scheme.~~
 - [Yes/No] For the overlay, should advancing to the next match be manually controlled (due to scoreboard)?
 - [ ] '/event/:id/manage' route needs to be added for managing the overlay.
 
-### Week of April 15th TODO
+### Week of April 22nd TODO
 - [ ] Get list of scenes needed for The Feast World Cup from Kaze [broadcast]
 - [ ] Use https://github.com/xoco70/laravel-tournaments/blob/master/src/TreeGen/CreateSingleEliminationTree.php
   - Get Round names and use for backend display.

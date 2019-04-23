@@ -6,17 +6,6 @@
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
 
-  .upper-bracket,
-  .lower-bracket {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-
-    .round:not(:last-child) {
-      margin-right: 33px;
-    }
-  }
-
   .upper-bracket-label,
   .lower-bracket-label {
     margin: 0 72px 1rem;
@@ -24,6 +13,17 @@
 
   .lower-bracket-label {
     padding-top: 30px;
+  }
+
+  .upper-bracket,
+  .lower-bracket {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+
+    .round:not(:last-child) {
+      margin-right: 30px;
+    }
   }
 
   .upper-bracket {
@@ -37,7 +37,7 @@
 
     .match-pair {
       .match:first-child {
-        margin-bottom: 33px;
+        margin-bottom: 30px;
       }
     }
   }
