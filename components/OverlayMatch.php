@@ -41,6 +41,7 @@ class OverlayMatch extends ComponentBase
 
         $this->page['event'] = $this->event;
         $this->page['size'] = $this->getBracketSize(count($this->event->teams));
+        $this->page['seed_one'] = true;
         $this->addCss('assets/css/overlay.css');
     }
 

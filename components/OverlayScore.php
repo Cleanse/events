@@ -8,7 +8,7 @@ use Cleanse\Event\Models\Match;
 
 class OverlayScore extends ComponentBase
 {
-    private $event;
+    private $match;
 
     public function componentDetails()
     {
@@ -21,10 +21,10 @@ class OverlayScore extends ComponentBase
     public function defineProperties()
     {
         return [
-            'slug' => [
-                'title'       => 'Event Slug',
-                'description' => 'Event identification.',
-                'default'     => '{{ :slug }}',
+            'id' => [
+                'title'       => 'Match ID',
+                'description' => 'Match identification.',
+                'default'     => '{{ :id }}',
                 'type'        => 'string',
             ]
         ];
@@ -32,23 +32,27 @@ class OverlayScore extends ComponentBase
 
     public function onRun()
     {
-        //$this->event = $this->getEventData();
+        $this->match = $this->getMatchData();
 
-//        if (!$this->event) {
-//            $this->page['event'] = [];
-//            return;
-//        }
+        if (!$this->match) {
+            $this->page['match'] = [];
+            return;
+        }
 
         $this->addCss('assets/css/overlay.css');
         $this->addCss('assets/css/overlay-score.css');
 
-        $this->page['event'] = $this->event;
+        $this->addJs('assets/js/overlay.js');
+
+        $this->page['match'] = $this->match;
     }
 
-    private function getEventData()
+    private function getMatchData()
     {
-        $slug = $this->property('slug');
+        $id = $this->property('id');
 
-        return Match::find($slug);
+        return Match::where('id', '=', $id)
+            ->with(['one', 'two'])
+            ->first();
     }
 }

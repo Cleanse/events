@@ -1,17 +1,15 @@
-<!--
-<img class="claws-image" src="/plugins/cleanse/event/assets/images/score-claws.png"/>
-<img class="fangs-image" src="/plugins/cleanse/event/assets/images/score-fangs.png"/>
--->
-<div class="score-wrapper">
-    <div class="claws-wrapper eu">
+{% set claws_logo = '/plugins/cleanse/event/assets/images/score-claws.png' %}
+{% set fangs_logo = '/plugins/cleanse/event/assets/images/score-fangs.png' %}
+<div id="overlay-score" class="score-wrapper">
+    <div class="claws-wrapper">
         <div class="team-content">
             <div class="team-banner">
                 <div class="team-banner-image-wrapper">
-                    <img class="claws-image" src="/plugins/cleanse/broadcast/assets/images/Aces.png"/>
+                    <img id="claws-logo" class="claws-image" src="{{ match.one.getLogoThumb(128) ?? claws_logo }}"/>
                 </div>
             </div>
-            <h4>0</h4>
-            <h2 class="text-na">Double God Blade</h2>
+            <h4 id="claws-score">{{ match.team_one_score ?? 0 }}</h4>
+            <h2 id="claws-name" class="text-na">{{ match.one.name ?? 'Claws' }}</h2>
         </div>
     </div>
     <div class="globe-image-wrapper">
@@ -20,13 +18,13 @@
     <div class="meteor-image-wrapper">
         <img class="meteor-image" src="/plugins/cleanse/broadcast/assets/images/xiv-meteor.png"/>
     </div>
-    <div class="fangs-wrapper na">
+    <div class="fangs-wrapper">
         <div class="team-content">
-            <h2 class="text-jp">Chance of the Offensive Aegis Boon</h2>
-            <h4>0</h4>
+            <h2 id="fangs-name" class="text-jp">{{ match.two.name ?? 'Fangs' }}</h2>
+            <h4 id="fangs-score">{{ match.team_two_score ?? 0 }}</h4>
             <div class="team-banner">
                 <div class="team-banner-image-wrapper">
-                    <img class="fangs-image" src="/plugins/cleanse/broadcast/assets/images/burself.png"/>
+                    <img id="fangs-logo" class="fangs-image" src="{{ match.two.getLogoThumb(128) ?? fangs_logo }}"/>
                 </div>
             </div>
         </div>
