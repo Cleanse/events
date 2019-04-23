@@ -17,6 +17,15 @@
     }
   }
 
+  .upper-bracket-label,
+  .lower-bracket-label {
+    margin: 0 72px 1rem;
+  }
+
+  .lower-bracket-label {
+    padding-top: 30px;
+  }
+
   .upper-bracket {
     height: 275px;
 
@@ -31,15 +40,6 @@
         margin-bottom: 33px;
       }
     }
-  }
-
-  .upper-bracket-label,
-  .lower-bracket-label {
-    margin: 0 72px 1rem;
-  }
-
-  .lower-bracket-label {
-    padding-top: 30px;
   }
 
   .lower-bracket {
