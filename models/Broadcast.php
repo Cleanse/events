@@ -54,9 +54,10 @@ class Broadcast extends Model
 
     public function broadcastableMatches()
     {
-        return Match::whereDoesntHave('broadcasts', function ($query) {
-            $query->whereId($this->id);
-        })
+        return Match::where('event_id', '=', $this->event_id)
+            ->whereDoesntHave('broadcasts', function ($query) {
+                $query->whereId($this->id);
+            })
             ->orderBy('id', 'asc')
             ->get();
     }
