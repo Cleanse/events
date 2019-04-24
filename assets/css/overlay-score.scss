@@ -46,6 +46,20 @@ body {
   width: 400px;
   height: 100%;
   position: absolute;
+
+  //Start might scrap
+  .text-eu {
+    color: $eu-color;
+  }
+
+  .text-jp {
+    color: $jp-color;
+  }
+
+  .text-na {
+    color: $na-color;
+  }
+  //End might scrap
 }
 
 .team-content {
@@ -150,18 +164,6 @@ body {
   .team-banner {
     background-color: $na-color;
   }
-}
-
-.text-eu {
-  color: $eu-color;
-}
-
-.text-jp {
-  color: $jp-color;
-}
-
-.text-na {
-  color: $na-color;
 }
 
 .team-banner {
