@@ -1,26 +1,28 @@
-<!-- start put in match partial -->
+{% set claws_logo = '/plugins/cleanse/event/assets/images/score-claws.png' %}
+{% set fangs_logo = '/plugins/cleanse/event/assets/images/score-fangs.png' %}
+
+<!-- needs variables -->
 <div class="next-match-header">
     <h1>Next Match</h1>
     <p id="best-of">Best of 5</p>
 </div>
 
 <div class="teams-wrapper">
-    <div class="team-wrapper team-one eu">
-        <h2>0</h2>
+    <div class="team-wrapper team-one {{ match.one.region }}">
+        <h2 id="one-score">{{ match.team_one_score ?? 0 }}</h2>
         <div class="team-data">
-            <img class="team-logo" src="https://i.gyazo.com/3fb93cba6658985b53c82fa7194ba7ad.png">
-            <h3 class="team-one-bg">Chance of the Offensive Aegis Boon</h3>
+            <img id="one-logo" class="team-logo" src="{{ match.one.getLogoThumb(128) ?? claws_logo }}">
+            <h3 id="one-name" class="team-one-bg">{{ match.one.name ?? 'Claws' }}</h3>
         </div>
     </div>
 
-    <div class="team-wrapper team-two na">
+    <div class="team-wrapper team-two {{ match.two.region }}">
         <div class="team-data">
-            <img class="team-logo" src="/storage/app/uploads/public/5ba/bd7/88a/thumb_449_96_96_0_0_auto.png">
-            <h3 class="team-two-bg">Trois Pourcents</h3>
+            <img id="two-logo" class="team-logo" src="{{ match.two.getLogoThumb(128) ?? fangs_logo }}">
+            <h3 id="two-name" class="team-two-bg">{{ match.two.name ?? 'Fangs' }}</h3>
         </div>
-        <h2>0</h2>
+        <h2 id="two-score">{{ match.team_two_score ?? 0 }}</h2>
     </div>
 </div>
 
 <div class="versus"></div>
-<!-- end put in match partial -->
