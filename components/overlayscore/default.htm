@@ -1,15 +1,16 @@
 {% set claws_logo = '/plugins/cleanse/event/assets/images/score-claws.png' %}
 {% set fangs_logo = '/plugins/cleanse/event/assets/images/score-fangs.png' %}
+
 <div id="overlay-score" class="score-wrapper">
-    <div class="claws-wrapper">
+    <div class="one-wrapper">
         <div class="team-content">
             <div class="team-banner">
                 <div class="team-banner-image-wrapper">
-                    <img id="claws-logo" class="claws-image" src="{{ match.one.getLogoThumb(128) ?? claws_logo }}"/>
+                    <img id="one-logo" class="one-image" src="{{ match.one.getLogoThumb(128) ?? claws_logo }}"/>
                 </div>
             </div>
-            <h4 id="claws-score">{{ match.team_one_score ?? 0 }}</h4>
-            <h2 id="claws-name" class="text-na">{{ match.one.name ?? 'Claws' }}</h2>
+            <h4 id="one-score">{{ match.team_one_score ?? 0 }}</h4>
+            <h2 id="one-name" class="text-{{ match.one.region ?? 'na' }}">{{ match.one.name ?? 'Claws' }}</h2>
         </div>
     </div>
     <div class="globe-image-wrapper">
@@ -18,13 +19,13 @@
     <div class="meteor-image-wrapper">
         <img class="meteor-image" src="/plugins/cleanse/broadcast/assets/images/xiv-meteor.png"/>
     </div>
-    <div class="fangs-wrapper">
+    <div class="two-wrapper">
         <div class="team-content">
-            <h2 id="fangs-name" class="text-jp">{{ match.two.name ?? 'Fangs' }}</h2>
-            <h4 id="fangs-score">{{ match.team_two_score ?? 0 }}</h4>
+            <h2 id="two-name" class="text-{{ match.two.region ?? 'na' }}">{{ match.two.name ?? 'Fangs' }}</h2>
+            <h4 id="two-score">{{ match.team_two_score ?? 0 }}</h4>
             <div class="team-banner">
                 <div class="team-banner-image-wrapper">
-                    <img id="fangs-logo" class="fangs-image" src="{{ match.two.getLogoThumb(128) ?? fangs_logo }}"/>
+                    <img id="two-logo" class="two-image" src="{{ match.two.getLogoThumb(128) ?? fangs_logo }}"/>
                 </div>
             </div>
         </div>

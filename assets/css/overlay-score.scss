@@ -8,20 +8,8 @@ body {
   font-family: 'PT Sans Narrow', sans-serif;
 }
 
-.text-eu {
-  color: $eu-color;
-}
-
-.text-jp {
-  color: $jp-color;
-}
-
-.text-na {
-  color: $na-color;
-}
-
 .score-wrapper {
-  margin: 20px auto 0;
+  margin: 36px auto 0;
   position: relative;
   min-height: 64px;
   width: 800px;
@@ -53,8 +41,8 @@ body {
   width: 64px;
 }
 
-.claws-wrapper,
-.fangs-wrapper {
+.one-wrapper,
+.two-wrapper {
   width: 400px;
   height: 100%;
   position: absolute;
@@ -67,24 +55,24 @@ body {
   align-items: center;
 }
 
-.claws-wrapper h2,
-.fangs-wrapper h2 {
+.one-wrapper h2,
+.two-wrapper h2 {
   color: #fff;
   font-size: 1.25rem;
 }
 
-.fangs-wrapper h2 {
+.two-wrapper h2 {
   text-align: right;
 }
 
-.claws-wrapper h4,
-.fangs-wrapper h4 {
+.one-wrapper h4,
+.two-wrapper h4 {
   color: #fff;
   font-size: 2rem;
   font-weight: 300;
 }
 
-.claws-wrapper {
+.one-wrapper {
   left: 0;
   background: $claws-color;
 
@@ -113,7 +101,7 @@ body {
   }
 }
 
-.fangs-wrapper {
+.two-wrapper {
   right: 0;
   background: $fangs-color;
 
@@ -162,6 +150,18 @@ body {
   .team-banner {
     background-color: $na-color;
   }
+}
+
+.text-eu {
+  color: $eu-color;
+}
+
+.text-jp {
+  color: $jp-color;
+}
+
+.text-na {
+  color: $na-color;
 }
 
 .team-banner {
