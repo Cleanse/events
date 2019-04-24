@@ -15,6 +15,7 @@ class AddTeamsTables extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('slug')->nullable();
+            $table->string('region')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

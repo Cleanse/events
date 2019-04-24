@@ -9,9 +9,9 @@ use Model;
  * @package Cleanse\Event\Models
  * @property string name
  * @property string slug
- * @property string initials
- * @property string logo
+ * @property string region
  * @property string description
+ * @property string logo
  */
 class Team extends Model
 {
@@ -23,8 +23,9 @@ class Team extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'description',
-        'config'
+        'region'
     ];
 
     protected $casts = [
