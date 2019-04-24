@@ -4,6 +4,7 @@ namespace Cleanse\Event\Components;
 
 use Cms\Classes\ComponentBase;
 
+use Cleanse\Event\Models\Broadcast;
 use Cleanse\Event\Models\Match;
 
 class OverlayScore extends ComponentBase
@@ -22,8 +23,8 @@ class OverlayScore extends ComponentBase
     {
         return [
             'id' => [
-                'title'       => 'Match ID',
-                'description' => 'Match identification.',
+                'title'       => 'Broadcast ID',
+                'description' => 'Broadcast identification.',
                 'default'     => '{{ :id }}',
                 'type'        => 'string',
             ]
@@ -50,8 +51,9 @@ class OverlayScore extends ComponentBase
     private function getMatchData()
     {
         $id = $this->property('id');
+        $broadcast = Broadcast::find($id);
 
-        return Match::where('id', '=', $id)
+        return Match::where('id', '=', $broadcast->active_match)
             ->with(['one', 'two'])
             ->first();
     }
