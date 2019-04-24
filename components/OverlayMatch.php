@@ -4,11 +4,12 @@ namespace Cleanse\Event\Components;
 
 use Cms\Classes\ComponentBase;
 
-use Cleanse\Event\Models\Event;
+use Cleanse\Event\Models\Broadcast;
+use Cleanse\Event\Models\Match;
 
 class OverlayMatch extends ComponentBase
 {
-    private $event;
+    private $match;
 
     public function componentDetails()
     {
@@ -21,10 +22,10 @@ class OverlayMatch extends ComponentBase
     public function defineProperties()
     {
         return [
-            'event' => [
-                'title'       => 'Event ID',
+            'id' => [
+                'title'       => 'Broadcast ID',
                 'description' => 'Event identification.',
-                'default'     => '{{ :event }}',
+                'default'     => '{{ :id }}',
                 'type'        => 'string',
             ]
         ];
@@ -32,48 +33,24 @@ class OverlayMatch extends ComponentBase
 
     public function onRun()
     {
-        $this->event = $this->getEventData();
+        $this->match = $this->getEventData();
 
-        if (!$this->event) {
-            $this->page['event'] = [];
+        if (!$this->match) {
+            $this->page['match'] = [];
             return;
         }
 
-        $this->page['event'] = $this->event;
-        $this->page['size'] = $this->getBracketSize(count($this->event->teams));
-        $this->page['seed_one'] = true;
+        $this->page['match'] = $this->match;
         $this->addCss('assets/css/overlay.css');
-    }
-
-    private function getBracketSize($size)
-    {
-        $bracketSize = 2;
-
-        switch ($size) {
-            case ($size <= 2):
-                $bracketSize = 2;
-                break;
-            case ($size <= 4):
-                $bracketSize = 4;
-                break;
-            case ($size <= 8):
-                $bracketSize = 8;
-                break;
-            case ($size <= 16):
-                $bracketSize = 16;
-                break;
-            case ($size <= 32):
-                $bracketSize = 32;
-                break;
-        }
-
-        return $bracketSize;
     }
 
     private function getEventData()
     {
-        $id = $this->property('event');
+        $id = $this->property('id');
+        $broadcast = Broadcast::find($id);
 
-        return Event::find($id);
+        return Match::where('id', '=', $broadcast->active_match)
+            ->with(['one', 'two'])
+            ->first();
     }
 }
