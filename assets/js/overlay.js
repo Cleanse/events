@@ -17,7 +17,11 @@ if (document.getElementById('overlay-score')) {
 }
 
 //Matchup
+if (document.getElementById('overlay-matchup')) {
+    //do stuff
+}
 
-//Bracket
-
-//Groups
+//Bracket/Groups
+if (document.getElementById('overlay-event')) {
+    //# (will need logic check for types
+}
