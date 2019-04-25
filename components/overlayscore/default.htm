@@ -2,7 +2,7 @@
 {% set fangs_logo = '/plugins/cleanse/event/assets/images/score-fangs.png' %}
 
 <div id="overlay-score" class="score-wrapper">
-    <div class="one-wrapper">
+    <div id="one-wrapper" class="{{ match.one.region }}">
         <div class="team-content">
             <div class="team-banner">
                 <div class="team-banner-image-wrapper">
@@ -10,7 +10,7 @@
                 </div>
             </div>
             <h4 id="one-score">{{ match.team_one_score ?? 0 }}</h4>
-            <h2 id="one-name" class="text-{{ match.one.region ?? 'na' }}">{{ match.one.name ?? 'Claws' }}</h2>
+            <h2 id="one-name" class="text-{{ match.one.region ?? 'default' }}">{{ match.one.name ?? 'Claws' }}</h2>
         </div>
     </div>
     <div class="globe-image-wrapper">
@@ -19,9 +19,9 @@
     <div class="meteor-image-wrapper">
         <img class="meteor-image" src="/plugins/cleanse/broadcast/assets/images/xiv-meteor.png"/>
     </div>
-    <div class="two-wrapper">
+    <div id="two-wrapper" class="{{ match.two.region }}">
         <div class="team-content">
-            <h2 id="two-name" class="text-{{ match.two.region ?? 'na' }}">{{ match.two.name ?? 'Fangs' }}</h2>
+            <h2 id="two-name" class="text-{{ match.two.region ?? 'default' }}">{{ match.two.name ?? 'Fangs' }}</h2>
             <h4 id="two-score">{{ match.team_two_score ?? 0 }}</h4>
             <div class="team-banner">
                 <div class="team-banner-image-wrapper">

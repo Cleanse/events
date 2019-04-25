@@ -41,25 +41,11 @@ body {
   width: 64px;
 }
 
-.one-wrapper,
-.two-wrapper {
+#one-wrapper,
+#two-wrapper {
   width: 400px;
   height: 100%;
   position: absolute;
-
-  //Start might scrap
-  .text-eu {
-    color: $eu-color;
-  }
-
-  .text-jp {
-    color: $jp-color;
-  }
-
-  .text-na {
-    color: $na-color;
-  }
-  //End might scrap
 }
 
 .team-content {
@@ -69,24 +55,24 @@ body {
   align-items: center;
 }
 
-.one-wrapper h2,
-.two-wrapper h2 {
+#one-wrapper h2,
+#two-wrapper h2 {
   color: #fff;
   font-size: 1.25rem;
 }
 
-.two-wrapper h2 {
+#two-wrapper h2 {
   text-align: right;
 }
 
-.one-wrapper h4,
-.two-wrapper h4 {
+#one-wrapper h4,
+#two-wrapper h4 {
   color: #fff;
   font-size: 2rem;
   font-weight: 300;
 }
 
-.one-wrapper {
+#one-wrapper {
   left: 0;
   background: $claws-color;
 
@@ -115,7 +101,7 @@ body {
   }
 }
 
-.two-wrapper {
+#two-wrapper {
   right: 0;
   background: $fangs-color;
 
@@ -148,21 +134,24 @@ body {
   }
 }
 
-.eu {
-  .team-banner {
-    background: $eu-color;
+#one-wrapper,
+#two-wrapper {
+  &.eu {
+    .team-banner {
+      background: $eu-color;
+    }
   }
-}
 
-.jp {
-  .team-banner {
-    background-color: $jp-color;
+  &.jp {
+    .team-banner {
+      background-color: $jp-color;
+    }
   }
-}
 
-.na {
-  .team-banner {
-    background-color: $na-color;
+  &.na {
+    .team-banner {
+      background-color: $na-color;
+    }
   }
 }
 
@@ -196,4 +185,3 @@ body {
     width: 96px;
   }
 }
-
