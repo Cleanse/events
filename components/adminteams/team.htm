@@ -16,6 +16,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="region">Team Region</label>
+                    <select id="region" name="region" class="form-control">
+                        <option value="0"{% if team.region == 0 %} selected{% endif %}>No Region</option>
+                        <option value="eu"{% if team.region == 'eu' %} selected{% endif %}>Europe</option>
+                        <option value="jp"{% if team.region == 'jp' %} selected{% endif %}>Japan</option>
+                        <option value="na"{% if team.region == 'na' %} selected{% endif %}>North America</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="description">Team Description</label>
                     <textarea id="description" name="description" class="form-control">{{ team.description }}</textarea>
                 </div>
@@ -43,7 +53,8 @@
                                 <div class="btn btn-primary image-preview-input">
                                     <i class="fa fa-folder-open"></i>
                                     <span class="image-preview-input-title">Choose File</span>
-                                    <input type="file" accept="image/png, image/jpeg, image/gif" id="image-file" name="logo">
+                                    <input type="file" accept="image/png, image/jpeg, image/gif"
+                                           id="image-file" name="logo">
                                 </div>
                             </span>
                     </div>

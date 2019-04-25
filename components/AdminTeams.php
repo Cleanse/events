@@ -54,7 +54,8 @@ class AdminTeams extends ComponentBase
         }
 
         $newTeam = new Team;
-        $newTeam->name = post('name');
+        $newTeam->name        = post('name');
+        $newTeam->region      = post('region');
         $newTeam->description = post('description');
 
         $newTeam->save();
@@ -85,6 +86,7 @@ class AdminTeams extends ComponentBase
     {
         $getTeam = Team::find(post('id'));
         $getTeam->name = post('name');
+        $getTeam->region = post('region');
         $getTeam->description = post('description');
 
         $getTeam->save();

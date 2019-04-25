@@ -27,20 +27,25 @@
             <h3>Team List</h3>
             <div class="category-group">
                 {% for t in teams %}
-                <div class="border border-secondary p-3 d-flex justify-content-between">
+                <div class="team-row border border-secondary p-3 d-flex {{ t.region }}">
+                    <div class="team-logo-wrapper mr-3">
+                        <img src="{{ t.getLogoThumb(48) ?? '/plugins/cleanse/event/assets/images/default.jpg' }}"
+                             alt="{{ t.name }}">
+                    </div>
+
                     <div class="team-info">
                         {{ t.name }}
                         <p><small class="text-secondary">{{ t.description }}</small></p>
                     </div>
 
-                    <div class="actions">
+                    <div class="actions ml-auto">
                         <button type="button" class="btn btn-outline-primary"
                                 data-request="onRequestTeam"
                                 data-request-data="id: {{ t.id }}"
                                 data-request-update="'{{ __SELF__ }}::team': '#teamResult'"
                                 data-toggle="modal"
                                 data-target="#teamModal">
-                            Edit {{ t.name }}
+                            Edit
                         </button>
                     </div>
                 </div>
