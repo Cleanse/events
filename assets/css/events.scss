@@ -10,6 +10,27 @@
   border: 1px solid transparent;
 }
 
+.bg-black {
+  background-color: #111;
+}
+
+.broadcast-lineup form {
+  margin-bottom: 0;
+}
+
+.bg-one.form-group,
+.bg-two.form-group {
+  margin-bottom: 0;
+}
+
+.bg-one {
+  background-color: #24428E;
+}
+
+.bg-two {
+  background-color: #AB001C;
+}
+
 .input-group-btn > .image-preview-input {
   position: relative;
   overflow: hidden;

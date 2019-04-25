@@ -1,28 +1,55 @@
 <p class="pt-2 lead">Broadcastable Matches</p>
 
-<p class="text-info">Match Order | Matchup</p>
+<p class="text-info">Match Order will be determined by the order you add them in. A simpler UI
+reorder function will come later, apologies.</p>
 
-{% for m in broadcast.broadcastableMatches %}
-{{ form_open({ request: __SELF__~'::onAddBroadcastMatch' }) }}
-<input type="hidden" name="broadcast" value="{{ broadcast.id }}">
-<input type="hidden" name="match" value="{{ m.id }}">
-<input type="hidden" name="count" value="{{ broadcast.matches.count + 1 }}">
-<div class="category-group-item d-flex align-items-start">
-    {% if m.order %}
-    <span>
-        {{ m.order }} |
-    </span>
-    {% elseif m.takes_place_during %}
-    <span>
-        Round {{ m.takes_place_during }} |
-    </span>
-    {% endif %}
+<div class="row">
+    <div class="col-md-6">
+        <h3>Current Lineup:</h3>
+        {% for bm in broadcast.matches %}
+        {{ form_open({ request: __SELF__~'::onRemoveBroadcastMatch' }) }}
+        <input type="hidden" name="broadcast" value="{{ broadcast.id }}">
+        <input type="hidden" name="match" value="{{ bm.id }}">
+        <div class="category-group-item d-flex align-items-start">
+            <span>
+                {{ bm.pivot.lineup }} |
+            </span>
 
-    <span>
-        {{ m.one.name ?? 'Team Claws' }}<br>vs<br>{{ m.two.name ?? 'Team Fangs' }}
-    </span>
+            <span>
+                {{ bm.one.name }}<br>vs<br>{{ bm.two.name }}
+            </span>
 
-    <button class="btn btn-outline-primary btn-sm ml-auto" type="submit">Add Match</button>
+            <button class="btn btn-outline-primary btn-sm ml-auto" type="submit">Remove Match</button>
+        </div>
+        {{ form_close() }}
+        {% endfor %}
+    </div>
+
+    <div class="col-md-6">
+        <h3>Add A Match:</h3>
+        {% for m in broadcast.broadcastableMatches %}
+        {{ form_open({ request: __SELF__~'::onAddBroadcastMatch' }) }}
+        <input type="hidden" name="broadcast" value="{{ broadcast.id }}">
+        <input type="hidden" name="match" value="{{ m.id }}">
+        <input type="hidden" name="count" value="{{ broadcast.matches.count + 1 }}">
+        <div class="category-group-item d-flex align-items-start">
+            {% if m.order %}
+            <span>
+                {{ m.order }} |
+            </span>
+            {% elseif m.takes_place_during %}
+            <span>
+                Round {{ m.takes_place_during }} |
+            </span>
+            {% endif %}
+
+            <span>
+                {{ m.one.name ?? 'Team Claws' }}<br>vs<br>{{ m.two.name ?? 'Team Fangs' }}
+            </span>
+
+            <button class="btn btn-outline-primary btn-sm ml-auto" type="submit">Add Match</button>
+        </div>
+        {{ form_close() }}
+        {% endfor %}
+    </div>
 </div>
-{{ form_close() }}
-{% endfor %}

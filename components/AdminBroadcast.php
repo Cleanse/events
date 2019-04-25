@@ -5,6 +5,7 @@ namespace Cleanse\Event\Components;
 use Redirect;
 use Cms\Classes\ComponentBase;
 
+use Cleanse\Event\Classes\UpdateEvent;
 use Cleanse\Event\Models\Broadcast;
 use Cleanse\Event\Models\Match;
 
@@ -40,7 +41,40 @@ class AdminBroadcast extends ComponentBase
             return Redirect::to('/events/manage');
         }
 
+        $this->addCss('assets/css/events.css');
         $this->addJs('assets/js/events.js');
+    }
+
+    public function onUpdateBroadcastMatch()
+    {
+        $post = post();
+        $this->updateBroadcastMatch($post);
+        return Redirect::to('/event/broadcast/' . $post['broadcast']);
+    }
+
+    public function onFinalizeMatch()
+    {
+        $post = post();
+
+        $this->finalizeMatch($post);
+
+        return Redirect::to('/event/broadcast/' . $post['broadcast']);
+    }
+
+    public function onUndoMatchResult()
+    {
+        $post = post();
+
+        $this->undoMatchResult($post);
+
+        return Redirect::to('/event/broadcast/' . $post['broadcast']);
+    }
+
+    public function onSetActiveMatch()
+    {
+        $post = post();
+        $this->setActiveMatch($post);
+        return Redirect::to('/event/broadcast/' . $post['broadcast']);
     }
 
     public function onDeleteBroadcast()
@@ -62,6 +96,41 @@ class AdminBroadcast extends ComponentBase
         return Redirect::to('/event/broadcast/'.$post['broadcast']);
     }
 
+    //private
+    private function getBroadcastData()
+    {
+        $id = $this->property('broadcast');
+
+        return Broadcast::find($id);
+    }
+
+    private function updateBroadcastMatch($post)
+    {
+        $match = Match::find($post['match']);
+        $match->one_score = $post['claws_score'];
+        $match->two_score = $post['fangs_score'];
+        $match->save();
+    }
+
+    private function finalizeMatch($post)
+    {
+        $match = Match::find($post['match']);
+        (new UpdateEvent())->advanceMatch($match);
+    }
+
+    private function undoMatchResult($post)
+    {
+        $match = Match::find($post['match']);
+        (new UpdateEvent())->undoMatch($match);
+    }
+
+    private function setActiveMatch($post)
+    {
+        $broadcast = Broadcast::find($post['broadcast']);
+        $broadcast->active_match = $post['match'];
+        $broadcast->save();
+    }
+
     public function onRemoveBroadcastMatch()
     {
         $post = post();
@@ -69,13 +138,6 @@ class AdminBroadcast extends ComponentBase
         $this->removeBroadcastMatch($post);
 
         return Redirect::to('/event/broadcast/'.$post['broadcast']);
-    }
-
-    private function getBroadcastData()
-    {
-        $id = $this->property('broadcast');
-
-        return Broadcast::find($id);
     }
 
     private function deleteBroadcast($id)
@@ -103,7 +165,6 @@ class AdminBroadcast extends ComponentBase
 
         $broadcast->matches()->remove($match);
 
-        //check broadcast matches, re-order
         $this->reorderMatches($post['broadcast']);
     }
 

@@ -1,40 +1,33 @@
 <p class="pt-2 lead">Browser Source Links</p>
 
-<div class="d-flex flex-column">
-    <img src="https://cdn1.iconfinder.com/data/icons/soccer-line-1/64/soccer-08-512.png" height="48">
-    <a class="btn btn-outline-primary btn-sm" href="/event/broadcast/{{ broadcast.id }}/event">Event Overview</a>
-</div>
-
-<div class="d-flex flex-column">
-    <img src="https://cdn1.iconfinder.com/data/icons/soccer-line-1/64/soccer-08-512.png" height="48">
-    <a class="btn btn-outline-primary btn-sm" href="/event/broadcast/{{ broadcast.id }}/matchup">Current Matchup</a>
-</div>
-
-<div class="d-flex flex-column">
-    <img src="https://cdn1.iconfinder.com/data/icons/soccer-line-1/64/soccer-08-512.png" height="48">
-    <a class="btn btn-outline-primary btn-sm" href="/event/broadcast/{{ broadcast.id }}/score">Score Overlay</a>
-</div>
-
-<div class="card bg-dark text-white" style="width: 18rem;">
-    <img src="https://cdn1.iconfinder.com/data/icons/soccer-line-1/64/soccer-08-512.png"
-         class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">Score</h5>
-        <p class="card-text">https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/score</p>
-        <a href="#" class="btn btn-outline-primary btn-sm">Copy Score Overlay Link</a>
+<div class="card-group">
+    <div class="card bg-black text-white" style="width: 18rem;">
+        <img src="https://cdn1.iconfinder.com/data/icons/soccer-line-1/64/soccer-08-512.png"
+             class="card-img-top" alt="Preview of the score overlay.">
+        <div class="card-body">
+            <h5 class="card-title">Event Overview</h5>
+            <p class="card-text">/event/broadcast/{{ broadcast.id }}/event</p>
+            <a href="#" class="btn btn-outline-primary btn-sm">Copy Score Overlay Link</a>
+        </div>
     </div>
-</div>
 
-<div class="article">
-    <a href="/article/meme-team-win-rising-stars-tournament">
-        <img class="article-img-top" src="https://cdn1.iconfinder.com/data/icons/soccer-line-1/64/soccer-08-512.png"
-             alt="Preview of overlay.">
-    </a>
+    <div class="card bg-black text-white" style="width: 18rem;">
+        <img src="https://cdn1.iconfinder.com/data/icons/soccer-line-1/64/soccer-08-512.png"
+             class="card-img-top" alt="Preview of the match up overlay.">
+        <div class="card-body">
+            <h5 class="card-title">Current Matchup</h5>
+            <p class="card-text">/event/broadcast/{{ broadcast.id }}/matchup</p>
+            <a href="#" class="btn btn-outline-primary btn-sm">Copy Current Matchup Overlay Link</a>
+        </div>
+    </div>
 
-    <div class="article-tag-date">
-        <p class="article-tag">
-            <a href="/articles/category/news">Score</a>
-        </p>
-        <p class="article-date">Copy Score Overlay Link</p>
+    <div class="card bg-black text-white" style="width: 18rem;">
+        <img src="https://cdn1.iconfinder.com/data/icons/soccer-line-1/64/soccer-08-512.png"
+             class="card-img-top" alt="Preview of the score overlay.">
+        <div class="card-body">
+            <h5 class="card-title">Score</h5>
+            <p class="card-text">/event/broadcast/{{ broadcast.id }}/score</p>
+            <a href="#" class="btn btn-outline-primary btn-sm">Copy Score Overlay Link</a>
+        </div>
     </div>
 </div>
