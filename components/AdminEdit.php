@@ -71,7 +71,6 @@ class AdminEdit extends ComponentBase
 
         try {
             $event = $this->updateEvent($data);
-
             return Redirect::to('/event/'.$event.'/edit');
         } catch (Exception $exception) {
             throw new $exception;
@@ -84,8 +83,7 @@ class AdminEdit extends ComponentBase
 
         try {
             $this->deleteEvent($data);
-
-            return Redirect::to('/events');
+            return Redirect::to('/event/'.$data['id'].'/edit');
         } catch (Exception $exception) {
             throw new $exception;
         }
@@ -163,7 +161,11 @@ class AdminEdit extends ComponentBase
     {
         $getEvent = Event::find($event['id']);
 
-        $getEvent->active = false;
+        if ($getEvent->active) {
+            $getEvent->active = false;
+        } else {
+            $getEvent->active = true;
+        }
 
         $getEvent->save();
     }

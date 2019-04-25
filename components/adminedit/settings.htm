@@ -61,7 +61,12 @@
     <div class="d-flex flex-row-reverse" data-request-data="id: {{ event.id }}">
         <button class="btn btn-outline-danger pull-right"
                 data-request="onEventDelete"
-                data-request-confirm="Are you sure?">
-            Hide Event From Public?</button>
+                data-request-confirm="Are you sure you want to update the event status?">
+            {% if event.active %}
+                Make Event Private
+            {% else %}
+                Make Event Public
+            {% endif %}
+        </button>
     </div>
 </div>
