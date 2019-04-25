@@ -39,6 +39,18 @@ class AdminBroadcast extends ComponentBase
         if (!$this->broadcast) {
             return Redirect::to('/events/manage');
         }
+
+        $this->addJs('assets/js/events.js');
+    }
+
+    public function onDeleteBroadcast()
+    {
+        $broadcastId = post('id');
+        $eventId = post('event');
+
+        $this->deleteBroadcast($broadcastId);
+
+        return Redirect::to('/event/'.$eventId.'/edit');
     }
 
     public function onAddBroadcastMatch()
@@ -64,6 +76,17 @@ class AdminBroadcast extends ComponentBase
         $id = $this->property('broadcast');
 
         return Broadcast::find($id);
+    }
+
+    private function deleteBroadcast($id)
+    {
+        $broadcast = Broadcast::find($id);
+
+        if (!isset($broadcast)) {
+            return;
+        }
+
+        $broadcast->delete();
     }
 
     private function addBroadcastMatch($post)

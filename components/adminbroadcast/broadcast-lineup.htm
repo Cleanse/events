@@ -1,0 +1,20 @@
+<p class="pt-2 lead">Broadcast Lineup</p>
+
+<p class="text-info">Broadcast Order | Broadcast Match</p>
+{% for bm in broadcast.matches %}
+{{ form_open({ request: __SELF__~'::onRemoveBroadcastMatch' }) }}
+<input type="hidden" name="broadcast" value="{{ broadcast.id }}">
+<input type="hidden" name="match" value="{{ bm.id }}">
+<div class="category-group-item d-flex align-items-start">
+    <span>
+        {{ bm.pivot.lineup }} |
+    </span>
+
+    <span>
+        {{ bm.one.name }}<br>vs<br>{{ bm.two.name }}
+    </span>
+
+    <button class="btn btn-outline-primary btn-sm ml-auto" type="submit">Remove Match</button>
+</div>
+{{ form_close() }}
+{% endfor %}

@@ -8,54 +8,41 @@
     </div>
 
     <div class="container basic-content">
-        <div class="the-overlay-links mb-2">
-            <h3>Copy Links for OBS</h3>
-            <a class="btn btn-outline-primary btn-sm" href="/broadcast/{{ broadcast.id }}/current">Current Matchup</a>
-            <a class="btn btn-outline-primary btn-sm" href="/broadcast/{{ broadcast.id }}/lineup">Broadcast Lineup</a>
-            <a class="btn btn-outline-primary btn-sm" href="/broadcast/{{ broadcast.id }}/score">In Game Score</a>
-            <a class="btn btn-outline-primary btn-sm" href="/broadcast/{{ broadcast.id }}/misc">What else?</a>
-
-            <hr>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                {% if broadcast.matches.count > 0 %}
+                <a class="nav-item nav-link active" id="nav-lineup-tab" data-toggle="tab" href="#nav-lineup"
+                   role="tab" aria-controls="nav-lineup" aria-selected="true">Lineup</a>
+                {% endif %}
+                <a class="nav-item nav-link{% if broadcast.matches.count == 0 %} active{% endif %}" id="nav-matches-tab"
+                   data-toggle="tab" href="#nav-matches" role="tab"
+                   aria-controls="nav-matches"
+                   aria-selected="{% if broadcast.matches.count == 0 %}true{% else %}false{% endif %}">Add Matches</a>
+                <a class="nav-item nav-link" id="nav-browser-source-tab" data-toggle="tab" href="#nav-browser-source"
+                   role="tab" aria-controls="nav-browser-source" aria-selected="false">Browser Sources</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            {% if broadcast.matches.count > 0 %}
+            <div class="tab-pane fade show active" id="nav-lineup" role="tabpanel"
+                 aria-labelledby="nav-lineup-tab">
+                {% partial __SELF__~'::broadcast-lineup' %}
+            </div>
+            {% endif %}
+            <div class="tab-pane fade{% if broadcast.matches.count == 0 %} show active{% endif %}"
+                 id="nav-matches" role="tabpanel" aria-labelledby="nav-matches-tab">
+                {% partial __SELF__~'::broadcastable' %}
+            </div>
+            <div class="tab-pane fade" id="nav-browser-source" role="tabpanel" aria-labelledby="nav-browser-source-tab">
+                {% partial __SELF__~'::browser-source' %}
+            </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-6">
-                <h3>Current Broadcast Lineup</h3>
-                <p>Broadcast Order | Broadcast Match</p>
-                {% for bm in broadcast.matches %}
-                {{ form_open({ request: __SELF__~'::onRemoveBroadcastMatch' }) }}
-                <input type="hidden" name="broadcast" value="{{ broadcast.id }}">
-                <input type="hidden" name="match" value="{{ bm.id }}">
-                <div class="category-group-item d-flex align-items-start">
-                    <span>
-                        {{ bm.pivot.lineup }} |
-                    </span>
-
-                    <span>
-                        {{ bm.one.name }}<br>vs<br>{{ bm.two.name }}
-                    </span>
-
-                    <button class="btn btn-outline-primary btn-sm ml-auto" type="submit">Remove Match</button>
-                </div>
-                {{ form_close() }}
-                {% endfor %}
-            </div>
-
-            <div class="col-lg-6">
-                <h3>Broadcastable Matches</h3>
-                {% for m in broadcast.broadcastableMatches %}
-                {{ form_open({ request: __SELF__~'::onAddBroadcastMatch' }) }}
-                <input type="hidden" name="broadcast" value="{{ broadcast.id }}">
-                <input type="hidden" name="match" value="{{ m.id }}">
-                <input type="hidden" name="count" value="{{ broadcast.matches.count + 1 }}">
-                    <div class="category-group-item d-flex justify-content-between align-items-start">
-                        {{ m.one.name }}<br>vs<br>{{ m.two.name }}
-
-                        <button class="btn btn-outline-primary btn-sm" type="submit">Add Match</button>
-                    </div>
-                {{ form_close() }}
-                {% endfor %}
-            </div>
+        <hr>
+        <div class="d-flex flex-row-reverse">
+            {{ form_ajax('onDeleteBroadcast', { data: { id: broadcast.id, event: broadcast.event_id }, confirm: 'Really delete this broadcast?' }) }}
+            <button type="submit" class="btn btn-outline-danger">Delete Broadcast</button>
+            {{ form_close() }}
         </div>
     </div>
 </div>

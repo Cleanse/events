@@ -8,12 +8,9 @@
             <h3>Current Broadcasts</h3>
             <ul>
                 {% for broadcast in event.broadcasts %}
-                <li>
-                    <a href="/event/broadcast/{{ broadcast.id }}">{{ broadcast.name }}
+                <li class="mb-1">
+                    <a class="btn btn-outline-primary btn-sm" href="/event/broadcast/{{ broadcast.id }}">Manage: {{ broadcast.name }}
                         ({{ broadcast.scheduled_at|date("m/d/Y") }}) [Matches: {{ broadcast.matches.count }}]</a>
-                    {{ form_ajax('onDeleteBroadcast', { data: { id: broadcast.id, event: event.id }, confirm: 'Really delete this broadcast?' }) }}
-                    <button type="submit" class="btn btn-danger btn-block">Delete Broadcast</button>
-                    {{ form_close() }}
                 </li>
                 {% endfor %}
             </ul>

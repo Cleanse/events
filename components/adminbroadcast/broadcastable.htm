@@ -1,0 +1,28 @@
+<p class="pt-2 lead">Broadcastable Matches</p>
+
+<p class="text-info">Match Order | Matchup</p>
+
+{% for m in broadcast.broadcastableMatches %}
+{{ form_open({ request: __SELF__~'::onAddBroadcastMatch' }) }}
+<input type="hidden" name="broadcast" value="{{ broadcast.id }}">
+<input type="hidden" name="match" value="{{ m.id }}">
+<input type="hidden" name="count" value="{{ broadcast.matches.count + 1 }}">
+<div class="category-group-item d-flex align-items-start">
+    {% if m.order %}
+    <span>
+        {{ m.order }} |
+    </span>
+    {% elseif m.takes_place_during %}
+    <span>
+        Round {{ m.takes_place_during }} |
+    </span>
+    {% endif %}
+
+    <span>
+        {{ m.one.name ?? 'Team Claws' }}<br>vs<br>{{ m.two.name ?? 'Team Fangs' }}
+    </span>
+
+    <button class="btn btn-outline-primary btn-sm ml-auto" type="submit">Add Match</button>
+</div>
+{{ form_close() }}
+{% endfor %}

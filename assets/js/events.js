@@ -269,7 +269,7 @@ if (document.getElementById('event-type') || document.getElementById('nav-teams'
     eventType.onchange = handleEventType;
 }
 
-//Hide and show error log
+//Hide and show error log todo: check usage
 $(window).on('ajaxInvalidField', function (event, fieldElement, fieldName, errorMsg, isFirst) {
     $('.alert-danger').removeClass('d-none').addClass('visible');
 });
@@ -292,6 +292,17 @@ if (document.getElementById('nav-teams')) {
         setTimeout(setDefaults, 2000);
     });
 
+    let teamsTab = document.getElementById('more-teams');
+    if (teamsTab) {
+        teamsTab.onclick = inputChange;
+
+        function inputChange() {
+            $('#nav-tab a[href="#nav-teams"]').tab('show');
+        }
+    }
+}
+
+if (document.getElementById('nav-teams') || document.getElementById('nav-matches')) {
     //Start Remember Which Tab
     $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
         localStorage.setItem('activeTab', $(e.target).attr('href'));
@@ -302,15 +313,6 @@ if (document.getElementById('nav-teams')) {
         $('#nav-tab a[href="' + activeTab + '"]').tab('show');
     }
     //End Remember Which Tab
-
-    let teamsTab = document.getElementById('more-teams');
-    if (teamsTab) {
-        teamsTab.onclick = inputChange;
-
-        function inputChange() {
-            $('#nav-tab a[href="#nav-teams"]').tab('show');
-        }
-    }
 }
 
 //Teams

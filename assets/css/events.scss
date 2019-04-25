@@ -1,7 +1,13 @@
-.nav-tabs .nav-link.nav-btn-highlight {
+.nav-tabs .nav-link.nav-btn-highlight.active {
   color: #fff;
   background-color: #ff75e2;
   border-color: #ff75e2;
+  border-bottom-color: #FFDD5F;
+}
+
+.nav-tabs .nav-link.nav-btn-highlight {
+  color: #ff75e2;
+  border: 1px solid transparent;
 }
 
 .input-group-btn > .image-preview-input {

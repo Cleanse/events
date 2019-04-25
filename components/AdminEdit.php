@@ -125,16 +125,7 @@ class AdminEdit extends ComponentBase
         return Redirect::to('/event/broadcast/'.$broadcastId);
     }
 
-    public function onDeleteBroadcast()
-    {
-        $broadcastId = post('id');
-        $eventId = post('event');
-
-        $this->deleteBroadcast($broadcastId);
-
-        return Redirect::to('/event/'.$eventId.'/edit');
-    }
-
+    //todo: match updates
     public function onRequestMatchUpdate()
     {
         $this->page['match'] = Match::find(post('id'));
@@ -241,16 +232,5 @@ class AdminEdit extends ComponentBase
         $test = $event->broadcasts()->create($broadcast);
 
         return $test->id;
-    }
-
-    private function deleteBroadcast($id)
-    {
-        $broadcast = Broadcast::find($id);
-
-        if (!isset($broadcast)) {
-            return;
-        }
-
-        $broadcast->delete();
     }
 }
