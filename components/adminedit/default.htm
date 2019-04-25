@@ -16,9 +16,10 @@
                    role="tab" aria-controls="nav-teams" aria-selected="false">Teams</a>
                 <a class="nav-item nav-link" id="nav-matches-tab" data-toggle="tab" href="#nav-matches"
                    role="tab" aria-controls="nav-home" aria-selected="false">Matches</a>
-                {% if 1 == 1 %}
-                <a class="nav-item nav-link" id="nav-overlay-tab" data-toggle="tab" href="#nav-overlay"
-                   role="tab" aria-controls="nav-overlay" aria-selected="false">Broadcasts</a>
+                {% if event.matches.count > 0 %}
+                <a class="nav-item nav-link nav-btn-highlight" id="nav-overlay-tab"
+                   data-toggle="tab" href="#nav-overlay"
+                   role="tab" aria-controls="nav-overlay" aria-selected="false">Broadcast Creation</a>
                 {% endif %}
             </div>
         </nav>
@@ -33,7 +34,7 @@
             <div class="tab-pane fade" id="nav-matches" role="tabpanel" aria-labelledby="nav-matches-tab">
                 {% partial __SELF__~'::matches' %}
             </div>
-            {% if 1 == 1 %}
+            {% if event.matches.count > 0 %}
             <div class="tab-pane fade" id="nav-overlay" role="tabpanel" aria-labelledby="nav-overlay-tab">
                 {% partial __SELF__~'::broadcast' %}
             </div>
