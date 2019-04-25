@@ -11,7 +11,11 @@ class Updater
     {
     }
 
-    public function update()
+    public function advance()
+    {
+    }
+
+    public function undo()
     {
     }
 }
