@@ -107,8 +107,8 @@ class AdminBroadcast extends ComponentBase
     private function updateBroadcastMatch($post)
     {
         $match = Match::find($post['match']);
-        $match->one_score = $post['claws_score'];
-        $match->two_score = $post['fangs_score'];
+        $match->team_one_score = $post['one-score'];
+        $match->team_two_score = $post['two-score'];
         $match->save();
     }
 
