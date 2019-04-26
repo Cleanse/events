@@ -7,136 +7,58 @@ use Cleanse\Event\Models\Match;
 
 class Updater
 {
-    public function __construct($config)
-    {
-    }
-
-    public function advance()
-    {
-    }
-
-    public function undo()
-    {
-    }
-}
-
-class StageFormat
-{
     private $match;
 
-    public function __construct($matchId)
+    public function advance($match)
     {
-        $this->match = Match::find($matchId);
+        $this->match = $match;
+        $matchResult = $this->setMatchWinner();
+        return $matchResult;
     }
 
-    public function getNextRound()
-    {
-        $teams = [
-            $this->match->claws_team_id,
-            $this->match->fangs_team_id
-        ];
+    //todo
+//    public function undo($match)
+//    {
+//        $this->match = $match;
+//    }
 
-        foreach ($teams as $team) {
-            if ($team == $this->match->winner_id) {
-                $this->advanceWinner($team);
-            }
+    private function setMatchWinner()
+    {
+        if ($this->match->team_one_score > $this->match->team_two_score) {
+            $this->match->winner_id = $this->match->team_one;
+            $this->match->save();
+        } elseif ($this->match->team_two_score > $this->match->team_one_score) {
+            $this->match->winner_id = $this->match->team_two;
+            $this->match->save();
+        } else {
+            return false;
         }
 
-        return true;
+        $this->getBracketSize();
     }
 
-    private function advanceWinner($team)
+    private function getBracketSize()
     {
-        switch ($this->match->order) {
-            case 1:
-                //Winner goes to Match 4 and 5 as Claws.
-                $this->updateMatch($team, 4, 'claws');
-                $this->updateMatch($team, 5, 'claws');
-                $this->qualifyTeam($team);
+        $size = count($this->match->event->teams);
+
+        switch ($size) {
+            case ($size <= 4):
+                $bracketSize = 4;
                 break;
-            case 2:
-                //Winner goes to Match 4 as Fangs and 6 as Claws.
-                $this->updateMatch($team, 4, 'fangs');
-                $this->updateMatch($team, 6, 'claws');
-                $this->qualifyTeam($team);
+            case ($size <= 8):
+                $bracketSize = 8;
                 break;
-            case 3:
-                //Winner goes to Matches 5 and 6 as Fangs.
-                $this->updateMatch($team, 5, 'fangs');
-                $this->updateMatch($team, 6, 'fangs');
-                $this->qualifyTeam($team);
+            case ($size <= 16):
+                $bracketSize = 16;
                 break;
-            case 4:
-                //Winner gains a point.
-                $this->scorePoint($team);
+            case ($size <= 32):
+                $bracketSize = 32;
                 break;
-            case 5:
-                //Winner gains a point.
-                $this->scorePoint($team);
-                break;
-            case 6:
-                //Winner gains a point and we generate Finals.
-                $this->scorePoint($team);
-                $this->generateGrandFinals();
-                break;
-            case 7:
-                //Winners flagged as the Champions.
+            default:
+                $bracketSize = 4;
                 break;
         }
-    }
 
-    private function updateMatch($teamId, $match, $team)
-    {
-        $getMatch = Match::where('order', '=', $match)
-            ->orderBy('event_id', 'desc')
-            ->first();
-
-        if ($team == 'claws') {
-            $getMatch->claws_team_id = $teamId;
-        } elseif ($team == 'fangs') {
-            $getMatch->fangs_team_id = $teamId;
-        }
-
-        $getMatch->save();
-    }
-
-    private function qualifyTeam($team)
-    {
-        $team = Team::find($team);
-        $team->qualified = 1;
-        $team->save();
-    }
-
-    private function scorePoint($team)
-    {
-        $team = Team::find($team);
-        $team->points = $team->points + 1;
-        $team->save();
-    }
-
-    private function generateGrandFinals()
-    {
-        $teams = Team::where('qualified', '=', 1)
-            ->orderBy('points', 'desc')
-            ->take(2)
-            ->get();
-
-        $this->updateMatch($teams[0]->id, 7, 'claws');
-        $this->updateMatch($teams[1]->id, 7, 'fangs');
-    }
-}
-
-class BracketFormat
-{
-    private $match;
-
-    public function __construct($matchId)
-    {
-        $this->match = Match::find($matchId);
-    }
-
-    public function getNextRound()
-    {
         $teams = [
             $this->match->team_one,
             $this->match->team_two
@@ -144,194 +66,178 @@ class BracketFormat
 
         foreach ($teams as $team) {
             if ($team == $this->match->winner_id) {
-                $this->advanceWinner($team);
+                call_user_func([$this, 'advanceWinner' . $bracketSize], $team);
             } else {
-                $this->updateLosingTeam($team);
+                call_user_func([$this, 'advanceDefeated' . $bracketSize], $team);
             }
         }
-
-        return true;
     }
 
-    private function advanceWinner($team)
+    private function advanceWinner4()
     {
-        switch ($this->match->takes_place_during) {
-//            case '01':
-//                //Wildcard - Do nothing
-//                break;
-//            case '02':
-//                //Wildcard - Create match ups for both Rounds 3 & 4
-//                $this->wildcardSetup();
-//                break;
-            case '01':
-                $this->updateMatch($team, '03', 'fangs');
-                echo "Winner goes to Match 3 as Fangs";
+        switch ($this->match->order) {
+            case 1:
+                if ($this->match->event->config['third_place_match'] == 1) {
+                    $this->updateMatch(4, 1, $this->match->winner_id);
+                } else {
+                    $this->updateMatch(3, 1, $this->match->winner_id);
+                }
                 break;
-            case '02':
-                $this->updateMatch($team, '04', 'fangs');
-                echo "Winner goes to Match 4 as Fangs";
+            case 2:
+                if ($this->match->event->config['third_place_match'] == 1) {
+                    $this->updateMatch(4, 2, $this->match->winner_id);
+                } else {
+                    $this->updateMatch(3, 2, $this->match->winner_id);
+                }
                 break;
-            case '03':
-                $this->updateMatch($team, '08', 'claws');
-                echo "Winner goes to Match 8 as Claws";
+            case 3:
+                if ($this->match->event->config['third_place_match'] == 1) {
+                    $this->updateFinalPlacement($this->match->winner_id, 3);
+                } else {
+                    $this->updateFinalPlacement($this->match->winner_id, 1);
+                    $this->setEventWinner();
+                }
                 break;
-            case '04':
-                $this->updateMatch($team, '08', 'fangs');
-                echo "Winner goes to Match 8 as Fangs";
-                break;
-            case '05':
-                $this->updateMatch($team, '07', 'fangs');
-                echo "Winner goes to Match 7 as Fangs";
-                break;
-            case '06':
-                $this->updateMatch($team, '07', 'claws');
-                echo "Winner goes to Match 7 as Claws";
-                break;
-            case '07':
-                $this->updateMatch($team, '09', 'fangs');
-                echo "Winner goes to Match 9 as Fangs";
-                break;
-            case '08':
-                $this->updateMatch($team, '10', 'claws');
-                echo "Winner goes to Match 10 as Claws";
-                break;
-            case '09':
-                $this->updateMatch($team, '10', 'fangs');
-                echo "Winner goes to Match 10 as Fangs";
-                break;
-            case '10':
-                //Set winner_id into tourney
-                echo "Winner goes to Event Winner";
+            case 4:
+                $this->updateFinalPlacement($this->match->winner_id, 1);
+                $this->setEventWinner();
                 break;
             default:
                 break;
         }
     }
 
-    private function updateLosingTeam($team)
+    private function advanceWinner8()
     {
-        switch ($this->match->takes_place_during) {
-//            case '01':
-//                //Wildcard - Do nothing Elimination
-//                break;
-//            case '02':
-//                //Wildcard - Do nothing Elimination
-//                break;
-            case '01':
-                $this->updateMatch($team, '06', 'fangs');
-                echo "Loser goes to Match 6 Fangs";
+        switch ($this->match->order) {
+            case 1:
+                $this->updateMatch(5, 1, $this->match->winner_id);
                 break;
-            case '02':
-                $this->updateMatch($team, '05', 'fangs');
-                echo "Loser goes to Match 5 Fangs";
+            case 2:
+                $this->updateMatch(5, 2, $this->match->winner_id);
                 break;
-            case '03':
-                $this->updateMatch($team, '06', 'claws');
-                echo "Loser goes to Match 6 Claws";
+            case 3:
+                $this->updateMatch(6, 1, $this->match->winner_id);
                 break;
-            case '04':
-                $this->updateMatch($team, '05', 'claws');
-                echo "Loser goes to Match 5 Claws";
+            case 4:
+                $this->updateMatch(6, 2, $this->match->winner_id);
                 break;
-            case '05':
-                echo "Elimination";
+            case 5:
+                if ($this->match->event->config['third_place_match'] == 1) {
+                    $this->updateMatch(8, 1, $this->match->winner_id);
+                } else {
+                    $this->updateMatch(7, 1, $this->match->winner_id);
+                }
                 break;
-            case '06':
-                echo "Elimination";
+            case 6:
+                if ($this->match->event->config['third_place_match'] == 1) {
+                    $this->updateMatch(8, 2, $this->match->winner_id);
+                } else {
+                    $this->updateMatch(7, 2, $this->match->winner_id);
+                }
                 break;
-            case '07':
-                echo "Elimination";
+            case 7:
+                if ($this->match->event->config['third_place_match'] == 1) {
+                    $this->updateFinalPlacement($this->match->winner_id, 3);
+                } else {
+                    $this->updateFinalPlacement($this->match->winner_id, 1);
+                    $this->setEventWinner();
+                }
                 break;
-            case '08':
-                $this->updateMatch($team, '09', 'claws');
-                echo "Winner goes to Match 9 Claws";
-                break;
-            case '09':
-                echo "Elimination";
-                break;
-            case '10':
-                //Set winner_id into tourney
-                echo "Elimination";
+            case 8:
+                $this->updateFinalPlacement($this->match->winner_id, 1);
+                $this->setEventWinner();
                 break;
             default:
                 break;
         }
     }
 
-    /**
-     * Done.
-     */
-    private function wildCardSetup()
+    private function advanceDefeated4($team)
     {
-        $wildCard = Match::where([
-            ['takes_place_during', '<=', 2],
-            ['matchable_type', '=', 'tourney']
-        ])
-            ->with('winner')
-            ->get();
-
-        $wcWinners = [];
-        foreach ($wildCard as $wc) {
-            $wcWinners[] = [
-                'team_id' => $wc->winner_id,
-                'seed' => $wc->winner->tourney_seed
-            ];
-        }
-
-        $collection = new Collection($wcWinners);
-        $wcWin = $collection->sortBy('seed');
-
-        $i = 2;
-        foreach ($wcWin as $w) {
-            $this->updateOpeningRounds($w['team_id'], $i);
-            $i++;
+        switch ($this->match->order) {
+            case 1:
+                if ($this->match->event->config['third_place_match'] == 1) {
+                    $this->updateMatch(3, 1, $team);
+                }
+                break;
+            case 2:
+                if ($this->match->event->config['third_place_match'] == 1) {
+                    $this->updateMatch(3, 2, $team);
+                }
+                break;
+            case 3:
+                if ($this->match->event->config['third_place_match'] == 1) {
+                    $this->updateFinalPlacement($team, 4);
+                } else {
+                    $this->updateFinalPlacement($team, 2);
+                }
+                break;
+            case 4:
+                if ($this->match->event->config['third_place_match'] == 1) {
+                    $this->updateFinalPlacement($team, 2);
+                }
+                break;
+            default:
+                break;
         }
     }
 
-    /**
-     * Done
-     * @param $winner_id
-     * @param $order
-     */
-    private function updateOpeningRounds($winner_id, $order)
+    private function advanceDefeated8($team)
     {
-        if ($order == 2) {
-            $matchThree = Match::where('takes_place_during', '=', '03')
-                ->orderBy('id', 'desc')
-                ->first();
-
-            $matchThree->team_two = $winner_id;
-            $matchThree->save();
-        }
-
-
-        if ($order == 3) {
-            $matchFour = Match::where('takes_place_during', '=', '04')
-                ->orderBy('id', 'desc')
-                ->first();
-
-            $matchFour->team_two = $winner_id;
-            $matchFour->save();
+        switch ($this->match->order) {
+            case 5:
+                if ($this->match->event->config['third_place_match'] == 1) {
+                    $this->updateMatch(7, 1, $team);
+                }
+                break;
+            case 6:
+                if ($this->match->event->config['third_place_match'] == 1) {
+                    $this->updateMatch(7, 2, $team);
+                }
+                break;
+            case 7:
+                if ($this->match->event->config['third_place_match'] == 1) {
+                    $this->updateFinalPlacement($team, 4);
+                } else {
+                    $this->updateFinalPlacement($team, 2);
+                }
+                break;
+            case 8:
+                if ($this->match->event->config['third_place_match'] == 1) {
+                    $this->updateFinalPlacement($team, 2);
+                }
+                break;
+            default:
+                break;
         }
     }
 
-    /**
-     * @param $teamId
-     * @param $match
-     * @param $team
-     */
-    private function updateMatch($teamId, $match, $team)
+    private function updateMatch($order, $team, $teamId)
     {
-        $getMatch = Match::where('takes_place_during', '=', $match)
-            ->orderBy('matchable_id', 'desc')
-            ->first();
+        $getMatch = Match::where([
+            'order' => $order,
+            'event_id' => $this->match->event_id
+        ])->first();
 
-        if ($team == 'claws') {
+        if ($team == 1) {
             $getMatch->team_one = $teamId;
-        } elseif ($team == 'fangs') {
+        } elseif ($team == 2) {
             $getMatch->team_two = $teamId;
         }
 
         $getMatch->save();
+    }
+
+    private function updateFinalPlacement($team, $placement)
+    {
+        $this->match->event->teams()->updateExistingPivot($team, ['placement' => $placement]);
+    }
+
+    private function setEventWinner()
+    {
+        $event = Event::find($this->match->event_id);
+        $event->winner_id = $this->match->winner_id;
+        $event->save();
     }
 }
