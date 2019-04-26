@@ -18,7 +18,7 @@ class UpdateEvent
 
     public function advanceMatch($data)
     {
-        return ((new FactoryHelper)->getInstance($this->source, $data->type))->advance($data);
+        return ((new FactoryHelper)->getInstance($this->source, $data->event->type))->advance($data);
     }
 
     /**
@@ -29,6 +29,6 @@ class UpdateEvent
      */
     public function undoMatch($data)
     {
-        return ((new FactoryHelper)->getInstance($this->source, $data->type))->undo($data);
+        return ((new FactoryHelper)->getInstance($this->source, $data->event->type))->undo($data);
     }
 }
