@@ -16,11 +16,12 @@ class Updater
         return $matchResult;
     }
 
-    //todo
-//    public function undo($match)
-//    {
-//        $this->match = $match;
-//    }
+    public function undo($match)
+    {
+        $this->match = $match;
+        $this->match->winner_id = null;
+        $this->match->save();
+    }
 
     private function setMatchWinner()
     {
@@ -47,12 +48,6 @@ class Updater
                 break;
             case ($size <= 8):
                 $bracketSize = 8;
-                break;
-            case ($size <= 16):
-                $bracketSize = 16;
-                break;
-            case ($size <= 32):
-                $bracketSize = 32;
                 break;
             default:
                 $bracketSize = 4;
@@ -211,6 +206,11 @@ class Updater
             default:
                 break;
         }
+    }
+
+    private function revertBracket()
+    {
+        //
     }
 
     private function updateMatch($order, $team, $teamId)
