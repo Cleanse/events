@@ -19,6 +19,7 @@ class AddEventsTables extends Migration
             $table->string('type');
             $table->json('config')->nullable();
             $table->boolean('active')->default(false);
+            $table->integer('winner_id')->unsigned()->nullable();
             $table->timestamps();
         });
 

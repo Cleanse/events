@@ -40,6 +40,14 @@ class Event extends Model
         'config' => 'array',
     ];
 
+    public $hasOne = [
+        'winner' => [
+            'Cleanse\Event\Models\Team',
+            'key' => 'id',
+            'otherKey' => 'winner_id'
+        ]
+    ];
+
     public $hasMany = [
         'matches'    => 'Cleanse\Event\Models\Match',
         'broadcasts' => 'Cleanse\Event\Models\Broadcast'
@@ -49,7 +57,7 @@ class Event extends Model
         'teams' => [
             'Cleanse\Event\Models\Team',
             'table' => 'cleanse_event_event_team',
-            'pivot' => ['seed']
+            'pivot' => ['seed', 'placement']
         ]
     ];
 
