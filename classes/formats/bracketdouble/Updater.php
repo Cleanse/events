@@ -87,6 +87,19 @@ class Updater
                 $this->updateMatch(6, 2, $this->match->winner_id);
                 break;
             case 6:
+                if ($this->match->event->config['grand_finals'] == 2) {
+                    if ($this->match->winner_id === $this->match->team_one) {
+                        $this->updateFinalPlacement($this->match->winner_id, 1);
+                        $this->setEventWinner();
+                    } else {
+                        $this->updateMatch(7, 1, $this->match->winner_id);
+                    }
+                } else {
+                    $this->updateFinalPlacement($this->match->winner_id, 1);
+                    $this->setEventWinner();
+                }
+                break;
+            case 7:
                 $this->updateFinalPlacement($this->match->winner_id, 1);
                 $this->setEventWinner();
                 break;
@@ -99,40 +112,58 @@ class Updater
     {
         switch ($this->match->order) {
             case 1:
-                $this->updateMatch(5, 1, $this->match->winner_id);
+                $this->updateMatch(7, 1, $this->match->winner_id);
                 break;
             case 2:
-                $this->updateMatch(5, 2, $this->match->winner_id);
+                $this->updateMatch(7, 2, $this->match->winner_id);
                 break;
             case 3:
-                $this->updateMatch(6, 1, $this->match->winner_id);
+                $this->updateMatch(8, 1, $this->match->winner_id);
                 break;
             case 4:
-                $this->updateMatch(6, 2, $this->match->winner_id);
+                $this->updateMatch(8, 2, $this->match->winner_id);
                 break;
             case 5:
-                if ($this->match->event->config['third_place_match'] == 1) {
-                    $this->updateMatch(8, 1, $this->match->winner_id);
-                } else {
-                    $this->updateMatch(7, 1, $this->match->winner_id);
-                }
+                $this->updateMatch(10, 2, $this->match->winner_id);
                 break;
             case 6:
-                if ($this->match->event->config['third_place_match'] == 1) {
-                    $this->updateMatch(8, 2, $this->match->winner_id);
-                } else {
-                    $this->updateMatch(7, 2, $this->match->winner_id);
-                }
+                $this->updateMatch(9, 2, $this->match->winner_id);
                 break;
             case 7:
-                if ($this->match->event->config['third_place_match'] == 1) {
-                    $this->updateFinalPlacement($this->match->winner_id, 3);
+                $this->updateMatch(12, 1, $this->match->winner_id);
+                break;
+            case 8:
+                $this->updateMatch(12, 2, $this->match->winner_id);
+                break;
+            case 9:
+                $this->updateMatch(11, 2, $this->match->winner_id);
+                break;
+            case 10:
+                $this->updateMatch(11, 1, $this->match->winner_id);
+                break;
+            case 11:
+                $this->updateMatch(13, 2, $this->match->winner_id);
+                break;
+            case 12:
+                $this->updateMatch(14, 1, $this->match->winner_id);
+                break;
+            case 13:
+                $this->updateMatch(14, 2, $this->match->winner_id);
+                break;
+            case 14:
+                if ($this->match->event->config['grand_finals'] == 2) {
+                    if ($this->match->winner_id === $this->match->team_one) {
+                        $this->updateFinalPlacement($this->match->winner_id, 1);
+                        $this->setEventWinner();
+                    } else {
+                        $this->updateMatch(15, 1, $this->match->winner_id);
+                    }
                 } else {
                     $this->updateFinalPlacement($this->match->winner_id, 1);
                     $this->setEventWinner();
                 }
                 break;
-            case 8:
+            case 15:
                 $this->updateFinalPlacement($this->match->winner_id, 1);
                 $this->setEventWinner();
                 break;
@@ -160,6 +191,17 @@ class Updater
                 $this->updateFinalPlacement($team, 3);
                 break;
             case 6:
+                if ($this->match->event->config['grand_finals'] == 2) {
+                    if ($this->match->winner_id === $this->match->team_one) {
+                        $this->updateFinalPlacement($team, 2);
+                    } else {
+                        $this->updateMatch(7, 2, $team);
+                    }
+                } else {
+                    $this->updateFinalPlacement($team, 2);
+                }
+                break;
+            case 7:
                 $this->updateFinalPlacement($team, 2);
                 break;
             default:
@@ -170,27 +212,58 @@ class Updater
     private function advanceDefeated8($team)
     {
         switch ($this->match->order) {
+            case 1:
+                $this->updateMatch(5, 1, $team);
+                break;
+            case 2:
+                $this->updateMatch(5, 2, $team);
+                break;
+            case 3:
+                $this->updateMatch(6, 1, $team);
+                break;
+            case 4:
+                $this->updateMatch(6, 2, $team);
+                break;
             case 5:
-                if ($this->match->event->config['third_place_match'] == 1) {
-                    $this->updateMatch(7, 1, $team);
-                }
+                $this->updateFinalPlacement($team, 8);
                 break;
             case 6:
-                if ($this->match->event->config['third_place_match'] == 1) {
-                    $this->updateMatch(7, 2, $team);
-                }
+                $this->updateFinalPlacement($team, 8);
                 break;
             case 7:
-                if ($this->match->event->config['third_place_match'] == 1) {
-                    $this->updateFinalPlacement($team, 4);
+                $this->updateMatch(9, 1, $team);
+                break;
+            case 8:
+                $this->updateMatch(10, 1, $team);
+                break;
+            case 9:
+                $this->updateFinalPlacement($team, 6);
+                break;
+            case 10:
+                $this->updateFinalPlacement($team, 6);
+                break;
+            case 11:
+                $this->updateFinalPlacement($team, 4);
+                break;
+            case 12:
+                $this->updateMatch(13, 1, $team);
+                break;
+            case 13:
+                $this->updateFinalPlacement($team, 3);
+                break;
+            case 14:
+                if ($this->match->event->config['grand_finals'] == 2) {
+                    if ($this->match->winner_id === $this->match->team_one) {
+                        $this->updateFinalPlacement($team, 2);
+                    } else {
+                        $this->updateMatch(15, 2, $team);
+                    }
                 } else {
                     $this->updateFinalPlacement($team, 2);
                 }
                 break;
-            case 8:
-                if ($this->match->event->config['third_place_match'] == 1) {
-                    $this->updateFinalPlacement($team, 2);
-                }
+            case 15:
+                $this->updateFinalPlacement($team, 2);
                 break;
             default:
                 break;
