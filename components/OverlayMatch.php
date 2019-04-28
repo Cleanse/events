@@ -44,6 +44,10 @@ class OverlayMatch extends ComponentBase
         $id = $this->property('id');
         $broadcast = Broadcast::find($id);
 
+        if (!isset($broadcast->active_match)) {
+            return [];
+        }
+
         $match = Match::where('id', '=', $broadcast->active_match)
             ->with(['one', 'two'])
             ->first();

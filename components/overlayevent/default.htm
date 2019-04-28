@@ -10,7 +10,9 @@
 
     <div class="overlay-content">
         <div id="overlay-event" class="overlay-content-wrapper">
+            {% if event.type %}
             {% partial __SELF__~'::'~event.type~'-'~size %}
+            {% endif %}
         </div>
     </div>
 

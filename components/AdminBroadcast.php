@@ -155,6 +155,11 @@ class AdminBroadcast extends ComponentBase
     {
         $broadcast = Broadcast::find($post['broadcast']);
 
+        if ($broadcast->active_match) {
+            $broadcast->active_match = $post['match'];
+            $broadcast->save();
+        }
+
         $broadcast->addMatch($post['match'], $post['count']);
     }
 

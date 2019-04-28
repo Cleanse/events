@@ -31,6 +31,7 @@ class AddEventsTables extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('url')->nullable();
+            $table->integer('active_match')->unsigned()->nullable();
             $table->timestamp('scheduled_at')->nullable();
             $table->timestamps();
         });
