@@ -35,11 +35,6 @@ class OverlayEvent extends ComponentBase
     {
         $this->event = $this->getEventData();
 
-        if (!$this->event) {
-            $this->page['event'] = [];
-            return;
-        }
-
         $this->page['event'] = $this->event;
         $this->page['size'] = $this->getBracketSize(count($this->event->teams));
         $this->page['seed_one'] = true;
@@ -76,8 +71,14 @@ class OverlayEvent extends ComponentBase
         $id = $this->property('id');
         $broadcast = Broadcast::find($id);
 
-        return Event::where('id', '=', $broadcast->event_id)
+        $event = Event::where('id', '=', $broadcast->event_id)
             ->with(['matches'])
             ->first();
+
+        if (!$event) {
+            return [];
+        }
+
+        return $event;
     }
 }

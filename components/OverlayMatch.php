@@ -35,11 +35,6 @@ class OverlayMatch extends ComponentBase
     {
         $this->match = $this->getEventData();
 
-        if (!$this->match) {
-            $this->page['match'] = [];
-            return;
-        }
-
         $this->page['match'] = $this->match;
         $this->addCss('assets/css/overlay.css');
     }
@@ -49,8 +44,14 @@ class OverlayMatch extends ComponentBase
         $id = $this->property('id');
         $broadcast = Broadcast::find($id);
 
-        return Match::where('id', '=', $broadcast->active_match)
+        $match = Match::where('id', '=', $broadcast->active_match)
             ->with(['one', 'two'])
             ->first();
+
+        if (!$match) {
+            return [];
+        }
+
+        return $match;
     }
 }
