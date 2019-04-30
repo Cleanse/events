@@ -37,10 +37,10 @@ class OverlayScore extends ComponentBase
 
         $this->addCss('assets/css/overlay.css');
         $this->addCss('assets/css/overlay-score.css');
-
         $this->addJs('assets/js/overlay.js');
 
         $this->page['match'] = $this->match;
+        $this->page['broadcast'] = $this->property('id');
     }
 
     private function getMatchData()
@@ -53,7 +53,7 @@ class OverlayScore extends ComponentBase
         }
 
         $match = Match::where('id', '=', $broadcast->active_match)
-            ->with(['one', 'two'])
+            ->with(['one.logo', 'two.logo'])
             ->first();
 
         if (!$match) {

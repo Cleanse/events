@@ -5,7 +5,7 @@ use Cleanse\Event\Models\Match;
 use Cleanse\Event\Models\Team;
 use Cleanse\Event\Models\Broadcast;
 
-Route::get('/api/broadcast/{broadcast}/score', function ($broadcastId) {
+Route::get('/api/broadcast/{broadcast}/match', function ($broadcastId) {
     $broadcast = Broadcast::where(['id' => $broadcastId])
     ->first();
 
