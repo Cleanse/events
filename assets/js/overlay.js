@@ -1,19 +1,45 @@
+//Ajax
+function makeAjaxCall(apiUrl, userFunc) {
+    $.ajax({
+        type: "get",
+        url: apiUrl,
+        success: function (data) {
+            userFunc(data);
+
+            setTimeout(function () {
+                makeAjaxCall(apiUrl, userFunc);
+            }, 10000);
+        }
+    });
+}
+
+//Global
+scoreClawsLogo = '/plugins/cleanse/event/assets/images/score-claws.png';
+scoreFangsLogo = '/plugins/cleanse/event/assets/images/score-fangs.png';
+
 //Score
 if (document.getElementById('overlay-score')) {
-    let scoreClawsLogo = document.getElementById('claws-logo');
-    let scoreFangsLogo = document.getElementById('fangs-logo');
+    let scoreApiUrl = `/api/broadcast/${broadcast_channel}/score`;
 
-    let scoreClawsName = document.getElementById('claws-name');
-    let scoreFangsName = document.getElementById('fangs-name');
+    function makeScoreUpdate(data) {
+        if (!data) {
+            return;
+        }
 
-    let scoreClawsScore = document.getElementById('claws-score');
-    let scoreFangsScore = document.getElementById('fangs-score');
+        $('#one-wrapper').addClass(data.one.region);
+        $('#two-wrapper').addClass(data.two.region);
 
-    //scoreClawsLogo.setAttribute('src', '/plugins/cleanse/event/assets/images/score-claws.png');
-    //scoreFangsLogo.setAttribute('src', '/plugins/cleanse/event/assets/images/score-fangs.png');
+        $('#one-logo').attr("src", data.one.logo.path ? data.one.logo.path : scoreClawsLogo);
+        $('#two-logo').attr("src", data.two.logo.path ? data.two.logo.path : scoreFangsLogo);
 
-    //scoreClawsName.textContent = 'Aces';
-    //scoreFangsName.textContent = 'bUrself';
+        $('#one-name').text(data.one.name ? data.one.name : "Claws");
+        $('#two-name').text(data.two.name ? data.two.name : "Fangs");
+
+        $('#one-score').text(data.team_one_score ? data.team_one_score : 0);
+        $('#two-score').text(data.team_two_score ? data.team_two_score : 0);
+    }
+
+    makeAjaxCall(scoreApiUrl, makeScoreUpdate);
 }
 
 //Matchup
