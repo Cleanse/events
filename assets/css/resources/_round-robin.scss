@@ -1,0 +1,56 @@
+/** 1920 x 690 */
+.round-robin {
+  position: absolute;
+  top: 133px;
+  height: 690px;
+  margin: 33px auto 0;
+  width: 1920px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+
+  .rr-group-wrapper {
+    width: 1920px;
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    text-shadow: 1px 2px 1px #000;
+
+    .rr-group-matches {
+      width: 60%;
+      padding: 0 2rem;
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid red;
+
+      h3 {
+        font-size: 2rem;
+      }
+
+      .rr-match {
+        display: flex;
+        justify-content: space-between;
+        font-size: 2rem;
+      }
+    }
+
+    .rr-group-standings {
+      width: 30%;
+      padding: 0 2rem 2rem;
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid blue;
+
+      h3 {
+        font-size: 3rem;
+      }
+
+      .rr-group-standings-team {
+        display: flex;
+        font-size: 2rem;
+
+        span {
+          margin-left: auto;
+        }
+      }
+    }
+  }
+}

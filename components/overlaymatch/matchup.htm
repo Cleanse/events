@@ -8,22 +8,26 @@
 </div>
 
 <div class="teams-wrapper">
-    <div id="one-wrapper" class="team-wrapper team-one {{ match.one.region }}">
-        <h2 id="one-score">{{ match.team_one_score ?? 0 }}</h2>
-        <div class="team-data">
-            <img id="one-logo" class="team-logo" src="{{ match.one.getLogoThumb(128) ?? claws_logo }}">
-            <h3 id="one-name" class="team-one-bg">{{ match.one.name ?? 'Claws' }}</h3>
-            <p id="one-description">{{ match.one.description|nl2br }}</p>
+    <div id="one-wrapper" class="{{ match.one.region }}">
+        <div class="team-wrapper team-one">
+            <h2 id="one-score">{{ match.team_one_score ?? 0 }}</h2>
+            <div class="team-data">
+                <img id="one-logo" class="team-logo" src="{{ match.one.getLogoThumb(128) ?? claws_logo }}">
+                <h3 id="one-name" class="team-one-bg">{{ match.one.name ?? 'Claws' }}</h3>
+                <p id="one-description">{{ match.one.description|nl2br }}</p>
+            </div>
         </div>
     </div>
 
-    <div id="two-wrapper" class="team-wrapper team-two {{ match.two.region }}">
-        <div class="team-data">
-            <img id="two-logo" class="team-logo" src="{{ match.two.getLogoThumb(128) ?? fangs_logo }}">
-            <h3 id="two-name" class="team-two-bg">{{ match.two.name ?? 'Fangs' }}</h3>
-            <p id="two-description">{{ match.two.description|nl2br }}</p>
+    <div id="two-wrapper" class="{{ match.two.region }}">
+        <div class="team-wrapper team-two">
+            <div class="team-data">
+                <img id="two-logo" class="team-logo" src="{{ match.two.getLogoThumb(128) ?? fangs_logo }}">
+                <h3 id="two-name" class="team-two-bg">{{ match.two.name ?? 'Fangs' }}</h3>
+                <p id="two-description">{{ match.two.description|nl2br }}</p>
+            </div>
+            <h2 id="two-score">{{ match.team_two_score ?? 0 }}</h2>
         </div>
-        <h2 id="two-score">{{ match.team_two_score ?? 0 }}</h2>
     </div>
 </div>
 

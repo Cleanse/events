@@ -1,0 +1,86 @@
+/** 1920 x 690 */
+.single-4 {
+  margin: 33px auto 0;
+  width: 1920px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+
+  .upper-bracket-label,
+  .lower-bracket-label {
+    margin: 0 72px 1rem;
+  }
+
+  .lower-bracket-label {
+    padding-top: 30px;
+  }
+
+  .upper-bracket,
+  .lower-bracket {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+
+    .round:not(:last-child) {
+      margin-right: 30px;
+    }
+  }
+
+  .upper-bracket {
+    height: 275px;
+
+    .round {
+      &:not(:first-child) {
+        margin-top: 71px;
+      }
+    }
+
+    .match-pair {
+      .match:first-child {
+        margin-bottom: 30px;
+      }
+    }
+  }
+
+  .lower-bracket {
+    .round {
+      &:first-child {
+        margin-top: 70px;
+      }
+
+      &:nth-child(2) {
+        margin-top: 50px;
+      }
+
+      &:nth-child(3) {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .round {
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+
+    .match {
+      .opponent-1,
+      .opponent-2,
+      .seed {
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .name {
+        font-size: 1.25rem;
+      }
+
+      .score {
+        padding: 0 .5rem;
+        font-size: 2rem;
+      }
+    }
+  }
+}

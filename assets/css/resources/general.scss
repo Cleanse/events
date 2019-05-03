@@ -124,6 +124,14 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
   }
 
+  p {
+    color: #fff;
+    text-shadow: 1px 2px 1px #000;
+  }
+}
+
+#one-wrapper,
+#two-wrapper {
   &.eu {
     background: url('../images/region-eu.png') no-repeat center center;
     background-size: 60%;
@@ -137,6 +145,11 @@ h1, h2, h3, h4, h5, h6 {
   &.na {
     background: url('../images/region-na.png') no-repeat center center;
     background-size: 40%;
+  }
+
+  &.default {
+    background: url('/plugins/cleanse/worldcup/assets/images/favicon.png') no-repeat center center;
+    background-size: 50%;
   }
 }
 
