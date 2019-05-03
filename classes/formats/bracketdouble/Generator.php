@@ -115,14 +115,8 @@ class Generator
         }
 
         $maxMatches = (count($this->event->teams) - 1) * 2 + 1; //（N-1）× 2 ＋ 1
-        if (isset($this->event->config['third_place_match']) && $this->event->config['third_place_match'] > 0) {
-            $maxMatches = $maxMatches + 1;
-        }
-
-        if (isset($this->event->config['grand_finals']) && $this->event->config['grand_finals'] == 2) {
-            $maxMatches = $maxMatches + 2;
-        } elseif (isset($this->event->config['grand_finals']) && $this->event->config['grand_finals'] == 1) {
-            $maxMatches = $maxMatches + 1;
+        if (isset($this->event->config['grand_finals']) && $this->event->config['grand_finals'] == 1) {
+            $maxMatches = $maxMatches - 1;
         }
 
         $leftover = $maxMatches - ($order - 1);
