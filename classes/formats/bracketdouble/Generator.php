@@ -2,6 +2,7 @@
 
 namespace Cleanse\Event\Classes\Formats\BracketDouble;
 
+use Cleanse\Event\Classes\Helpers\BracketHelper;
 use Cleanse\Event\Classes\Generators\MatchGenerator;
 use Cleanse\Event\Models\Event;
 
@@ -114,7 +115,10 @@ class Generator
             $order++;
         }
 
-        $maxMatches = (count($this->event->teams) - 1) * 2 + 1; //（N-1）× 2 ＋ 1
+        //if count is not within bracketSize...
+        $teamCount = BracketHelper::getBracketSize(count($this->event->teams));
+
+        $maxMatches = ($teamCount - 1) * 2 + 1; //（N-1）× 2 ＋ 1
         if (isset($this->event->config['grand_finals']) && $this->event->config['grand_finals'] == 1) {
             $maxMatches = $maxMatches - 1;
         }
