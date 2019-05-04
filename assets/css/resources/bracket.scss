@@ -55,6 +55,10 @@
     font-weight: bold;
     text-align: center;
     white-space: nowrap;
+
+    &.inactive {
+      color: rgba(200, 200, 200, .75);
+    }
   }
 
   .score {
@@ -64,13 +68,46 @@
 
 .seeds {
   .seed {
-    background: mediumpurple;
+    margin-bottom: .25rem;
+    padding: 1rem .5rem;
+    background: linear-gradient(33deg, rgba(33, 33, 33, 0.33), rgba(74, 144, 226, 0.1));
+    color: #fff;
+    font-size: 1.25rem;
+    text-shadow: 1px 2px 1px #000;
   }
 
   .seed:first-child {
-    background: darkseagreen;
-    font-size: 1.5rem;
+    background: linear-gradient(33deg, rgba(218, 165, 32, 0.33), rgba(218, 165, 32, 0.1));
+    font-size: 1.75rem;
     font-weight: bold;
+
+    &::before {
+      content: '1st';
+      margin-right: .25rem;
+      padding: .5rem;
+      border-radius: 1rem;
+      background: linear-gradient(-33deg, rgba(218, 165, 33, 0.33), rgba(218, 165, 33, 0.1));
+      font-size: 1.25rem;
+    }
+  }
+
+  .seed:not(:first-child):before {
+    margin-right: .25rem;
+    padding: .5rem;
+    border-radius: 1rem;
+    background: linear-gradient(-33deg, rgba(212, 212, 220, 0.33), rgba(74, 144, 226, 0.1));
+  }
+
+  .seed:nth-child(2):before {
+    content: '2nd';
+  }
+
+  .seed:nth-child(3):before {
+    content: '3rd';
+  }
+
+  .seed:nth-child(4):before {
+    content: '4th';
   }
 }
 

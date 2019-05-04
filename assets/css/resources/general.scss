@@ -149,9 +149,17 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     &.default {
-      background: url('/plugins/cleanse/worldcup/assets/images/favicon.png') no-repeat center center;
+      background: url('../images/region-default.png') no-repeat center center;
       background-size: 50%;
     }
+  }
+
+  #one-wrapper {
+    border-bottom: 3px solid $claws;
+  }
+
+  #two-wrapper {
+    border-bottom: 3px solid $fangs;
   }
 }
 
@@ -168,8 +176,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .team-one {
-  border-bottom: 3px solid $claws;
-
   h2, h3 {
     text-shadow: $claws 1px 0 10px;
   }
@@ -180,8 +186,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .team-two {
-  border-bottom: 3px solid $fangs;
-
   h2, h3 {
     text-shadow: $fangs 1px 0 10px;
   }
