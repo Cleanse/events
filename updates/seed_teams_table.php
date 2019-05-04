@@ -49,6 +49,11 @@ class SeedTeamsTable extends Seeder
             ['name' => 'We Carry Crit']
         ];
 
+        Team::create([
+            'name' => 'BYE',
+            'description' => 'This is a BYE'
+        ]);
+
         foreach ($teams as $team) {
             Team::create([
                 'name' => $team['name'],
