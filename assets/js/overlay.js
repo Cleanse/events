@@ -117,16 +117,18 @@ if (document.getElementById('overlay-event-bracket')) {
             $('#match-'+ i +' > .opponent-2 .score').text(event_array.event.matches[i].team_two_score ? event_array.event.matches[i].team_two_score : 0);
 
             if (event_array.event.matches[i].one) {
-                $('#match-'+ i +' > .opponent-1 .name').text(event_array.event.matches[i].one.name);
+                $('#match-'+ i +' > .opponent-1 .name')
+                    .text(event_array.event.matches[i].one.name)
+                    .removeClass('inactive');
             } else {
-                $('#match-'+ i +' > .opponent-1 .name').text('--');
                 $('#match-'+ i +' > .opponent-1 .score').text('-');
             }
 
             if (event_array.event.matches[i].two) {
-                $('#match-'+ i +' > .opponent-2 .name').text(event_array.event.matches[i].two.name);
+                $('#match-'+ i +' > .opponent-2 .name')
+                    .text(event_array.event.matches[i].two.name)
+                    .removeClass('inactive');
             } else {
-                $('#match-'+ i +' > .opponent-2 .name').text('--');
                 $('#match-'+ i +' > .opponent-2 .score').text('-');
             }
 
