@@ -9,12 +9,24 @@
     </div>
 
     <div class="overlay-content">
-        <div id="overlay-event" class="overlay-content-wrapper">
+        <div class="overlay-content-wrapper">
             {% if event.type %}
-            {% partial __SELF__~'::'~event.type~'-'~size %}
+                {% if event.type == 'round-robin' %}
+            <div id="overlay-event-rr">
+                {% partial __SELF__~'::round-robin' %}
+            </div>
+                {% else %}
+            <div id="overlay-event-bracket">
+                {% partial __SELF__~'::'~event.type~'-'~size %}
+            </div>
+               {% endif %}
             {% endif %}
         </div>
     </div>
 
     <div class="overlay-footer"></div>
 </div>
+
+<script>
+    const broadcast_channel = {{ broadcast }};
+</script>
