@@ -17,7 +17,8 @@ function makeAjaxCall(apiUrl, userFunc) {
 scoreClawsLogo = '/plugins/cleanse/event/assets/images/score-claws.png';
 scoreFangsLogo = '/plugins/cleanse/event/assets/images/score-fangs.png';
 let matchApiUrl = `/api/broadcast/${broadcast_channel}/match`;
-let eventApiUrl = `/api/broadcast/${broadcast_channel}/event`;
+let groupApiUrl = `/api/broadcast/${broadcast_channel}/group`;
+let bracketApiUrl = `/api/broadcast/${broadcast_channel}/bracket`;
 
 //Score +
 if (document.getElementById('overlay-score')) {
@@ -81,34 +82,7 @@ if (document.getElementById('overlay-matchup')) {
     makeAjaxCall(matchApiUrl, makeMatchUpdate);
 }
 
-//Brackets
-if (document.getElementById('overlay-event-bracket')) {
-    function makeBracketUpdate(event) {
-        if (!event) {
-            return;
-        }
-
-        for (i = 0; i <= event.matches.count; i++) {
-            console.log(i);
-        }
-
-        $('#one-wrapper').addClass(event.one.region);
-        $('#two-wrapper').addClass(event.two.region);
-
-        $('#one-logo').attr("src", event.one.logo.path ? event.one.logo.path : scoreClawsLogo);
-        $('#two-logo').attr("src", event.two.logo.path ? event.two.logo.path : scoreFangsLogo);
-
-        $('#match-1-name').text(event.one.name ? event.one.name : "Claws");
-        $('#two-name').text(event.two.name ? event.two.name : "Fangs");
-
-        $('#one-score').text(event.team_one_score ? event.team_one_score : 0);
-        $('#two-score').text(event.team_two_score ? event.team_two_score : 0);
-    }
-
-    makeAjaxCall(eventApiUrl, makeBracketUpdate);
-}
-
-//RR/Groups
+//RR/Groups --
 if (document.getElementById('overlay-event-rr')) {
     function makeGroupUpdate(event) {
         if (!event) {
@@ -128,5 +102,48 @@ if (document.getElementById('overlay-event-rr')) {
         $('#two-score').text(event.team_two_score ? event.team_two_score : 0);
     }
 
-    makeAjaxCall(eventApiUrl, makeGroupUpdate);
+    makeAjaxCall(groupApiUrl, makeGroupUpdate);
+}
+
+//Brackets
+if (document.getElementById('overlay-event-bracket')) {
+    function makeBracketUpdate(event_array) {
+        if (!event_array) {
+            return;
+        }
+
+        for (let i = 0; i < event_array.event.matches.length; i++) {
+            $('#match-'+ i +' > .opponent-1 .score').text(event_array.event.matches[i].team_one_score ? event_array.event.matches[i].team_one_score : 0);
+            $('#match-'+ i +' > .opponent-2 .score').text(event_array.event.matches[i].team_two_score ? event_array.event.matches[i].team_two_score : 0);
+
+            if (event_array.event.matches[i].one) {
+                $('#match-'+ i +' > .opponent-1 .name').text(event_array.event.matches[i].one.name);
+            } else {
+                $('#match-'+ i +' > .opponent-1 .name').text('--');
+                $('#match-'+ i +' > .opponent-1 .score').text('-');
+            }
+
+            if (event_array.event.matches[i].two) {
+                $('#match-'+ i +' > .opponent-2 .name').text(event_array.event.matches[i].two.name);
+            } else {
+                $('#match-'+ i +' > .opponent-2 .name').text('--');
+                $('#match-'+ i +' > .opponent-2 .score').text('-');
+            }
+
+            $('#match-'+ i).removeClass().addClass('match');
+            if (event_array.event.matches[i].id === event_array.broadcast.active_match) {
+                $('#match-'+ i).addClass('active');
+            }
+        }
+
+        if (event_array.event.winner_id) {
+            $('#best-of').text(event_array.event.winner.name+' wins!');
+
+            for (let s = 0; s < 4; s++) {
+                $('#seed-'+s).text(event_array.placement[s].name);
+            }
+        }
+    }
+
+    makeAjaxCall(bracketApiUrl, makeBracketUpdate);
 }
