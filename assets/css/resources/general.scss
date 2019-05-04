@@ -130,26 +130,28 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-#one-wrapper,
-#two-wrapper {
-  &.eu {
-    background: url('../images/region-eu.png') no-repeat center center;
-    background-size: 60%;
-  }
+#overlay-matchup {
+  #one-wrapper,
+  #two-wrapper {
+    &.eu {
+      background: url('../images/region-eu.png') no-repeat center center;
+      background-size: 60%;
+    }
 
-  &.jp {
-    background: url('../images/region-jp.png') no-repeat center center;
-    background-size: 45%;
-  }
+    &.jp {
+      background: url('../images/region-jp.png') no-repeat center center;
+      background-size: 45%;
+    }
 
-  &.na {
-    background: url('../images/region-na.png') no-repeat center center;
-    background-size: 40%;
-  }
+    &.na {
+      background: url('../images/region-na.png') no-repeat center center;
+      background-size: 40%;
+    }
 
-  &.default {
-    background: url('/plugins/cleanse/worldcup/assets/images/favicon.png') no-repeat center center;
-    background-size: 50%;
+    &.default {
+      background: url('/plugins/cleanse/worldcup/assets/images/favicon.png') no-repeat center center;
+      background-size: 50%;
+    }
   }
 }
 
