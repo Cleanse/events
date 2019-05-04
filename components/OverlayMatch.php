@@ -38,7 +38,7 @@ class OverlayMatch extends ComponentBase
         $this->addCss('assets/css/overlay.css');
         $this->addJs('assets/js/overlay.js');
 
-        $this->page['broadcast'] = $this->property('id');;
+        $this->page['broadcast'] = $this->property('id');
         $this->page['match'] = $this->match;
     }
 
