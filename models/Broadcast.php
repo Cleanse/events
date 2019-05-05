@@ -15,6 +15,7 @@ use Cleanse\Event\Models\Match;
  * @property string  name
  * @property string  description
  * @property string  url
+ * @property integer active_match
  * @property string  scheduled_at
  */
 class Broadcast extends Model
@@ -46,7 +47,6 @@ class Broadcast extends Model
         $matchKey = $matchData;
         if (!$this->getAttribute('matches')->contains($matchKey)) {
             $this->matches()->attach($matchKey, ['lineup' => $order]);
-
         }
 
         return $this;
@@ -58,5 +58,10 @@ class Broadcast extends Model
             ->whereDoesntHave('broadcasts')
             ->orderBy('order', 'asc')
             ->get();
+    }
+
+    public function roundRobinGroup()
+    {
+        return Match::where('id', '=', $this->active_match)->first();
     }
 }

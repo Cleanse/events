@@ -2,6 +2,7 @@
 
 namespace Cleanse\Event\Components;
 
+use DB;
 use Cms\Classes\ComponentBase;
 
 use Cleanse\Event\Models\Broadcast;
@@ -42,6 +43,69 @@ class OverlayEvent extends ComponentBase
         $this->addJs('assets/js/overlay.js');
     }
 
+    private function getEventData()
+    {
+        $id = $this->property('id');
+        $this->broadcast = Broadcast::find($id);
+
+        if (!$this->broadcast) {
+            return [];
+        }
+
+        if ($this->broadcast->event->type == 'round-robin') {
+            $this->getRoundRobinFormatting();
+        } else {
+            $this->getBracketFormatting();
+        }
+    }
+
+    private function getRoundRobinFormatting()
+    {
+        $this->event = Event::where(['id' => $this->broadcast->event_id])
+            ->with(['matches' => function($q)
+            {
+                $q->where(['takes_place_during' => $this->broadcast->roundRobinGroup()->takes_place_during]);
+            }])
+            ->first();
+
+        if (!$this->event) {
+            return [];
+        }
+
+        $groupTeams = [];
+        foreach ($this->event->matches as $match) {
+            $groupTeams[] = $match->one->id;
+            $groupTeams[] = $match->two->id;
+        }
+
+        $groupTeams = array_unique($groupTeams);
+
+        $eventTeams = [];
+        foreach ($this->event->teams()->orderByDesc('pivot_placement')->get() as $team) {
+            if (in_array($team->id, $groupTeams)) {
+                $eventTeams[] = $team;
+            }
+        }
+
+        $this->page['event'] = $this->event;
+        $this->page['teams'] = $eventTeams;
+        $this->page['group_number'] = $this->event->matches[0]->takes_place_during;
+    }
+
+    private function getBracketFormatting()
+    {
+        $this->event = Event::where('id', '=', $this->broadcast->event_id)
+            ->with(['matches'])
+            ->first();
+
+        if (!$this->event) {
+            return [];
+        }
+
+        $this->page['event'] = $this->event;
+        $this->page['size'] = $this->getBracketSize(count($this->event->teams));
+    }
+
     private function getBracketSize($size)
     {
         $bracketSize = 2;
@@ -67,75 +131,9 @@ class OverlayEvent extends ComponentBase
         return $bracketSize;
     }
 
-    private function getEventData()
+    private function seedingMethod()
     {
-        $this->setEventData();
-
-//        $this->page['event'] = $this->event;
-//        //todo: seeding
-//        $this->page['seed_one'] = true;
-//
-//        if ($this->event->type == 'round-robin') {
-//            //Get active_match group #
-//            $this->page['groups'] = $this->event->matches->groupBy('takes_place_during')->toArray();
-//        } else {
-//            $this->page['size'] = $this->getBracketSize(count($this->event->teams));
-//            dd($event);
-//        }
-
-        if (isset($this->event->type)) {
-            if ($this->event->type == 'round-robin') {
-                //do rr
-            } else {
-                //do bracket
-            }
-        }
-    }
-
-    private function setEventData()
-    {
-        $id = $this->property('id');
-        $this->broadcast = Broadcast::find($id);
-
-        if (!$this->broadcast) {
-            return [];
-        }
-
-        $this->event = Event::where('id', '=', $this->broadcast->event_id)
-            ->with(['matches'])
-            ->first();
-
-        if (!$this->event) {
-            return [];
-        }
-
-        //temp
-        $this->page['seed_one'] = true;
-        $this->page['event'] = $this->event;
-        $this->page['broadcast_model'] = $this->broadcast;
-        $this->page['size'] = $this->getBracketSize(count($this->event->teams));
-
-        return $this->event;
-    }
-
-    private function getRoundRobinData()
-    {
-        //get active_match
-        $id = $this->property('id');
-        $broadcast = Broadcast::find($id);
-
-        //get active_match takes_place_during
-        $rr = Broadcast::where('id', '=', $id)
-            ->with(['event' => function($e)
-            {
-                $e->with(['matches' => function($q)
-                {
-                    $q->where('takes_place_during', '=', $this->broadcast->active_match->takes_place_during);
-                }]);
-            }])->first();
-
-        //get matches with active_match's takes_place_during # matches
-
-        //do we need to set up a point table, or can a query count for us?
+        //temp, need to do seeding system
+        $this->page['seed_one'] = true; //do something diff
     }
 }
