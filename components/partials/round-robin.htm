@@ -1,3 +1,8 @@
+<div class="next-match-header">
+    <h1>{{ event.name }}</h1>
+    <p id="best-of">{{ event.winner ? event.winner.name~' win!' : event.description }}</p>
+</div>
+
 <div class="round-robin">
     <h1 id="current-group">Group {{ group_number }}</h1>
     <div class="rr-group-wrapper">
