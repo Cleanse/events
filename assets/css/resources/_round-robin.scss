@@ -3,52 +3,119 @@
   position: absolute;
   top: 133px;
   height: 690px;
-  margin: 33px auto 0;
+  margin: 0 auto;
   width: 1920px;
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
+  color: #fff;
+  text-shadow: 1px 2px 1px #000;
+
+  h1 {
+    padding-bottom: .25rem;
+    border-bottom: 1px solid rgba(218, 165, 32, 0.33);
+    font-size: 4rem;
+  }
+
+  h1,
+  .rr-group-matches h3,
+  .rr-group-standings h3 {
+    margin-bottom: .25rem;
+  }
+
+  .rr-group-matches h3,
+  .rr-group-standings h3 {
+    font-size: 2rem;
+  }
 
   .rr-group-wrapper {
-    width: 1920px;
     display: flex;
     justify-content: space-between;
-    color: #fff;
-    text-shadow: 1px 2px 1px #000;
 
     .rr-group-matches {
       width: 60%;
-      padding: 0 2rem;
-      background: rgba(255, 255, 255, .1);
-      border: 1px solid red;
 
-      h3 {
-        font-size: 2rem;
-      }
+      .matches-wrapper {
+        > div {
+          display: flex;
+          font-size: 2rem;
+          margin-bottom: .25rem;
+          padding: 1rem .5rem;
+          background: linear-gradient(33deg, rgba($claws, .33), rgba($fangs, .1));
+          color: #fff;
+          text-shadow: 1px 2px 1px #000;
 
-      .rr-match {
-        display: flex;
-        justify-content: space-between;
-        font-size: 2rem;
+          .opponent-1,
+          .opponent-2 {
+            width: 45%;
+
+            .name {
+              display: inline-block;
+              font-family: "PT Sans Narrow", sans-serif;
+            }
+
+            .score {
+              display: inline-block;
+              padding: .25rem .5rem;
+              background: linear-gradient(33deg, rgba(255, 255, 255, .2), rgba(200, 200, 200, .2));
+              text-align: center;
+            }
+          }
+
+          .match-versus {
+            width: 10%;
+            font-size: 1.5rem;
+            text-align: center;
+            line-height: 2.5rem;
+          }
+
+          .opponent-1 {
+            .score {
+              margin-right: .25rem;
+            }
+          }
+
+          .opponent-2 {
+            margin-left: auto;
+            text-align: right;
+
+            .score {
+              margin-left: .25rem;
+            }
+          }
+        }
       }
     }
 
     .rr-group-standings {
-      width: 30%;
-      padding: 0 2rem 2rem;
-      background: rgba(255, 255, 255, .1);
-      border: 1px solid blue;
+      width: 35%;
 
-      h3 {
-        font-size: 3rem;
-      }
-
-      .rr-group-standings-team {
+      .standing {
         display: flex;
         font-size: 2rem;
 
-        span {
+        .name {
+          font-family: "PT Sans Narrow", sans-serif;
+        }
+
+        .points {
           margin-left: auto;
+        }
+      }
+
+      .standings-wrapper {
+        border: 1px solid rgba(218, 165, 32, 0.33);
+
+        .inactive {
+          display: none;
+        }
+
+        .standing {
+          margin-bottom: .25rem;
+          padding: 1rem .5rem;
+          background: linear-gradient(33deg, rgba(33, 33, 33, 0.33), rgba(74, 144, 226, 0.1));
+          color: #fff;
+          text-shadow: 1px 2px 1px #000;
         }
       }
     }

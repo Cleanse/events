@@ -14,8 +14,8 @@ function makeAjaxCall(apiUrl, userFunc) {
 }
 
 //Global
-scoreClawsLogo = '/plugins/cleanse/event/assets/images/score-claws.png';
-scoreFangsLogo = '/plugins/cleanse/event/assets/images/score-fangs.png';
+let scoreClawsLogo = '/plugins/cleanse/event/assets/images/score-claws.png';
+let scoreFangsLogo = '/plugins/cleanse/event/assets/images/score-fangs.png';
 let matchApiUrl = `/api/broadcast/${broadcast_channel}/match`;
 let groupApiUrl = `/api/broadcast/${broadcast_channel}/group`;
 let bracketApiUrl = `/api/broadcast/${broadcast_channel}/bracket`;
@@ -84,22 +84,40 @@ if (document.getElementById('overlay-matchup')) {
 
 //RR/Groups --
 if (document.getElementById('overlay-event-rr')) {
-    function makeGroupUpdate(event) {
-        if (!event) {
+    function makeGroupUpdate(group_array) {
+        if (!group_array) {
             return;
         }
 
-        $('#one-wrapper').addClass(event.one.region);
-        $('#two-wrapper').addClass(event.two.region);
+        $('#current-group').text(group_array.group_number ? 'Group '+group_array.group_number : '');
 
-        $('#one-logo').attr("src", event.one.logo.path ? event.one.logo.path : scoreClawsLogo);
-        $('#two-logo').attr("src", event.two.logo.path ? event.two.logo.path : scoreFangsLogo);
+        //todo: create rows based on length, not relying on already drawn
+        for (let i = 0; i < group_array.event.matches.length; i++) {
+            $('#match-' + i + ' > .opponent-1 .score').text(group_array.event.matches[i].team_one_score ? group_array.event.matches[i].team_one_score : 0);
+            $('#match-' + i + ' > .opponent-2 .score').text(group_array.event.matches[i].team_two_score ? group_array.event.matches[i].team_two_score : 0);
 
-        $('#one-name').text(event.one.name ? event.one.name : "Claws");
-        $('#two-name').text(event.two.name ? event.two.name : "Fangs");
+            if (group_array.event.matches[i].one) {
+                $('#match-'+ i +' > .opponent-1 .name')
+                    .text(group_array.event.matches[i].one.name)
+                    .removeClass('inactive');
+            } else {
+                $('#match-'+ i +' > .opponent-1 .score').text('-');
+            }
 
-        $('#one-score').text(event.team_one_score ? event.team_one_score : 0);
-        $('#two-score').text(event.team_two_score ? event.team_two_score : 0);
+            if (group_array.event.matches[i].two) {
+                $('#match-'+ i +' > .opponent-2 .name')
+                    .text(group_array.event.matches[i].two.name)
+                    .removeClass('inactive');
+            } else {
+                $('#match-'+ i +' > .opponent-2 .score').text('-');
+            }
+        }
+
+        for (let s = 0; s < group_array.placement.length; s++) {
+            $('#standing-'+s).removeClass().addClass('standing active');
+            $('#standing-'+s+' .name').text(group_array.placement[s].name);
+            $('#standing-'+s+' .points').text(group_array.placement[s].pivot.placement ? group_array.placement[s].pivot.placement : 0);
+        }
     }
 
     makeAjaxCall(groupApiUrl, makeGroupUpdate);
