@@ -68,7 +68,7 @@ Route::get('/api/broadcast/{broadcast}/group', function ($broadcastId)
         $groupTeams = array_unique($groupTeams);
 
         $eventTeams = [];
-        foreach ($event->teams()->orderByDesc('pivot_placement')->get() as $team) {
+        foreach ($event->teams()->orderByDesc('pivot_points')->get() as $team) {
             if (in_array($team->id, $groupTeams)) {
                 $eventTeams[] = $team;
             }
@@ -77,7 +77,7 @@ Route::get('/api/broadcast/{broadcast}/group', function ($broadcastId)
         return Response::json([
             'event' => $event,
             'broadcast' => $broadcast,
-            'placement' => $eventTeams,
+            'standings' => $eventTeams,
             'group_number' => $event->matches[0]->takes_place_during
         ]);
     }

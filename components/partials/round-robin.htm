@@ -36,7 +36,7 @@
                 {% for t in teams %}
                 <div id="standing-{{ s }}" class="standing inactive">
                     <div class="name">{{ t.name }}</div>
-                    <div class="points">{{ t.pivot.placement ?? 0 }}</div>
+                    <div class="points">{{ t.pivot.points ?? 0 }}</div>
                 </div>
                 {% set s = s+1 %}
                 {% endfor %}

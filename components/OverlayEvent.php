@@ -81,7 +81,7 @@ class OverlayEvent extends ComponentBase
         $groupTeams = array_unique($groupTeams);
 
         $eventTeams = [];
-        foreach ($this->event->teams()->orderByDesc('pivot_placement')->get() as $team) {
+        foreach ($this->event->teams()->orderByDesc('pivot_points')->get() as $team) {
             if (in_array($team->id, $groupTeams)) {
                 $eventTeams[] = $team;
             }

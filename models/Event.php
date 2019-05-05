@@ -57,7 +57,7 @@ class Event extends Model
         'teams' => [
             'Cleanse\Event\Models\Team',
             'table' => 'cleanse_event_event_team',
-            'pivot' => ['seed', 'placement']
+            'pivot' => ['seed', 'points', 'placement']
         ]
     ];
 

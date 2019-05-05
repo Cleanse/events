@@ -113,10 +113,10 @@ if (document.getElementById('overlay-event-rr')) {
             }
         }
 
-        for (let s = 0; s < group_array.placement.length; s++) {
+        for (let s = 0; s < group_array.standings.length; s++) {
             $('#standing-'+s).removeClass().addClass('standing active');
-            $('#standing-'+s+' .name').text(group_array.placement[s].name);
-            $('#standing-'+s+' .points').text(group_array.placement[s].pivot.placement ? group_array.placement[s].pivot.placement : 0);
+            $('#standing-'+s+' .name').text(group_array.standings[s].name);
+            $('#standing-'+s+' .points').text(group_array.standings[s].pivot.points ? group_array.standings[s].pivot.points : 0);
         }
     }
 
