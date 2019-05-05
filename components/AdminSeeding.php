@@ -17,7 +17,7 @@ class AdminSeeding extends ComponentBase
     {
         return [
             'name'        => 'Event Team Placement',
-            'description' => 'Seed/rank/place your teams into event matches.'
+            'description' => 'Seed your teams into event matches.'
         ];
     }
 
