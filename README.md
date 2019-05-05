@@ -14,13 +14,13 @@ A round-robin and bracket events plugin for OctoberCMS.
 - Overlay ('/event/:id/broadcast') will work similarly to '/event/:id/placement' does.
 - Editing a match will pop out similarly to editing a team (using a modal).
 - Needs 'user' or 'role' support. Right now, all admin can control all events etc.
-- After matches are generated, hide 'event type settings' from Settings tab.
 - Broadcast Panel looks poorly done with the lack of descriptors for matches without teams.
 - Manage Teams searchable, sortable (goes for most lists).
 - User system.
 - Backend panel to add people to event rank.
 - Description/short tutorial how to create unique templates.
 - User access to events should be creator or God admin.
+- Future, build in template options for overlay.
 
 ###### Frontend? Controllers (October backend)
 - !!! Eventual idea: Event/Overlay SAAS.
@@ -28,9 +28,13 @@ A round-robin and bracket events plugin for OctoberCMS.
 - [ ] '/event/:id/manage' route needs to be added for managing the overlay.
 
 ### TODO before FWC
-- Write UpdateEvent for match handling by type.
-- Match Updating Form. [important]
-- Broadcast Control Panel.
-- [ ] Get list of scenes needed for The Feast World Cup from Kaze [broadcast]
-- Need to create round robin overlay system that can load groups individually? Maybe a way to to fit a big Round
-Robin stage (JP).
+- [ ] Display Team.description and for the event, that is where the player list will be. Make sure they format nicely.
+- [ ] Need to create round robin overlay system that can load groups individually? Maybe a way to to fit a big Round
+  Robin stage (JP).
+- [ ] Can you add Win-Loss at the right side of standings. So it'll be like 0 - 0 as the format
+- [ ] And maybe add a border to separate matches and standings? Otherwise it looks really good
+- [ ] Then give the option to colorize the team boxes with the names as green or red to indicate if they've advanced or not
+- [ ] https://media.discordapp.net/attachments/482977125985550351/574663074653405184/322411cb4098f85649cfc7b1fc70007f.png
+- [ ] track game / medal counts
+- [ ] Players tracking?
+- [ ] Rename AdminPlacement to AdminSeeding

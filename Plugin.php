@@ -24,7 +24,7 @@ class Plugin extends PluginBase
             'Cleanse\Event\Components\AdminEdit'      => 'cleanseEventAdminEdit',
             'Cleanse\Event\Components\AdminManage'    => 'cleanseEventAdminManage',
             'Cleanse\Event\Components\AdminTeams'     => 'cleanseEventAdminTeams',
-            'Cleanse\Event\Components\AdminPlacement' => 'cleanseEventAdminPlacement',
+            'Cleanse\Event\Components\AdminSeeding'   => 'cleanseEventAdminSeeding',
             'Cleanse\Event\Components\AdminBroadcast' => 'cleanseEventAdminBroadcast',
 
             //Frontend

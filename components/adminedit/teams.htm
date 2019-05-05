@@ -44,7 +44,7 @@
         {% set test_v = event.config.randomize %}
         {% if not event.config.randomize %}
         {% if event.teams.count >= 1 %}
-        <a class="btn btn-warning" href="/event/{{ event.id }}/placement">Team Placement ({{ test_v }})</a>
+        <a class="btn btn-warning" href="/event/{{ event.id }}/seeding">Team Placement ({{ test_v }})</a>
         {% endif %}
         {% endif %}
     </div>
