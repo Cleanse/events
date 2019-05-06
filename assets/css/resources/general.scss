@@ -7,7 +7,6 @@ $jp-color: #9472c4;
 $na-color: #ed515b;
 
 body {
-  background: rgba(0, 0, 0, .9);
   font-family: 'Raleway', sans-serif;
 }
 
@@ -201,7 +200,7 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 auto;
   height: 170px;
   width: 100%;
-  background: url('/plugins/cleanse/broadcast/assets/images/fwc-versus.png') no-repeat center center;
+  background: url('/plugins/cleanse/event/assets/images/fwc-versus.png') no-repeat center center;
 }
 
 .overlay-footer {
@@ -211,7 +210,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: space-between;
   width: 100%;
   min-height: 270px;
-  background: url('/plugins/cleanse/broadcast/assets/images/fwc-footer.png') no-repeat bottom center;
+  background: url('/plugins/cleanse/event/assets/images/fwc-footer.png') no-repeat bottom center;
   -webkit-background-size: contain;
   background-size: contain;
 }

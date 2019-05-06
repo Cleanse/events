@@ -37,4 +37,4 @@ A round-robin and bracket events plugin for OctoberCMS.
 - [ ] https://media.discordapp.net/attachments/482977125985550351/574663074653405184/322411cb4098f85649cfc7b1fc70007f.png
 - [ ] track game / medal counts
 - [ ] Players tracking?
-- [ ] Rename AdminPlacement to AdminSeeding
+- [x] Rename AdminPlacement to AdminSeeding
