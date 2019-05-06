@@ -5,7 +5,7 @@ namespace Cleanse\Event\Components;
 use Redirect;
 use Cms\Classes\ComponentBase;
 
-use Cleanse\Event\Classes\UpdateEvent;
+use Cleanse\Event\Classes\Generators\MatchUpdater;
 use Cleanse\Event\Models\Broadcast;
 use Cleanse\Event\Models\Match;
 
@@ -48,7 +48,10 @@ class AdminBroadcast extends ComponentBase
     public function onUpdateBroadcastMatch()
     {
         $post = post();
-        $this->updateBroadcastMatch($post);
+
+        $updater = new MatchUpdater();
+        $updater->updateMatch($post);
+
         return Redirect::to('/event/broadcast/' . $post['broadcast']);
     }
 
@@ -56,7 +59,8 @@ class AdminBroadcast extends ComponentBase
     {
         $post = post();
 
-        $this->finalizeMatch($post);
+        $updater = new MatchUpdater();
+        $updater->finalizeMatch($post);
 
         return Redirect::to('/event/broadcast/' . $post['broadcast']);
     }
@@ -65,7 +69,8 @@ class AdminBroadcast extends ComponentBase
     {
         $post = post();
 
-        $this->undoMatchResult($post);
+        $updater = new MatchUpdater();
+        $updater->undoMatchResult($post);
 
         return Redirect::to('/event/broadcast/' . $post['broadcast']);
     }
@@ -102,26 +107,6 @@ class AdminBroadcast extends ComponentBase
         $id = $this->property('broadcast');
 
         return Broadcast::find($id);
-    }
-
-    private function updateBroadcastMatch($post)
-    {
-        $match = Match::find($post['match']);
-        $match->team_one_score = $post['one-score'];
-        $match->team_two_score = $post['two-score'];
-        $match->save();
-    }
-
-    private function finalizeMatch($post)
-    {
-        $match = Match::find($post['match']);
-        (new UpdateEvent())->advanceMatch($match);
-    }
-
-    private function undoMatchResult($post)
-    {
-        $match = Match::find($post['match']);
-        (new UpdateEvent())->undoMatch($match);
     }
 
     private function setActiveMatch($post)

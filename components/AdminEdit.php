@@ -11,6 +11,7 @@ use Cleanse\Event\Classes\ValidateEvent;
 use Cleanse\Event\Classes\ManageEvent;
 use Cleanse\Event\Classes\Helpers\DateTimeHelper;
 use Cleanse\Event\Classes\Helpers\EventTypes;
+use Cleanse\Event\Classes\Generators\MatchUpdater;
 use Cleanse\Event\Models\Event;
 use Cleanse\Event\Models\Team;
 use Cleanse\Event\Models\Match;
@@ -110,6 +111,15 @@ class AdminEdit extends ComponentBase
         return Redirect::to('/event/'.$eventId.'/edit');
     }
 
+    //Broadcasts
+    public function onCreateBroadcast()
+    {
+        $broadcastId = $this->createBroadcast();
+
+        return Redirect::to('/event/broadcast/'.$broadcastId);
+    }
+
+    //Matches
     public function onEventSchedule()
     {
         $event = Event::find(post('id'));
@@ -118,22 +128,52 @@ class AdminEdit extends ComponentBase
         return Redirect::to('/event/'.$eventId.'/edit');
     }
 
-    public function onCreateBroadcast()
-    {
-        $broadcastId = $this->createBroadcast();
-
-        return Redirect::to('/event/broadcast/'.$broadcastId);
-    }
-
-    //todo: match updates
     public function onRequestMatchUpdate()
     {
+        $this->page['match_event_type'] = post('type');
         $this->page['match'] = Match::find(post('id'));
+    }
+
+    public function onUpdateMatch()
+    {
+        $post = post();
+
+        $updater = new MatchUpdater();
+        $updater->updateMatch($post);
+
+        return Redirect::to('/event/'.$post['event'].'/edit');
+    }
+
+    public function onFinalizeMatch()
+    {
+        $post = post();
+
+        $updater = new MatchUpdater();
+        $updater->finalizeMatch($post);
+
+        return Redirect::to('/event/'.$post['event'].'/edit');
+    }
+
+    public function onUndoMatchResult()
+    {
+        $post = post();
+
+        $updater = new MatchUpdater();
+        $updater->undoMatchResult($post);
+
+        return Redirect::to('/event/'.$post['event'].'/edit');
     }
 
     /**
      * Class only.
      */
+    private function getEventData()
+    {
+        $id = $this->property('event');
+
+        return Event::find($id);
+    }
+
     private function updateEvent($event)
     {
         $getEvent = Event::find($event['eid']);
@@ -179,13 +219,6 @@ class AdminEdit extends ComponentBase
         $event->addTeam($team);
 
         return $eventId;
-    }
-
-    private function getEventData()
-    {
-        $id = $this->property('event');
-
-        return Event::find($id);
     }
 
     private function fixJsonEncode()
