@@ -54,22 +54,26 @@ class Updater
 
     private function awardWinner($team)
     {
-        $this->match->event->teams()->updateExistingPivot($team, ['points' => $team->pivot->points + 1]);
+        $theValue = Event::whereId($this->match->event_id)->with([
+            'teams' => function ($q) use ($team) {
+                $q->whereId($team);
+            }
+        ])->first();
 
-        $this->setEventWinner();
+        $this->match->event->teams()->updateExistingPivot($team, ['points' => $theValue->teams[0]->pivot->points + 1]);
+
+        $this->setEventWinner($this->match->event_id);
     }
 
-    private function setEventWinner()
+    private function setEventWinner($eventId)
     {
-        $check = Event::where([
-            'id' => $this->match->event_id
-        ])
+        $check = Event::whereId($eventId)
             ->with([
                 'matches' => function ($q) {
-                    $q->whereNotNull('winner_id');
+                    $q->whereNull('winner_id');
                 }
             ])
-            ->get();
+            ->first();
 
         if (count($check->matches) > 0) {
             return;

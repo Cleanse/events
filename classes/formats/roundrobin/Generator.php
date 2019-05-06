@@ -69,6 +69,7 @@ class Generator
         if ($cycle === null) {
             $cycle = $teamCount - 1;
         }
+
         //Create matches.
         $matches = [];
         for ($round = 1; $round <= $cycle; $round += 1) {

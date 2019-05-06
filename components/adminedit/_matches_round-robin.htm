@@ -23,7 +23,7 @@
         </div>
         <button type="button" class="btn btn-outline-primary"
                 data-request="onRequestMatchUpdate"
-                data-request-data="id: {{ match.id }}"
+                data-request-data="id: {{ match.id }}, type: '{{ event.type }}'"
                 data-request-update="'{{ __SELF__ }}::_match': '#matchResult'"
                 data-toggle="modal"
                 data-target="#matchModal">
@@ -35,6 +35,6 @@
 </div>
 {% set group = group+1 %}
 {% endfor %}
-<div id="matchModal">
+<div id="result">
     {% partial '@_edit' %}
 </div>

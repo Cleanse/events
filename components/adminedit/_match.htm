@@ -1,0 +1,95 @@
+<div class="modal-content bg-dark text-light">
+    <div class="modal-header">
+        <h5 class="modal-title" id="matchModalLabel">
+            <span class="text-primary">
+            {% if match_event_type == 'round-robin' %}
+            Group {{ match.takes_place_during }}
+            {% else %}
+            {{ match.order }}
+            {% endif %}
+            </span> |
+            {{ match.one.name }} vs {{ match.two.name }}
+        </h5>
+        <button type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="edit-match-info">
+            <form data-request="onUpdateMatch">
+                <input type="hidden" name="match" value="{{ match.id }}">
+                <input type="hidden" name="event" value="{{ match.event_id }}">
+
+                <div class="row">
+                    <div class="col-3 text-left">
+                        <div class="form-group bg-one">
+                            <label for="one-score" class="sr-only">Claws Score</label>
+                            <input type="number" id="one-score" name="one-score" class="form-control"
+                                   value="{{ match.team_one_score ?? 0 }}">
+                        </div>
+                    </div>
+                    <div class="col-3 d-flex align-items-start">
+                        <img src="{{ match.one.getLogoThumb(28) ?? '/plugins/cleanse/event/assets/images/default.jpg' }}"
+                             alt="{{ match.one.name }} Logo" class="mr-1">
+                        <p>{{ match.one.name }}</p>
+                    </div>
+
+                    <div class="col-3 d-flex align-items-start justify-content-end">
+                        <p>{{ match.two.name }}</p>
+                        <img src="{{ match.two.getLogoThumb(28) ?? '/plugins/cleanse/event/assets/images/default.jpg' }}"
+                             alt="{{ match.two.name }} Logo" class="ml-1">
+                    </div>
+                    <div class="col-3 text-right">
+                        <div class="form-group bg-two">
+                            <label for="two-score" class="sr-only">Fangs Score</label>
+                            <input type="number" id="two-score" name="two-score" class="form-control"
+                                   value="{{ match.team_two_score ?? 0 }}">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-outline-primary">Update Match</button>
+            </form>
+        </div>
+
+        <hr>
+
+        <!-- todo, put these in a class so you only edit one file, also maybe move these into main tab... -->
+        {% if match.winner_id > 0 %}
+        <h3>Undo Match Result</h3>
+        {{ form_open({ request: __SELF__~'::onUndoMatchResult' }) }}
+        <input type="hidden" name="match" value="{{ match.id }}">
+        <input type="hidden" name="event" value="{{ match.event_id }}">
+        <button type="submit" class="btn btn-outline-success btn-sm btn-block mb-1">
+            Undo Winner of {{ match.one.name }} vs {{ match.two.name }}
+        </button>
+        {{ form_close() }}
+        {% else %}
+        <h3>Finalize Match Result</h3>
+        {{ form_open({ request: __SELF__~'::onFinalizeMatch' }) }}
+        <input type="hidden" name="match" value="{{ match.id }}">
+        <input type="hidden" name="event" value="{{ match.event_id }}">
+        <button type="submit" class="btn btn-outline-danger btn-sm btn-block mb-1">
+            Finalize {{ match.one.name }} vs {{ match.two.name }}
+        </button>
+        {{ form_close() }}
+        {% endif %}
+
+        <hr>
+
+        <h3>Incomplete: Add Medal Counts</h3>
+        <div class="edit-game-info">
+            <form data-request="onUpdateGameStats">
+                <input type="hidden" name="id" value="{{ match.id }}">
+                <p class="text-danger">Similar system to attaching and detaching teams to event...</p>
+                Team 1: Games 1 - 5 eventteam get sub tables? F
+                Team 2: Games 1 - 5
+
+                <button class="btn btn-outline-primary">Update Games</button>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+</div>
