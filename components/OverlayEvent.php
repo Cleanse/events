@@ -5,6 +5,7 @@ namespace Cleanse\Event\Components;
 use DB;
 use Cms\Classes\ComponentBase;
 
+use Cleanse\Event\Classes\ManageLocale;
 use Cleanse\Event\Models\Broadcast;
 use Cleanse\Event\Models\Event;
 
@@ -29,6 +30,12 @@ class OverlayEvent extends ComponentBase
                 'description' => 'Broadcast identification.',
                 'default'     => '{{ :id }}',
                 'type'        => 'string',
+            ],
+            'language' => [
+                'title'       => 'Broadcast Language',
+                'description' => 'Will use language selected by the url.',
+                'default'     => '{{ :language }}',
+                'type'        => 'string',
             ]
         ];
     }
@@ -37,6 +44,7 @@ class OverlayEvent extends ComponentBase
     {
         $this->getEventData();
 
+        $this->page['locale'] = $this->setLocale();
         $this->page['broadcast'] = $this->property('id');
 
         $this->addCss('assets/css/overlay.css');
@@ -135,5 +143,17 @@ class OverlayEvent extends ComponentBase
     {
         //temp, need to do seeding system
         $this->page['seed_one'] = true; //do something diff
+    }
+
+    private function setLocale()
+    {
+        $language = $this->property('language');
+        $languages = ['en', 'jp'];
+
+        if (in_array($language, $languages)) {
+            return $locale = (new ManageLocale)->getLocale($language);
+        }
+
+        return $locale = (new ManageLocale)->getLocale('en');
     }
 }
