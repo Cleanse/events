@@ -89,7 +89,7 @@ if (document.getElementById('overlay-event-rr')) {
             return;
         }
 
-        $('#current-group').text(group_array.group_number ? 'Group '+group_array.group_number : '');
+        $('#current-group > span').text(group_array.group_number ? group_array.group_number : '');
 
         //todo: create rows based on length, not relying on already drawn
         for (let i = 0; i < group_array.event.matches.length; i++) {
@@ -113,6 +113,7 @@ if (document.getElementById('overlay-event-rr')) {
             }
         }
 
+        //Need to use components ^ above as well
         for (let s = 0; s < group_array.standings.length; s++) {
             $('#standing-'+s).removeClass().addClass('standing active');
             $('#standing-'+s+' .name').text(group_array.standings[s].name);

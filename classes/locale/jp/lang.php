@@ -11,7 +11,8 @@ return [
         'round' => '円形',
         'lower' => '下',
         'matches' => '一致する',
-        'standings' => '順位表'
+        'standings' => '順位表',
+        'group' => 'グループ'
     ],
     'match' => [
         'matchup' => 'マッチする'

@@ -11,7 +11,8 @@ return [
         'round' => 'Round',
         'lower' => 'Lower',
         'matches' => 'Matches',
-        'standings' => 'Standings'
+        'standings' => 'Standings',
+        'group' => 'Group'
     ],
     'match' => [
         'matchup' => 'Matchup'
