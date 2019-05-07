@@ -91,26 +91,11 @@ if (document.getElementById('overlay-event-rr')) {
 
         $('#current-group > span').text(group_array.group_number ? group_array.group_number : '');
 
-        //todo: create rows based on length, not relying on already drawn
+        const parent = document.getElementById('matches-wrapper');
+        parent.innerHTML = '';
+
         for (let i = 0; i < group_array.event.matches.length; i++) {
-            $('#match-' + i + ' > .opponent-1 .score').text(group_array.event.matches[i].team_one_score ? group_array.event.matches[i].team_one_score : 0);
-            $('#match-' + i + ' > .opponent-2 .score').text(group_array.event.matches[i].team_two_score ? group_array.event.matches[i].team_two_score : 0);
-
-            if (group_array.event.matches[i].one) {
-                $('#match-'+ i +' > .opponent-1 .name')
-                    .text(group_array.event.matches[i].one.name)
-                    .removeClass('inactive');
-            } else {
-                $('#match-'+ i +' > .opponent-1 .score').text('-');
-            }
-
-            if (group_array.event.matches[i].two) {
-                $('#match-'+ i +' > .opponent-2 .name')
-                    .text(group_array.event.matches[i].two.name)
-                    .removeClass('inactive');
-            } else {
-                $('#match-'+ i +' > .opponent-2 .score').text('-');
-            }
+            createMatchNode(parent, i, group_array.event.matches[i], group_array.broadcast.active_match);
         }
 
         //Need to use components ^ above as well
@@ -119,6 +104,97 @@ if (document.getElementById('overlay-event-rr')) {
             $('#standing-'+s+' .name').text(group_array.standings[s].name);
             $('#standing-'+s+' .points').text(group_array.standings[s].pivot.points ? group_array.standings[s].pivot.points : 0);
         }
+    }
+
+    function createMatchNode(parent, n, match, active_match) {
+        let match_wrapper = document.createElement('div');
+        let match_versus = document.createElement('div');
+
+        let opponent_one = document.createElement('div');
+        let opponent_one_score = document.createElement('div');
+        let opponent_one_name = document.createElement('div');
+        let opponent_one_logo = document.createElement('div');
+        let opponent_one_img = document.createElement('img');
+
+        let opponent_two = document.createElement('div');
+        let opponent_two_score = document.createElement('div');
+        let opponent_two_name = document.createElement('div');
+        let opponent_two_logo = document.createElement('div');
+        let opponent_two_img = document.createElement('img');
+
+        match_wrapper.id = 'match-'+n;
+        if (match.id === active_match) {
+            match_wrapper.classList.add("active");
+        }
+
+        if (match.winner_id > 0) {
+            match_wrapper.classList.add("complete");
+        }
+
+        match_versus.className = 'match-versus';
+        match_versus.innerText = 'vs';
+
+        if (match.winner_id === match.one.id) {
+            opponent_one.className = 'opponent-1 winner';
+        } else {
+            opponent_one.className = 'opponent-1';
+        }
+        opponent_one_score.className = 'score';
+        opponent_one_name.className = 'name';
+        opponent_one_logo.className = 'logo';
+        opponent_one_img.src = match.one.logo ? match.one.logo.path : scoreClawsLogo;
+
+        opponent_two.className = 'opponent-2';
+        opponent_two_score.className = 'score';
+        opponent_two_name.className = 'name';
+        opponent_two_logo.className = 'logo';
+        opponent_two_img.src = match.two.logo ? match.two.logo.path : scoreFangsLogo;
+
+        opponent_one_score.innerText = match.team_one_score ? match.team_one_score : 0;
+        opponent_two_score.innerText = match.team_two_score ? match.team_two_score : 0;
+
+        opponent_one_logo.appendChild(opponent_one_img);
+        opponent_two_logo.appendChild(opponent_two_img);
+
+        opponent_one.appendChild(opponent_one_score);
+        opponent_one.appendChild(opponent_one_logo);
+        opponent_one.appendChild(opponent_one_name);
+
+        opponent_two.appendChild(opponent_two_name);
+        opponent_two.appendChild(opponent_two_logo);
+        opponent_two.appendChild(opponent_two_score);
+
+        match_wrapper.appendChild(opponent_one);
+        match_wrapper.appendChild(match_versus);
+        match_wrapper.appendChild(opponent_two);
+
+        let node = `<div id="match-${n}" class="active">
+                    <div class="opponent-1">
+                        <div class="score">{{ m.team_one_score ?? 0 }}</div>
+                        {% if event.matches.count > 6 %}
+                        <div class="logo">
+                            <img src="{{ m.one.getLogoThumb(44) ?? claws_logo }}">
+                        </div>
+                        {% else %}
+                        <div class="name">{{ m.one.name }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="match-versus">vs</div>
+
+                    <div class="opponent-2">
+                        {% if event.matches.count > 6 %}
+                        <div class="logo">
+                            <img src="{{ m.two.getLogoThumb(44) ?? fangs_logo }}">
+                        </div>
+                        {% else %}
+                        <div class="name">{{ m.two.name }}</div>
+                        {% endif %}
+                        <div class="score">{{ m.team_two_score ?? 0 }}</div>
+                    </div>
+                </div>`;
+
+        parent.appendChild(match_wrapper);
     }
 
     makeAjaxCall(groupApiUrl, makeGroupUpdate);
