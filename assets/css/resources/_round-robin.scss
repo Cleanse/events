@@ -160,6 +160,14 @@
         display: flex;
         font-size: 2rem;
 
+        &.qualified {
+          border: 1px solid darkseagreen;
+        }
+
+        &.qualified:nth-child(3) {
+          border: 1px solid red;
+        }
+
         .logo {
           margin-right: .5rem;
           line-height: 0;

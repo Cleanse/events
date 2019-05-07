@@ -16,6 +16,7 @@ function makeAjaxCall(apiUrl, userFunc) {
 //Global
 let scoreClawsLogo = '/plugins/cleanse/event/assets/images/score-claws.png';
 let scoreFangsLogo = '/plugins/cleanse/event/assets/images/score-fangs.png';
+let defaultTeamLogo = '/plugins/cleanse/event/assets/images/default.jpg';
 let matchApiUrl = `/api/broadcast/${broadcast_channel}/match`;
 let groupApiUrl = `/api/broadcast/${broadcast_channel}/group`;
 let bracketApiUrl = `/api/broadcast/${broadcast_channel}/bracket`;
@@ -91,18 +92,17 @@ if (document.getElementById('overlay-event-rr')) {
 
         $('#current-group > span').text(group_array.group_number ? group_array.group_number : '');
 
-        const parent = document.getElementById('matches-wrapper');
-        parent.innerHTML = '';
+        const matchesParent = document.getElementById('matches-wrapper');
+        const standingsParent = document.getElementById('standings-wrapper');
+        matchesParent.innerHTML = '';
+        standingsParent.innerHTML = '';
 
         for (let i = 0; i < group_array.event.matches.length; i++) {
-            createMatchNode(parent, i, group_array.event.matches[i], group_array.broadcast.active_match);
+            createMatchNode(matchesParent, i, group_array.event.matches[i], group_array.broadcast.active_match);
         }
 
-        //Need to use components ^ above as well
         for (let s = 0; s < group_array.standings.length; s++) {
-            $('#standing-'+s).removeClass().addClass('standing active');
-            $('#standing-'+s+' .name').text(group_array.standings[s].name);
-            $('#standing-'+s+' .points').text(group_array.standings[s].pivot.points ? group_array.standings[s].pivot.points : 0);
+            createStandingNode(standingsParent, s, group_array.standings[s]);
         }
     }
 
@@ -168,33 +168,37 @@ if (document.getElementById('overlay-event-rr')) {
         match_wrapper.appendChild(match_versus);
         match_wrapper.appendChild(opponent_two);
 
-        let node = `<div id="match-${n}" class="active">
-                    <div class="opponent-1">
-                        <div class="score">{{ m.team_one_score ?? 0 }}</div>
-                        {% if event.matches.count > 6 %}
-                        <div class="logo">
-                            <img src="{{ m.one.getLogoThumb(44) ?? claws_logo }}">
-                        </div>
-                        {% else %}
-                        <div class="name">{{ m.one.name }}</div>
-                        {% endif %}
-                    </div>
-
-                    <div class="match-versus">vs</div>
-
-                    <div class="opponent-2">
-                        {% if event.matches.count > 6 %}
-                        <div class="logo">
-                            <img src="{{ m.two.getLogoThumb(44) ?? fangs_logo }}">
-                        </div>
-                        {% else %}
-                        <div class="name">{{ m.two.name }}</div>
-                        {% endif %}
-                        <div class="score">{{ m.team_two_score ?? 0 }}</div>
-                    </div>
-                </div>`;
-
         parent.appendChild(match_wrapper);
+    }
+
+    function createStandingNode(parent, s, team) {
+        let standing_wrapper       = document.createElement('div');
+        let standing_team_logo     = document.createElement('div');
+        let standing_team_name     = document.createElement('div');
+        let standing_team_points   = document.createElement('div');
+        let standing_team_logo_img = document.createElement('img');
+
+        standing_wrapper.id = 'standing-'+s;
+        if (team.pivot.points >= 3 && s <= 2) {
+            standing_wrapper.classList.add("qualified");
+        }
+        standing_wrapper.classList.add("standing");
+
+        standing_team_points.className = 'points';
+        standing_team_name.className = 'name';
+        standing_team_logo.className = 'logo';
+        standing_team_logo_img.src = team.logo ? team.logo.path : defaultTeamLogo;
+
+        standing_team_name.innerText = team.name;
+        standing_team_points.innerText = team.pivot.points;
+
+        standing_team_logo.appendChild(standing_team_logo_img);
+
+        standing_wrapper.appendChild(standing_team_logo);
+        standing_wrapper.appendChild(standing_team_name);
+        standing_wrapper.appendChild(standing_team_points);
+
+        parent.appendChild(standing_wrapper);
     }
 
     makeAjaxCall(groupApiUrl, makeGroupUpdate);
