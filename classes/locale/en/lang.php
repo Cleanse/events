@@ -14,7 +14,7 @@ return [
         'standings' => 'Standings'
     ],
     'match' => [
-        'next_match' => 'Next Match'
+        'matchup' => 'Matchup'
     ],
     'score' => [],
     'lineup' => []

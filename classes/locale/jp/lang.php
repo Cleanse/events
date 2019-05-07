@@ -14,7 +14,7 @@ return [
         'standings' => '順位表'
     ],
     'match' => [
-        'next_match' => '次の試合'
+        'matchup' => 'マッチする'
     ],
     'score' => [],
     'lineup' => []
