@@ -1,3 +1,6 @@
+{% set claws_logo = '/plugins/cleanse/event/assets/images/score-claws.png' %}
+{% set fangs_logo = '/plugins/cleanse/event/assets/images/score-fangs.png' %}
+
 <div class="title-header">
     <h1>{{ event.name }}</h1>
 </div>
@@ -7,19 +10,31 @@
     <div class="rr-group-wrapper">
         <div class="rr-group-matches">
             <h3>{{ locale.event.matches }}</h3>
-            <div class="matches-wrapper">
+            <div class="matches-wrapper{% if event.matches.count > 6 %} double{% endif %}">
                 {% set n = 0 %}
                 {% for m in event.matches %}
-                <div id="match-{{ n }}" class="active">
+                <div id="match-{{ n }}" class="active mr-auto">
                     <div class="opponent-1">
                         <div class="score">{{ m.team_one_score ?? 0 }}</div>
+                        {% if event.matches.count > 6 %}
+                        <div class="logo">
+                            <img src="{{ m.one.getLogoThumb(44) ?? claws_logo }}">
+                        </div>
+                        {% else %}
                         <div class="name">{{ m.one.name }}</div>
+                        {% endif %}
                     </div>
 
                     <div class="match-versus">vs</div>
 
                     <div class="opponent-2">
+                        {% if event.matches.count > 6 %}
+                        <div class="logo">
+                            <img src="{{ m.two.getLogoThumb(44) ?? fangs_logo }}">
+                        </div>
+                        {% else %}
                         <div class="name">{{ m.two.name }}</div>
+                        {% endif %}
                         <div class="score">{{ m.team_two_score ?? 0 }}</div>
                     </div>
                 </div>
@@ -34,6 +49,9 @@
                 {% set s = 0 %}
                 {% for t in teams %}
                 <div id="standing-{{ s }}" class="standing inactive">
+                    {% if t.logo %}
+                    <div class="logo"><img src="{{ t.getLogoThumb(44) }}"></div>
+                    {% endif %}
                     <div class="name">{{ t.name }}</div>
                     <div class="points">{{ t.pivot.points ?? 0 }}</div>
                 </div>
