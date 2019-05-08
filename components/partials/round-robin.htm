@@ -17,25 +17,19 @@
                 <div id="match-{{ n }}" class="active">
                     <div class="opponent-1">
                         <div class="score">{{ m.team_one_score ?? 0 }}</div>
-                        {% if event.matches.count > 6 %}
                         <div class="logo">
                             <img src="{{ m.one.getLogoThumb(44) ?? claws_logo }}">
                         </div>
-                        {% else %}
                         <div class="name">{{ m.one.name }}</div>
-                        {% endif %}
                     </div>
 
                     <div class="match-versus">vs</div>
 
                     <div class="opponent-2">
-                        {% if event.matches.count > 6 %}
+                        <div class="name">{{ m.two.name }}</div>
                         <div class="logo">
                             <img src="{{ m.two.getLogoThumb(44) ?? fangs_logo }}">
                         </div>
-                        {% else %}
-                        <div class="name">{{ m.two.name }}</div>
-                        {% endif %}
                         <div class="score">{{ m.team_two_score ?? 0 }}</div>
                     </div>
                 </div>
@@ -59,13 +53,6 @@
                     <div class="points">{{ t.pivot.points ?? 0 }}</div>
                 </div>
                 {% set s = s+1 %}
-                {% endfor %}
-
-                {% for i in s..10 %}
-                <div id="standing-{{ i }}" class="standing inactive">
-                    <div class="name"></div>
-                    <div class="points"></div>
-                </div>
                 {% endfor %}
             </div>
         </div>
