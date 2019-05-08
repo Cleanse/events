@@ -2,32 +2,46 @@
 
 <div class="card-group">
     <div class="card bg-black text-white" style="width: 18rem;">
-        <img src="https://cdn1.iconfinder.com/data/icons/soccer-line-1/64/soccer-08-512.png"
-             class="card-img-top" alt="Preview of the score overlay.">
+        {% if broadcast.event.type == 'round-robin' %}
+        <img src="/plugins/cleanse/event/assets/images/overlay-preview-event-round-robin.jpg"
+             class="card-img-top" alt="Preview of the RR overlay.">
+        {% else %}
+        <img src="/plugins/cleanse/event/assets/images/overlay-preview-event-bracket.jpg"
+             class="card-img-top" alt="Preview of the Bracket overlay.">
+        {% endif %}
         <div class="card-body">
             <h5 class="card-title">Event Overview</h5>
-            <p class="card-text">/event/broadcast/{{ broadcast.id }}/event</p>
-            <a href="#" class="btn btn-outline-primary btn-sm">Copy Score Overlay Link</a>
+            <div class="form-group">
+                <label for="eventFormControl" class="sr-only">Event Overlay Link</label>
+                <textarea class="form-control text-white" id="eventFormControl" rows="3">https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/event</textarea>
+            </div>
+            <a href="#" class="btn btn-outline-primary btn-sm sr-only">Copy Event Overlay Link</a>
         </div>
     </div>
 
     <div class="card bg-black text-white" style="width: 18rem;">
-        <img src="https://cdn1.iconfinder.com/data/icons/soccer-line-1/64/soccer-08-512.png"
-             class="card-img-top" alt="Preview of the match up overlay.">
+        <img src="/plugins/cleanse/event/assets/images/overlay-preview-matchup.jpg"
+             class="card-img-top" alt="Preview of the matchup overlay.">
         <div class="card-body">
             <h5 class="card-title">Current Matchup</h5>
-            <p class="card-text">/event/broadcast/{{ broadcast.id }}/matchup</p>
-            <a href="#" class="btn btn-outline-primary btn-sm">Copy Current Matchup Overlay Link</a>
+            <div class="form-group">
+                <label for="matchFormControl" class="sr-only">Match Overlay Link</label>
+                <textarea class="form-control text-white" id="matchFormControl" rows="3">https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/match</textarea>
+            </div>
+            <a href="#" class="btn btn-outline-primary btn-sm sr-only">Copy Match Overlay Link</a>
         </div>
     </div>
 
     <div class="card bg-black text-white" style="width: 18rem;">
-        <img src="https://cdn1.iconfinder.com/data/icons/soccer-line-1/64/soccer-08-512.png"
+        <img src="/plugins/cleanse/event/assets/images/overlay-preview-score.jpg"
              class="card-img-top" alt="Preview of the score overlay.">
         <div class="card-body">
             <h5 class="card-title">Score</h5>
-            <p class="card-text">/event/broadcast/{{ broadcast.id }}/score</p>
-            <a href="#" class="btn btn-outline-primary btn-sm">Copy Score Overlay Link</a>
+            <div class="form-group">
+                <label for="scoreFormControl" class="sr-only">Score Overlay Link</label>
+                <textarea class="form-control text-white" id="scoreFormControl" rows="3">https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/score</textarea>
+            </div>
+            <a href="#" class="btn btn-outline-primary btn-sm sr-only">Copy Score Overlay Link</a>
         </div>
     </div>
 </div>
