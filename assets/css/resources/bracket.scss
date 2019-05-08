@@ -29,7 +29,7 @@
     padding: .25rem;
     border-top-left-radius: .25rem;
     border-top-right-radius: .25rem;
-    background: linear-gradient(to right, rgba(#DAA520, .33), rgba(#DAA520, .1));
+    background: linear-gradient(33deg, rgba(74, 144, 226, 0.33), rgba(100, 100, 100, 0.1));
     color: #fff;
 
     span {
@@ -70,7 +70,7 @@
   .seed {
     margin-bottom: .25rem;
     padding: 1rem .5rem;
-    background: linear-gradient(33deg, rgba(33, 33, 33, 0.33), rgba(74, 144, 226, 0.1));
+    background: linear-gradient(33deg, rgba(74, 144, 226, 0.33), rgba(100, 100, 100, 0.1));
     color: #fff;
     font-size: 1.25rem;
     text-shadow: 1px 2px 1px #000;
@@ -108,28 +108,5 @@
 
   .seed:nth-child(4):before {
     content: '4th';
-  }
-}
-
-@keyframes animatedGradient {
-  0% {
-    background-size: 333% 200%;
-    background-position: 50% 0;
-  }
-  25% {
-    background-size: 333% 233%;
-    background-position: 33% 66%;
-  }
-  50% {
-    background-size: 100% 100%;
-    background-position: 100% 100%;
-  }
-  75% {
-    background-size: 233% 333%;
-    background-position: 66% 33%;
-  }
-  100% {
-    background-size: 200% 333%;
-    background-position: 0 50%;
   }
 }
