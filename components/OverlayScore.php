@@ -43,7 +43,6 @@ class OverlayScore extends ComponentBase
         $this->match = $this->getMatchData();
 
         $this->addCss('assets/css/overlay.css');
-        $this->addCss('assets/css/overlay-score.css');
         $this->addJs('assets/js/overlay.js');
 
         $this->page['locale'] = $this->setLocale();
