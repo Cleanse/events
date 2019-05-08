@@ -19,11 +19,11 @@
         </div>
         <button type="button" class="btn btn-outline-primary"
                 data-request="onRequestMatchUpdate"
-                data-request-data="id: {{ match.id }}, type: '{{ event.type }}'"
+                data-request-data="id: {{ m.id }}, type: '{{ event.type }}'"
                 data-request-update="'{{ __SELF__ }}::_match': '#matchResult'"
                 data-toggle="modal"
                 data-target="#matchModal">
-            Edit Match
+            Edit
         </button>
     </div>
     {% endfor %}
