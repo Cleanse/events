@@ -1,0 +1,87 @@
+#overlay-score {
+  &.score-wrapper {
+    display: flex;
+    justify-content: space-between;
+    min-height: 150px;
+    width: 475px;
+    margin: 0 auto;
+    background-color: #fff;
+    -webkit-border-radius: .5rem;
+    -moz-border-radius: .5rem;
+    border-radius: .5rem;
+  }
+
+  #one-wrapper,
+  #two-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    padding: 5px 0;
+
+    .team-content {
+      text-align: center;
+    }
+  }
+
+  #one-score,
+  #two-score {
+    margin: 0;
+    color: #fff;
+    font-family: Raleway, sans-serif;
+    font-size: 3.25rem;
+  }
+
+  #one-score {
+    text-shadow: $claws 1px 0 10px;
+  }
+
+  #two-score {
+    text-shadow: $fangs 1px 0 10px;
+  }
+
+  #one-wrapper {
+    background: linear-gradient(33deg, rgba(darken($claws, 50%), .9), rgba($claws, .9));
+    border-bottom-left-radius: .5rem;
+    border-top-left-radius: .5rem;
+
+    &.eu {
+      border-left: 2px solid $eu-color;
+    }
+
+    &.jp {
+      border-left: 2px solid $jp-color;
+    }
+
+    &.na {
+      border-left: 2px solid $na-color;
+    }
+  }
+
+  #two-wrapper {
+    background: linear-gradient(33deg, rgba(darken($fangs, 50%), .9), rgba($fangs, .9));
+    border-bottom-right-radius: .5rem;
+    border-top-right-radius: .5rem;
+
+    &.eu {
+      border-right: 2px solid $eu-color;
+    }
+
+    &.jp {
+      border-right: 2px solid $jp-color;
+    }
+
+    &.na {
+      border-right: 2px solid $na-color;
+    }
+  }
+
+  .one-image,
+  .two-image {
+    margin-bottom: 5px;
+    max-height: 48px !important;
+    max-width: 48px !important;
+    width: 48px;
+    filter: drop-shadow(0 0 .75rem #fff);
+  }
+}

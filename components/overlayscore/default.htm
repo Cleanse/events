@@ -2,32 +2,16 @@
 {% set fangs_logo = '/plugins/cleanse/event/assets/images/score-fangs.png' %}
 
 <div id="overlay-score" class="score-wrapper">
-    <div id="one-wrapper" class="{{ match.one.region }}">
+    <div id="one-wrapper" class="{{ match.one.region }} {{ match.one.name }}">
         <div class="team-content">
-            <div class="team-banner">
-                <div class="team-banner-image-wrapper">
-                    <img id="one-logo" class="one-image" src="{{ match.one.getLogoThumb(128) ?? claws_logo }}"/>
-                </div>
-            </div>
+            <img id="one-logo" class="one-image" src="{{ match.one.getLogoThumb(96) ?? claws_logo }}"/>
             <h4 id="one-score">{{ match.team_one_score ?? 0 }}</h4>
-            <h2 id="one-name" class="text-{{ match.one.region ?? 'default' }}">{{ match.one.name ?? 'Claws' }}</h2>
         </div>
     </div>
-    <div class="globe-image-wrapper">
-        <img class="globe-image" src="/plugins/cleanse/event/assets/images/rotating_globe.gif"/>
-    </div>
-    <div class="meteor-image-wrapper">
-        <img class="meteor-image" src="/plugins/cleanse/event/assets/images/xiv-meteor.png"/>
-    </div>
-    <div id="two-wrapper" class="{{ match.two.region }}">
+    <div id="two-wrapper" class="{{ match.two.region }} {{ match.two.name }}">
         <div class="team-content">
-            <h2 id="two-name" class="text-{{ match.two.region ?? 'default' }}">{{ match.two.name ?? 'Fangs' }}</h2>
+            <img id="two-logo" class="two-image" src="{{ match.two.getLogoThumb(96) ?? fangs_logo }}"/>
             <h4 id="two-score">{{ match.team_two_score ?? 0 }}</h4>
-            <div class="team-banner">
-                <div class="team-banner-image-wrapper">
-                    <img id="two-logo" class="two-image" src="{{ match.two.getLogoThumb(128) ?? fangs_logo }}"/>
-                </div>
-            </div>
         </div>
     </div>
 </div>
