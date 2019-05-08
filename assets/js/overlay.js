@@ -103,6 +103,10 @@ if (document.getElementById('overlay-event-rr')) {
 
         for (let s = 0; s < group_array.standings.length; s++) {
             createStandingNode(standingsParent, s, group_array.standings[s]);
+
+            if (group_array.standings[s].pivot.points >= 3 && s === 2) {
+                threeWayTie(standingsParent);
+            }
         }
     }
 
@@ -124,11 +128,11 @@ if (document.getElementById('overlay-event-rr')) {
 
         match_wrapper.id = 'match-'+n;
         if (match.id === active_match) {
-            match_wrapper.classList.add("active");
+            match_wrapper.classList.add('active');
         }
 
         if (match.winner_id > 0) {
-            match_wrapper.classList.add("complete");
+            match_wrapper.classList.add('complete');
         }
 
         match_versus.className = 'match-versus';
@@ -144,7 +148,11 @@ if (document.getElementById('overlay-event-rr')) {
         opponent_one_logo.className = 'logo';
         opponent_one_img.src = match.one.logo ? match.one.logo.path : scoreClawsLogo;
 
-        opponent_two.className = 'opponent-2';
+        if (match.winner_id === match.two.id) {
+            opponent_two.className = 'opponent-2 winner';
+        } else {
+            opponent_two.className = 'opponent-2';
+        }
         opponent_two_score.className = 'score';
         opponent_two_name.className = 'name';
         opponent_two_logo.className = 'logo';
@@ -152,6 +160,9 @@ if (document.getElementById('overlay-event-rr')) {
 
         opponent_one_score.innerText = match.team_one_score ? match.team_one_score : 0;
         opponent_two_score.innerText = match.team_two_score ? match.team_two_score : 0;
+
+        opponent_one_name.innerText = match.one ? match.one.name : '-';
+        opponent_two_name.innerText = match.two ? match.two.name : '-';
 
         opponent_one_logo.appendChild(opponent_one_img);
         opponent_two_logo.appendChild(opponent_two_img);
@@ -180,9 +191,10 @@ if (document.getElementById('overlay-event-rr')) {
 
         standing_wrapper.id = 'standing-'+s;
         if (team.pivot.points >= 3 && s <= 2) {
-            standing_wrapper.classList.add("qualified");
+            standing_wrapper.classList.add('qualified');
         }
-        standing_wrapper.classList.add("standing");
+
+        standing_wrapper.classList.add('standing');
 
         standing_team_points.className = 'points';
         standing_team_name.className = 'name';
@@ -201,6 +213,14 @@ if (document.getElementById('overlay-event-rr')) {
         parent.appendChild(standing_wrapper);
     }
 
+    function threeWayTie(standingsParent) {
+        standingsParent.children[1].classList.remove('qualified');
+        standingsParent.children[2].classList.remove('qualified');
+
+        standingsParent.children[1].classList.add('tie');
+        standingsParent.children[2].classList.add('tie');
+    }
+
     makeAjaxCall(groupApiUrl, makeGroupUpdate);
 }
 
@@ -210,6 +230,9 @@ if (document.getElementById('overlay-event-bracket')) {
         if (!event_array) {
             return;
         }
+
+        const seedingParent = document.getElementById('final-standings');
+        seedingParent.innerHTML = '';
 
         for (let i = 0; i < event_array.event.matches.length; i++) {
             $('#match-'+ i +' > .opponent-1 .score').text(event_array.event.matches[i].team_one_score ? event_array.event.matches[i].team_one_score : 0);
@@ -238,12 +261,20 @@ if (document.getElementById('overlay-event-bracket')) {
         }
 
         if (event_array.event.winner_id) {
-            $('#best-of').text(event_array.event.winner.name+' wins!');
-
             for (let s = 0; s < 4; s++) {
-                $('#seed-'+s).text(event_array.placement[s].name);
+                createSeedRows(s, event_array.placement[s].name, seedingParent);
             }
         }
+    }
+
+    function createSeedRows(num, team, parent) {
+        let seed_wrapper = document.createElement('div');
+
+        seed_wrapper.id = 'seed-'+num;
+        seed_wrapper.classList.add('seed');
+        seed_wrapper.innerText = team;
+
+        parent.appendChild(seed_wrapper);
     }
 
     makeAjaxCall(bracketApiUrl, makeBracketUpdate);
