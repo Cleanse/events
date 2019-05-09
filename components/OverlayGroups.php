@@ -36,6 +36,7 @@ class OverlayGroups extends ComponentBase
     {
         $this->match = $this->page['groups'] = $this->getEventData();
         $this->page['event_title'] = $this->event->name;
+        $this->page['broadcast'] = $this->property('id');
 
         $this->addCss('assets/css/overlay.css');
         $this->addJs('assets/js/overlay.js');
