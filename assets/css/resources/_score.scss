@@ -59,7 +59,7 @@
   }
 
   #two-wrapper {
-    background: linear-gradient(33deg, rgba(darken($fangs, 50%), .9), rgba($fangs, .9));
+    background: linear-gradient(-33deg, rgba(darken($fangs, 50%), .9), rgba($fangs, .9));
     border-bottom-right-radius: .5rem;
     border-top-right-radius: .5rem;
 
@@ -79,9 +79,9 @@
   .one-image,
   .two-image {
     margin-bottom: 5px;
-    max-height: 48px !important;
-    max-width: 48px !important;
-    width: 48px;
+    max-height: 64px !important;
+    max-width: 64px !important;
+    width: 64px;
     filter: drop-shadow(0 0 .75rem #fff);
   }
 }
