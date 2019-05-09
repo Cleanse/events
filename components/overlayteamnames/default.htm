@@ -1,0 +1,23 @@
+{% set claws_logo = '/plugins/cleanse/event/assets/images/score-claws.png' %}
+{% set fangs_logo = '/plugins/cleanse/event/assets/images/score-fangs.png' %}
+
+{% if team == 'claws' %}
+{% set team_logo = match.one.logo ? match.one.getLogoThumb(48) : claws_logo %}
+{% else %}
+{% set team_logo = match.two.logo ? match.two.getLogoThumb(48) : fangs_logo %}
+{% endif %}
+
+{% if team == 'claws' %}
+{% set team_name = match.one.name %}
+{% else %}
+{% set team_name = match.two.name %}
+{% endif %}
+<div id="team-name" class="{{ team }}">
+    <div class="team-logo">
+        <img src="{{ team_logo }}">
+    </div>
+
+    <div class="team-name">
+        {{ team_name }}
+    </div>
+</div>

@@ -34,9 +34,11 @@ class Plugin extends PluginBase
             //Match, Game, Player
 
             //Broadcast
-            'Cleanse\Event\Components\OverlayMatch' => 'cleanseEventOverlayMatch',
-            'Cleanse\Event\Components\OverlayScore' => 'cleanseEventOverlayScore',
-            'Cleanse\Event\Components\OverlayEvent' => 'cleanseEventOverlayEvent'
+            'Cleanse\Event\Components\OverlayMatch'     => 'cleanseEventOverlayMatch',
+            'Cleanse\Event\Components\OverlayScore'     => 'cleanseEventOverlayScore',
+            'Cleanse\Event\Components\OverlayEvent'     => 'cleanseEventOverlayEvent',
+            'Cleanse\Event\Components\OverlayGroups'    => 'cleanseEventOverlayGroups',
+            'Cleanse\Event\Components\OverlayTeamNames' => 'cleanseEventOverlayTeamNames'
         ];
     }
 }
