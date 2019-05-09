@@ -1,0 +1,41 @@
+<div class="overlay-wrapper">
+    <div class="overlay-content">
+        <div class="overlay-content-wrapper">
+            <div class="title-header">
+                <h1>{{ event_title }}</h1>
+                <p id="best-of">Group Overview</p>
+            </div>
+
+            <div id="overlay-groups">
+                <div class="group-wrapper">
+                    {% set gn = 1 %}
+                    {% for group in groups %}
+                    <div class="group">
+                        <h3>Group {{ gn }}</h3>
+                        {% set s = 0 %}
+                        {% for t in group %}
+                        <div id="team-{{ s }}" class="team">
+                            <div class="points">{{ t.pivot.points ?? 0 }}</div>
+                            {% if t.logo %}
+                            <div class="logo"><img src="{{ t.getLogoThumb(44) }}"></div>
+                            {% else %}
+                            <div class="logo"><img src="{{ default_logo }}"></div>
+                            {% endif %}
+                            <div class="name">{{ t.name }}</div>
+                        </div>
+                        {% set s = s+1 %}
+                        {% endfor %}
+                    </div>
+                    {% set gn = gn + 1 %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay-footer"></div>
+</div>
+
+<script>
+    const broadcast_channel = {{ broadcast }};
+</script>
