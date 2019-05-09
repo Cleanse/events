@@ -15,9 +15,22 @@
                 <label for="eventFormControl" class="sr-only">Event Overlay Link</label>
                 <textarea class="form-control text-white" id="eventFormControl" rows="3">https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/event</textarea>
             </div>
-            <a href="#" class="btn btn-outline-primary btn-sm sr-only">Copy Event Overlay Link</a>
         </div>
     </div>
+
+    {% if broadcast.event.type == 'round-robin' %}
+    <div class="card bg-black text-white" style="width: 18rem;">
+        <img src="/plugins/cleanse/event/assets/images/overlay-preview-event-round-robin.jpg"
+             class="card-img-top" alt="Preview of the RR overlay.">
+        <div class="card-body">
+            <h5 class="card-title">Groups Overview</h5>
+            <div class="form-group">
+                <label for="groupsFormControl" class="sr-only">Groups Overlay Link</label>
+                <textarea class="form-control text-white" id="groupsFormControl" rows="3">https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/groups</textarea>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 
     <div class="card bg-black text-white" style="width: 18rem;">
         <img src="/plugins/cleanse/event/assets/images/overlay-preview-matchup.jpg"
@@ -28,10 +41,11 @@
                 <label for="matchFormControl" class="sr-only">Match Overlay Link</label>
                 <textarea class="form-control text-white" id="matchFormControl" rows="3">https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/match</textarea>
             </div>
-            <a href="#" class="btn btn-outline-primary btn-sm sr-only">Copy Match Overlay Link</a>
         </div>
     </div>
+</div>
 
+<div class="card-group">
     <div class="card bg-black text-white" style="width: 18rem;">
         <img src="/plugins/cleanse/event/assets/images/overlay-preview-score.jpg"
              class="card-img-top" alt="Preview of the score overlay.">
@@ -41,7 +55,30 @@
                 <label for="scoreFormControl" class="sr-only">Score Overlay Link</label>
                 <textarea class="form-control text-white" id="scoreFormControl" rows="3">https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/score</textarea>
             </div>
-            <a href="#" class="btn btn-outline-primary btn-sm sr-only">Copy Score Overlay Link</a>
+        </div>
+    </div>
+
+    <div class="card bg-black text-white" style="width: 18rem;">
+        <img src="/plugins/cleanse/event/assets/images/overlay-preview-team-names-claws.png"
+             class="card-img-top" alt="Preview of the score overlay.">
+        <div class="card-body">
+            <h5 class="card-title">Claws Team Name</h5>
+            <div class="form-group">
+                <label for="teamNameClawsFormControl" class="sr-only">Claws Team Name Overlay Link</label>
+                <textarea class="form-control text-white" id="teamNameClawsFormControl" rows="3">https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/teams/claws</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="card bg-black text-white" style="width: 18rem;">
+        <img src="/plugins/cleanse/event/assets/images/overlay-preview-team-names-fangs.png"
+             class="card-img-top" alt="Preview of the score overlay.">
+        <div class="card-body">
+            <h5 class="card-title">Fangs Team Name</h5>
+            <div class="form-group">
+                <label for="teamNameFangsFormControl" class="sr-only">Fangs Team Name Overlay Link</label>
+                <textarea class="form-control text-white" id="teamNameFangsFormControl" rows="3">https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/teams/fangs</textarea>
+            </div>
         </div>
     </div>
 </div>
