@@ -20,6 +20,10 @@
     padding: 5px 0;
 
     .team-content {
+      display: flex;
+      justify-content: space-around;
+      align-content: space-between;
+      align-items: center;
       text-align: center;
     }
   }
@@ -63,6 +67,10 @@
     border-bottom-right-radius: .5rem;
     border-top-right-radius: .5rem;
 
+    .team-content {
+      flex-direction: row-reverse;
+    }
+
     &.eu {
       border-right: 2px solid $eu-color;
     }
@@ -78,10 +86,10 @@
 
   .one-image,
   .two-image {
-    margin-bottom: 5px;
-    max-height: 64px !important;
-    max-width: 64px !important;
-    width: 64px;
-    filter: drop-shadow(0 0 .75rem #fff);
+    max-height: 128px !important;
+    max-width: 128px !important;
+    width: 128px;
+    filter: drop-shadow(0 0 .75rem rgba(0, 0, 0, .33));
+    border-radius: .5rem;
   }
 }
