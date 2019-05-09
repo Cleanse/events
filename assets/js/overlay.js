@@ -19,6 +19,7 @@ let scoreFangsLogo = '/plugins/cleanse/event/assets/images/score-fangs.png';
 let defaultTeamLogo = '/plugins/cleanse/event/assets/images/default.jpg';
 let matchApiUrl = `/api/broadcast/${broadcast_channel}/match`;
 let groupApiUrl = `/api/broadcast/${broadcast_channel}/group`;
+let groupsApiUrl = `/api/broadcast/${broadcast_channel}/groups`;
 let bracketApiUrl = `/api/broadcast/${broadcast_channel}/bracket`;
 
 //Score +
@@ -83,7 +84,63 @@ if (document.getElementById('overlay-matchup')) {
     makeAjaxCall(matchApiUrl, makeMatchUpdate);
 }
 
-//RR/Groups --
+//Brackets
+if (document.getElementById('overlay-event-bracket')) {
+    function makeBracketUpdate(event_array) {
+        if (!event_array) {
+            return;
+        }
+
+        const seedingParent = document.getElementById('final-standings');
+        seedingParent.innerHTML = '';
+
+        for (let i = 0; i < event_array.event.matches.length; i++) {
+            $('#match-'+ i +' > .opponent-1 .score').text(event_array.event.matches[i].team_one_score ? event_array.event.matches[i].team_one_score : 0);
+            $('#match-'+ i +' > .opponent-2 .score').text(event_array.event.matches[i].team_two_score ? event_array.event.matches[i].team_two_score : 0);
+
+            if (event_array.event.matches[i].one) {
+                $('#match-'+ i +' > .opponent-1 .name')
+                    .text(event_array.event.matches[i].one.name)
+                    .removeClass('inactive');
+            } else {
+                $('#match-'+ i +' > .opponent-1 .score').text('-');
+            }
+
+            if (event_array.event.matches[i].two) {
+                $('#match-'+ i +' > .opponent-2 .name')
+                    .text(event_array.event.matches[i].two.name)
+                    .removeClass('inactive');
+            } else {
+                $('#match-'+ i +' > .opponent-2 .score').text('-');
+            }
+
+            $('#match-'+ i).removeClass().addClass('match');
+            if (event_array.event.matches[i].id === event_array.broadcast.active_match) {
+                $('#match-'+ i).addClass('active');
+            }
+        }
+
+        if (event_array.event.winner_id) {
+            for (let s = 0; s < 4; s++) {
+                createSeedRows(s, event_array.placement[s].name, seedingParent);
+            }
+        }
+    }
+
+    function createSeedRows(num, team, parent) {
+        let seed_wrapper = document.createElement('div');
+
+        seed_wrapper.id = 'seed-'+num;
+        seed_wrapper.classList.add('seed');
+        seed_wrapper.innerText = team;
+
+        parent.appendChild(seed_wrapper);
+    }
+
+    makeAjaxCall(bracketApiUrl, makeBracketUpdate);
+}
+
+//Group
 if (document.getElementById('overlay-event-rr')) {
     function makeGroupUpdate(group_array) {
         if (!group_array) {
@@ -224,58 +281,70 @@ if (document.getElementById('overlay-event-rr')) {
     makeAjaxCall(groupApiUrl, makeGroupUpdate);
 }
 
-//Brackets
-if (document.getElementById('overlay-event-bracket')) {
-    function makeBracketUpdate(event_array) {
-        if (!event_array) {
+if (document.getElementById('overlay-groups')) {
+    function makeGroupsUpdate(groups_array) {
+        if (!groups_array) {
             return;
         }
 
-        const seedingParent = document.getElementById('final-standings');
-        seedingParent.innerHTML = '';
+        const groupsParent = document.getElementById('group-wrapper');
 
-        for (let i = 0; i < event_array.event.matches.length; i++) {
-            $('#match-'+ i +' > .opponent-1 .score').text(event_array.event.matches[i].team_one_score ? event_array.event.matches[i].team_one_score : 0);
-            $('#match-'+ i +' > .opponent-2 .score').text(event_array.event.matches[i].team_two_score ? event_array.event.matches[i].team_two_score : 0);
+        for (let g = 0; g < groups_array.groups.length; g++) {
+            let groupNode = groupsParent.children[g];
+            groupNode.innerHTML = '';
 
-            if (event_array.event.matches[i].one) {
-                $('#match-'+ i +' > .opponent-1 .name')
-                    .text(event_array.event.matches[i].one.name)
-                    .removeClass('inactive');
-            } else {
-                $('#match-'+ i +' > .opponent-1 .score').text('-');
-            }
+            let standing_group_title = document.createElement('h3');
+            standing_group_title.innerText = 'Group '+g+1;
+            groupNode.appendChild(standing_group_title);
 
-            if (event_array.event.matches[i].two) {
-                $('#match-'+ i +' > .opponent-2 .name')
-                    .text(event_array.event.matches[i].two.name)
-                    .removeClass('inactive');
-            } else {
-                $('#match-'+ i +' > .opponent-2 .score').text('-');
-            }
+            for (let s = 0; s < groups_array.groups[g].length; s++) {
+                createGroupsStandingNode(groupNode, s, groups_array.groups[g][s]);
 
-            $('#match-'+ i).removeClass().addClass('match');
-            if (event_array.event.matches[i].id === event_array.broadcast.active_match) {
-                $('#match-'+ i).addClass('active');
-            }
-        }
-
-        if (event_array.event.winner_id) {
-            for (let s = 0; s < 4; s++) {
-                createSeedRows(s, event_array.placement[s].name, seedingParent);
+                if (groups_array.groups[g][s].pivot.points >= 3 && s === 2) {
+                    groupsThreeWayTie(groupNode);
+                }
             }
         }
     }
 
-    function createSeedRows(num, team, parent) {
-        let seed_wrapper = document.createElement('div');
+    function createGroupsStandingNode(parent, s, team) {
+        let standing_wrapper       = document.createElement('div');
+        let standing_team_logo     = document.createElement('div');
+        let standing_team_name     = document.createElement('div');
+        let standing_team_points   = document.createElement('div');
+        let standing_team_logo_img = document.createElement('img');
 
-        seed_wrapper.id = 'seed-'+num;
-        seed_wrapper.classList.add('seed');
-        seed_wrapper.innerText = team;
+        standing_wrapper.id = 'team-'+s;
+        if (team.pivot.points >= 3 && s <= 2) {
+            standing_wrapper.classList.add('qualified');
+        }
 
-        parent.appendChild(seed_wrapper);
+        standing_wrapper.classList.add('team');
+
+        standing_team_points.className = 'points';
+        standing_team_name.className = 'name';
+        standing_team_logo.className = 'logo';
+        standing_team_logo_img.src = team.logo ? team.logo.path : defaultTeamLogo;
+
+        standing_team_name.innerText = team.name;
+        standing_team_points.innerText = team.pivot.points;
+
+        standing_team_logo.appendChild(standing_team_logo_img);
+
+        standing_wrapper.appendChild(standing_team_points);
+        standing_wrapper.appendChild(standing_team_logo);
+        standing_wrapper.appendChild(standing_team_name);
+
+        parent.appendChild(standing_wrapper);
     }
 
-    makeAjaxCall(bracketApiUrl, makeBracketUpdate);
+    function groupsThreeWayTie(standingsParent) {
+        standingsParent.children[1].children[1].classList.remove('qualified');
+        standingsParent.children[1].children[2].classList.remove('qualified');
+
+        standingsParent.children[1].children[1].classList.add('tie');
+        standingsParent.children[1].children[2].classList.add('tie');
+    }
+
+    makeAjaxCall(groupsApiUrl, makeGroupsUpdate);
 }

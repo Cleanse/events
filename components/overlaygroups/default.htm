@@ -7,11 +7,11 @@
             </div>
 
             <div id="overlay-groups">
-                <div class="group-wrapper">
-                    {% set gn = 1 %}
+                <div id="group-wrapper" class="group-wrapper">
+                    {% set gn = 0 %}
                     {% for group in groups %}
-                    <div class="group">
-                        <h3>Group {{ gn }}</h3>
+                    <div id="group-{{ gn }}" class="group">
+                        <h3>Group {{ gn+1 }}</h3>
                         {% set s = 0 %}
                         {% for t in group %}
                         <div id="team-{{ s }}" class="team">
