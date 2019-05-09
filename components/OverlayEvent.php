@@ -2,7 +2,6 @@
 
 namespace Cleanse\Event\Components;
 
-use DB;
 use Cms\Classes\ComponentBase;
 
 use Cleanse\Event\Classes\ManageLocale;
@@ -61,18 +60,25 @@ class OverlayEvent extends ComponentBase
         }
 
         if ($this->broadcast->event->type == 'round-robin') {
-            $this->getRoundRobinFormatting();
+            $this->getGroupsFormatting();
         } else {
             $this->getBracketFormatting();
         }
     }
 
-    private function getRoundRobinFormatting()
+    private function getGroupsFormatting()
     {
+        $id = $this->property('id');
+        $this->broadcast = Broadcast::find($id);
+
+        if (!$this->broadcast) {
+            return [];
+        }
+
         $this->event = Event::where(['id' => $this->broadcast->event_id])
             ->with(['matches' => function($q)
             {
-                $q->where(['takes_place_during' => $this->broadcast->roundRobinGroup()->takes_place_during]);
+                $q->with(['one.logo', 'two.logo']);
             }])
             ->first();
 
@@ -80,24 +86,30 @@ class OverlayEvent extends ComponentBase
             return [];
         }
 
-        $groupTeams = [];
-        foreach ($this->event->matches as $match) {
-            $groupTeams[] = $match->one->id;
-            $groupTeams[] = $match->two->id;
-        }
+        $groups = $this->event->matches->groupBy('takes_place_during');
 
-        $groupTeams = array_unique($groupTeams);
-
-        $eventTeams = [];
-        foreach ($this->event->teams()->orderByDesc('pivot_points')->get() as $team) {
-            if (in_array($team->id, $groupTeams)) {
-                $eventTeams[] = $team;
+        $groupsTeams = [];
+        foreach ($groups as $group) {
+            $groupTeams = [];
+            foreach ($group as $match) {
+                $groupTeams[] = $match->one->id;
+                $groupTeams[] = $match->two->id;
             }
+
+            $groupTeams = array_unique($groupTeams);
+
+            $eventTeams = [];
+            foreach ($this->event->teams()->orderByDesc('pivot_points')->get() as $team) {
+                if (in_array($team->id, $groupTeams)) {
+                    $eventTeams[] = $team;
+                }
+            }
+
+            $groupsTeams[] = $eventTeams;
         }
 
         $this->page['event'] = $this->event;
-        $this->page['teams'] = $eventTeams;
-        $this->page['group_number'] = $this->event->matches[0]->takes_place_during;
+        $this->page['groups'] = $groupsTeams;
     }
 
     private function getBracketFormatting()
@@ -137,12 +149,6 @@ class OverlayEvent extends ComponentBase
         }
 
         return $bracketSize;
-    }
-
-    private function seedingMethod()
-    {
-        //temp, need to do seeding system
-        $this->page['seed_one'] = true; //do something diff
     }
 
     private function setLocale()
