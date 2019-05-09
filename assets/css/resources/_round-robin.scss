@@ -222,3 +222,65 @@
     }
   }
 }
+
+#overlay-groups {
+  position: absolute;
+  height: 690px;
+  width: 1850px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  color: #fff;
+  text-shadow: 1px 2px 1px #000;
+
+  .group-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    justify-content: space-between;
+
+    .group {
+      width: 48%;
+
+      .team {
+        display: flex;
+        font-size: 1.5rem;
+        margin-bottom: .25rem;
+        padding: .5rem;
+        background: linear-gradient(33deg, rgba(33, 33, 33, 0.33), rgba(74, 144, 226, 0.1));
+        color: #fff;
+        text-shadow: 1px 2px 1px #000;
+
+        &.qualified {
+          border: 1px solid rgba(33, 255, 33, 1);
+        }
+
+        &.tie {
+          border: 1px solid rgba(218, 165, 32, 1);
+        }
+
+        .logo {
+          margin-right: .5rem;
+          line-height: 0;
+
+          img {
+            height: 44px;
+            width: auto;
+          }
+        }
+
+        .name {
+          font-family: "PT Sans Narrow", sans-serif;
+          line-height: 44px;
+        }
+
+        .points {
+          width: 44px;
+          margin-right: 1rem;
+          text-align: center;
+          line-height: 44px;
+        }
+      }
+    }
+  }
+}
