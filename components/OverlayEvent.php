@@ -78,6 +78,7 @@ class OverlayEvent extends ComponentBase
         $this->event = Event::where(['id' => $this->broadcast->event_id])
             ->with(['matches' => function($q)
             {
+                $q->orderBy('takes_place_during', 'asc');
                 $q->with(['one.logo', 'two.logo']);
             }])
             ->first();

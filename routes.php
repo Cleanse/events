@@ -46,43 +46,43 @@ Route::get('/api/broadcast/{broadcast}/bracket', function ($broadcastId)
     return Response::json([]);
 })->where(['broadcast' => '[0-9]+']);
 
-Route::get('/api/broadcast/{broadcast}/group', function ($broadcastId)
+Route::get('/api/broadcast/{broadcast}/group/{group}', function ($broadcastId, $groupId)
 {
     $broadcast = Broadcast::where(['id' => $broadcastId])
         ->first();
 
-    if (isset($broadcast->active_match)) {
-        $event = Event::where(['id' => $broadcast->event_id])
-            ->with(['teams', 'winner', 'matches' => function($q) use ($broadcast)
-            {
-                $q->where(['takes_place_during' => $broadcast->roundRobinGroup()->takes_place_during]);
-                $q->with(['one.logo', 'two.logo']);
-            }])
-            ->first();
-
-        $groupTeams = [];
-        foreach ($event->matches as $match) {
-            $groupTeams[] = $match->one->id;
-            $groupTeams[] = $match->two->id;
-        }
-        $groupTeams = array_unique($groupTeams);
-
-        $eventTeams = [];
-        foreach ($event->teams()->with('logo')->orderByDesc('pivot_points')->get() as $team) {
-            if (in_array($team->id, $groupTeams)) {
-                $eventTeams[] = $team;
-            }
-        }
-
-        return Response::json([
-            'event' => $event,
-            'broadcast' => $broadcast,
-            'standings' => $eventTeams,
-            'group_number' => $event->matches[0]->takes_place_during
-        ]);
+    if (!$broadcast) {
+        return Response::json([]);
     }
 
-    return Response::json([]);
+    $event = Event::where(['id' => $broadcast->event_id])
+        ->with(['teams', 'winner', 'matches' => function($q) use ($groupId)
+        {
+            $q->where(['takes_place_during' => $groupId]);
+            $q->with(['one.logo', 'two.logo']);
+        }])
+        ->first();
+
+    $groupTeams = [];
+    foreach ($event->matches as $match) {
+        $groupTeams[] = $match->one->id;
+        $groupTeams[] = $match->two->id;
+    }
+    $groupTeams = array_unique($groupTeams);
+
+    $eventTeams = [];
+    foreach ($event->teams()->with('logo')->orderByDesc('pivot_points')->get() as $team) {
+        if (in_array($team->id, $groupTeams)) {
+            $eventTeams[] = $team;
+        }
+    }
+
+    return Response::json([
+        'event' => $event,
+        'broadcast' => $broadcast,
+        'standings' => $eventTeams,
+        'group_number' => $groupId
+    ]);
 })->where(['broadcast' => '[0-9]+']);
 
 Route::get('/api/broadcast/{broadcast}/groups', function ($broadcastId)
@@ -97,6 +97,7 @@ Route::get('/api/broadcast/{broadcast}/groups', function ($broadcastId)
     $event = Event::where(['id' => $broadcast->event_id])
         ->with(['matches' => function($q)
         {
+            $q->orderBy('takes_place_during', 'asc');
             $q->with(['one.logo', 'two.logo']);
         }])
         ->first();

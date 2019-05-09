@@ -1,33 +1,66 @@
+{% set claws_logo = '/plugins/cleanse/event/assets/images/score-claws.png' %}
+{% set fangs_logo = '/plugins/cleanse/event/assets/images/score-fangs.png' %}
+{% set default_logo = '/plugins/cleanse/event/assets/images/default.jpg' %}
+
 <div class="overlay-wrapper">
     <div class="overlay-content">
         <div class="overlay-content-wrapper">
             <div class="title-header">
-                <h1>{{ event_title }}</h1>
-                <p id="best-of">Group Overview</p>
+                <h1>{{ event.name }}</h1>
             </div>
 
-            <div id="overlay-groups">
-                <div id="group-wrapper" class="group-wrapper">
-                    {% set gn = 0 %}
-                    {% for group in groups %}
-                    <div id="group-{{ gn }}" class="group">
-                        <h3>Group {{ gn+1 }}</h3>
-                        {% set s = 0 %}
-                        {% for t in group %}
-                        <div id="team-{{ s }}" class="team">
-                            <div class="points">{{ t.pivot.points ?? 0 }}</div>
-                            {% if t.logo %}
-                            <div class="logo"><img src="{{ t.getLogoThumb(44) }}"></div>
-                            {% else %}
-                            <div class="logo"><img src="{{ default_logo }}"></div>
-                            {% endif %}
-                            <div class="name">{{ t.name }}</div>
+            <div id="overlay-event-rr">
+                <div class="round-robin">
+                    <h1 id="current-group">{{ locale.event.group }} <span>{{ group_number }}</span></h1>
+                    <div class="rr-group-wrapper">
+                        <div class="rr-group-matches">
+                            <h3>{{ locale.event.matches }}</h3>
+                            <div id="matches-wrapper" class="matches-wrapper{% if event.matches.count > 6 %} double{% endif %}">
+                                {% set n = 0 %}
+                                {% for m in event.matches %}
+                                <div id="match-{{ n }}" class="active">
+                                    <div class="opponent-1">
+                                        <div class="score">{{ m.team_one_score ?? 0 }}</div>
+                                        <div class="logo">
+                                            <img src="{{ m.one.getLogoThumb(44) ?? claws_logo }}">
+                                        </div>
+                                        <div class="name">{{ m.one.name }}</div>
+                                    </div>
+
+                                    <div class="match-versus">vs</div>
+
+                                    <div class="opponent-2">
+                                        <div class="name">{{ m.two.name }}</div>
+                                        <div class="logo">
+                                            <img src="{{ m.two.getLogoThumb(44) ?? fangs_logo }}">
+                                        </div>
+                                        <div class="score">{{ m.team_two_score ?? 0 }}</div>
+                                    </div>
+                                </div>
+                                {% set n = n+1 %}
+                                {% endfor %}
+                            </div>
                         </div>
-                        {% set s = s+1 %}
-                        {% endfor %}
+
+                        <div class="rr-group-standings">
+                            <h3>{{ locale.event.standings }}</h3>
+                            <div id="standings-wrapper" class="standings-wrapper">
+                                {% set s = 0 %}
+                                {% for t in teams %}
+                                <div id="standing-{{ s }}" class="standing inactive">
+                                    {% if t.logo %}
+                                    <div class="logo"><img src="{{ t.getLogoThumb(44) }}"></div>
+                                    {% else %}
+                                    <div class="logo"><img src="{{ default_logo }}"></div>
+                                    {% endif %}
+                                    <div class="name">{{ t.name }}</div>
+                                    <div class="points">{{ t.pivot.points ?? 0 }}</div>
+                                </div>
+                                {% set s = s+1 %}
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
-                    {% set gn = gn + 1 %}
-                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -38,4 +71,5 @@
 
 <script>
     const broadcast_channel = {{ broadcast }};
+    const group_id = {{ group_number }};
 </script>

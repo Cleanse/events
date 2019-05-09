@@ -18,7 +18,7 @@ let scoreClawsLogo = '/plugins/cleanse/event/assets/images/score-claws.png';
 let scoreFangsLogo = '/plugins/cleanse/event/assets/images/score-fangs.png';
 let defaultTeamLogo = '/plugins/cleanse/event/assets/images/default.jpg';
 let matchApiUrl = `/api/broadcast/${broadcast_channel}/match`;
-let groupApiUrl = `/api/broadcast/${broadcast_channel}/group`;
+let groupApiUrl = `/api/broadcast/${broadcast_channel}/group/${group_id}`;
 let groupsApiUrl = `/api/broadcast/${broadcast_channel}/groups`;
 let bracketApiUrl = `/api/broadcast/${broadcast_channel}/bracket`;
 
@@ -281,6 +281,7 @@ if (document.getElementById('overlay-event-rr')) {
     makeAjaxCall(groupApiUrl, makeGroupUpdate);
 }
 
+//Groups
 if (document.getElementById('overlay-groups')) {
     function makeGroupsUpdate(groups_array) {
         if (!groups_array) {
@@ -291,17 +292,13 @@ if (document.getElementById('overlay-groups')) {
 
         for (let g = 0; g < groups_array.groups.length; g++) {
             let groupNode = groupsParent.children[g];
-            groupNode.innerHTML = '';
-
-            let standing_group_title = document.createElement('h3');
-            standing_group_title.innerText = 'Group '+g+1;
-            groupNode.appendChild(standing_group_title);
+            groupNode.children[1].innerHTML = '';
 
             for (let s = 0; s < groups_array.groups[g].length; s++) {
-                createGroupsStandingNode(groupNode, s, groups_array.groups[g][s]);
+                createGroupsStandingNode(groupNode.children[1], s, groups_array.groups[g][s]);
 
                 if (groups_array.groups[g][s].pivot.points >= 3 && s === 2) {
-                    groupsThreeWayTie(groupNode);
+                    groupsThreeWayTie(groupNode.children[1]);
                 }
             }
         }
