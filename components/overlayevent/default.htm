@@ -3,9 +3,7 @@
         <div class="overlay-content-wrapper">
             {% if event.type %}
                 {% if event.type == 'round-robin' %}
-            <div id="overlay-event-rr">
-                {% partial __SELF__~'::round-robin' %}
-            </div>
+                    {% partial __SELF__~'::round-robin' %}
                 {% else %}
             <div id="overlay-event-bracket">
                 {% partial __SELF__~'::'~event.type~'-'~size %}
