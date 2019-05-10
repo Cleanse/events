@@ -46,6 +46,29 @@ if (document.getElementById('overlay-score')) {
     makeAjaxCall(matchApiUrl, makeScoreUpdate);
 }
 
+//Names +
+if (document.getElementById('team-name')) {
+
+    function makeNameUpdate(match) {
+        if (!match) {
+            return;
+        }
+
+        if (names_team === 'claws') {
+            $('#team-name.claws .team-name').text(match.one.name ? match.one.name : 'Claws');
+            $('#team-name.claws .team-logo img').attr('src', match.one.logo ? match.one.logo.path : scoreClawsLogo);
+        }
+
+        if (names_team === 'fangs') {
+            console.log('hi fangs');
+            $('#team-name.fangs .team-name').text(match.two.name ? match.two.name : 'Fangs');
+            $('#team-name.fangs .team-logo img').attr('src', match.two.logo ? match.two.logo.path : scoreFangsLogo);
+        }
+    }
+
+    makeAjaxCall(matchApiUrl, makeNameUpdate);
+}
+
 //Match +
 if (document.getElementById('overlay-matchup')) {
     function makeMatchUpdate(match) {

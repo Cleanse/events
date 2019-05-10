@@ -47,6 +47,7 @@ class OverlayTeamNames extends ComponentBase
 
         $this->page['team'] = $this->property('team');
         $this->page['match'] = $this->match;
+        $this->page['broadcast'] = $this->property('id');
     }
 
     private function getEventData()
