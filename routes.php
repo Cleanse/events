@@ -34,7 +34,7 @@ Route::get('/api/broadcast/{broadcast}/bracket', function ($broadcastId)
             }])
             ->first();
 
-        $placement = $event->teams()->orderBy('pivot_placement')->get();
+        $placement = $event->teams()->orderByRaw('ISNULL(pivot_placement), pivot_placement ASC')->get();
 
         return Response::json([
             'event' => $event,

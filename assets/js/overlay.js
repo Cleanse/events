@@ -18,7 +18,6 @@ let scoreClawsLogo = '/plugins/cleanse/event/assets/images/score-claws.png';
 let scoreFangsLogo = '/plugins/cleanse/event/assets/images/score-fangs.png';
 let defaultTeamLogo = '/plugins/cleanse/event/assets/images/default.jpg';
 let matchApiUrl = `/api/broadcast/${broadcast_channel}/match`;
-let groupApiUrl = `/api/broadcast/${broadcast_channel}/group/${group_id}`;
 let groupsApiUrl = `/api/broadcast/${broadcast_channel}/groups`;
 let bracketApiUrl = `/api/broadcast/${broadcast_channel}/bracket`;
 
@@ -283,6 +282,8 @@ if (document.getElementById('overlay-event-rr')) {
 
 //Groups
 if (document.getElementById('overlay-groups')) {
+    let groupApiUrl = `/api/broadcast/${broadcast_channel}/group/${group_id}`;
+
     function makeGroupsUpdate(groups_array) {
         if (!groups_array) {
             return;
