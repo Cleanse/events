@@ -35,19 +35,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .xiv-block,
 .pvpaissa-block {
-  width: 325px;
-  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #24428E;
-  border-bottom-left-radius: .5rem;
-  border-bottom-right-radius: .5rem;
+  border-top-left-radius: .5rem;
+  border-top-right-radius: .5rem;
   color: #fff;
-
-  img {
-    height: 64px;
-  }
 }
 
 .overlay-content {
@@ -201,7 +194,8 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   bottom: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: flex-end;
   width: 100%;
   min-height: 270px;
   background: url('/plugins/cleanse/event/assets/images/fwc-footer.png') no-repeat bottom center;
