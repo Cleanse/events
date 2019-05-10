@@ -1,5 +1,69 @@
-//342x50
 #team-name {
+  display: flex;
+
+  .team-logo {
+    display: flex;
+    padding: 0 .33rem;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+
+    img {
+      height: 64px;
+      width: 64px;
+      align-self: center;
+      border-radius: .5rem;
+      filter: drop-shadow(0 0 .75rem rgba(0, 0, 0, .33));
+    }
+  }
+
+  .team-name-wrapper {
+    height: 85px;
+    flex-grow: 1;
+  }
+
+  .team-name {
+    height: 48px;
+    font-family: "PT Sans Narrow", sans-serif;
+    font-size: 1.25rem;
+    color: #fff;
+    line-height: 48px;
+  }
+
+  &.claws {
+    border-top-left-radius: .5rem;
+
+    .team-logo {
+      border-top-left-radius: .5rem;
+      background: $claws;
+    }
+
+    .team-name {
+      padding-left: .5rem;
+      border-top-right-radius: .5rem;
+      background: $claws;
+    }
+  }
+
+  &.fangs {
+    flex-direction: row-reverse;
+    border-top-left-radius: .5rem;
+
+    .team-logo {
+      border-top-right-radius: .5rem;
+      background: $fangs;
+    }
+
+    .team-name {
+      padding-right: .5rem;
+      border-top-left-radius: .5rem;
+      background: $fangs;
+      text-align: right;
+    }
+  }
+}
+
+//342x50
+#team-name-old {
   display: flex;
   //width: 100%;
   //height: 100vh;

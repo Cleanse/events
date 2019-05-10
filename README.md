@@ -28,13 +28,4 @@ A round-robin and bracket events plugin for OctoberCMS.
 - [ ] '/event/:id/manage' route needs to be added for managing the overlay.
 
 ### TODO before FWC
-- [ ] Display Team.description and for the event, that is where the player list will be. Make sure they format nicely.
-- [ ] Need to create round robin overlay system that can load groups individually? Maybe a way to to fit a big Round
-  Robin stage (JP).
-- [ ] Can you add Win-Loss at the right side of standings. So it'll be like 0 - 0 as the format
-- [ ] And maybe add a border to separate matches and standings? Otherwise it looks really good
-- [ ] Then give the option to colorize the team boxes with the names as green or red to indicate if they've advanced or not
 - [ ] https://media.discordapp.net/attachments/482977125985550351/574663074653405184/322411cb4098f85649cfc7b1fc70007f.png
-- [ ] track game / medal counts
-- [ ] Players tracking?
-- [x] Rename AdminPlacement to AdminSeeding
