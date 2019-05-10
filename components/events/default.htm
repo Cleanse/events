@@ -8,15 +8,11 @@
         <div class="container basic-content">
             <div class="category-group">
                 {% for event in events %}
-                <div class="category-group-item">
-                    <a href="/event/{{ event.slug }}">{{ event.name }}</a>
-                </div>
+                    <div class="category-group-item">
+                        <a href="/event/{{ event.slug }}">{{ event.name }}</a><br>
+                        <span class="text-secondary">{{ event.description }}</span>
+                    </div>
                 {% endfor %}
-            </div>
-
-            <div class="search-for-team-or-player">
-                <h4>Search</h4>
-                ???
             </div>
         </div>
     </div>

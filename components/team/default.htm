@@ -3,11 +3,12 @@
         <div class="page-title">
             <h1><a href="/events">Events</a> &gt; {{ team.name }}</h1>
             <div class="sub-box"></div>
-            <p class="mt-1 small text-primary">{{ team.description }}</p>
+            <p class="mt-1 small text-primary"></p>
         </div>
     </div>
 
     <div class="container basic-content">
-        Players, Events in, wins[?]
+        Roster:
+        <div>{{ team.description|nl2br }}</div>
     </div>
 </div>
