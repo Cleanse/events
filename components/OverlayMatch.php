@@ -60,7 +60,7 @@ class OverlayMatch extends ComponentBase
         }
 
         $match = Match::where('id', '=', $broadcast->active_match)
-            ->with(['one.logo', 'two.logo'])
+            ->with(['event', 'one.logo', 'two.logo'])
             ->first();
 
         if (!$match) {

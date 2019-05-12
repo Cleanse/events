@@ -13,7 +13,7 @@
                 {% set s = 0 %}
                 {% for t in group %}
                 <div id="team-{{ s }}" class="team">
-                    <div class="points">{{ t.pivot.points ?? 0 }}</div>
+                    <div class="points">{{ t.pivot.points ?? t.pivot.seed }}</div>
                     {% if t.logo %}
                     <div class="logo"><img src="{{ t.getLogoThumb(44) }}"></div>
                     {% else %}

@@ -6,7 +6,7 @@ $jp-color: #9472c4;
 $na-color: #ed515b;
 
 body {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, .33);
   font-family: 'Raleway', sans-serif;
 }
 
@@ -41,6 +41,10 @@ h1, h2, h3, h4, h5, h6 {
   border-top-left-radius: .5rem;
   border-top-right-radius: .5rem;
   color: #fff;
+
+  .paissa-logo {
+    filter: drop-shadow(0 0 .75rem rgba(0, 0, 0, .66));
+  }
 }
 
 .overlay-content {

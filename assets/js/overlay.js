@@ -275,14 +275,18 @@ if (document.getElementById('overlay-event-rr')) {
         }
 
         standing_wrapper.classList.add('standing');
+        if (team.region) {
+            standing_wrapper.classList.add(team.region);
+        }
 
         standing_team_points.className = 'points';
         standing_team_name.className = 'name';
         standing_team_logo.className = 'logo';
+
         standing_team_logo_img.src = team.logo ? team.logo.path : defaultTeamLogo;
 
         standing_team_name.innerText = team.name;
-        standing_team_points.innerText = team.pivot.points;
+        standing_team_points.innerText = team.pivot.points ? team.pivot.points : 0;
 
         standing_team_logo.appendChild(standing_team_logo_img);
 
@@ -322,9 +326,7 @@ if (document.getElementById('overlay-groups')) {
             for (let s = 0; s < groups_array.groups[g].length; s++) {
                 createGroupsStandingNode(groupNode.children[1], s, groups_array.groups[g][s]);
 
-                if (groups_array.groups[g][s].pivot.points >= 3 && s === 2) {
-                    groupsThreeWayTie(groupNode.children[1]);
-                }
+                //qualification
             }
         }
     }
@@ -337,11 +339,11 @@ if (document.getElementById('overlay-groups')) {
         let standing_team_logo_img = document.createElement('img');
 
         standing_wrapper.id = 'team-'+s;
-        if (team.pivot.points >= 3 && s <= 2) {
-            standing_wrapper.classList.add('qualified');
-        }
 
         standing_wrapper.classList.add('team');
+        if (team.region) {
+            standing_wrapper.classList.add(team.region);
+        }
 
         standing_team_points.className = 'points';
         standing_team_name.className = 'name';
@@ -349,7 +351,7 @@ if (document.getElementById('overlay-groups')) {
         standing_team_logo_img.src = team.logo ? team.logo.path : defaultTeamLogo;
 
         standing_team_name.innerText = team.name;
-        standing_team_points.innerText = team.pivot.points;
+        standing_team_points.innerText = team.pivot.points ? team.pivot.points : 0;
 
         standing_team_logo.appendChild(standing_team_logo_img);
 

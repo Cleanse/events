@@ -47,7 +47,7 @@
                             <div id="standings-wrapper" class="standings-wrapper">
                                 {% set s = 0 %}
                                 {% for t in teams %}
-                                <div id="standing-{{ s }}" class="standing inactive">
+                                <div id="standing-{{ s }}" class="standing">
                                     {% if t.logo %}
                                     <div class="logo"><img src="{{ t.getLogoThumb(44) }}"></div>
                                     {% else %}
