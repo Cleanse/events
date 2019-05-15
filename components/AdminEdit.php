@@ -244,16 +244,10 @@ class AdminEdit extends ComponentBase
     {
         $post = post();
 
-        $day = $post['date'];
-        $time = $post['time'];
-
-        $eventDateTime = DateTimeHelper::editDateTimeFormat($day, $time);
-
         $broadcast = [
             'name'         => $post['name'],
             'description'  => $post['description'] ?: '',
-            'url'          => $post['url'] ?: '',
-            'scheduled_at' => $eventDateTime
+            'url'          => $post['url'] ?: ''
         ];
 
         $event = Event::find($post['be_id']);
