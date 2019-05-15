@@ -221,29 +221,17 @@
             .logo {
               filter: drop-shadow(0 0 .75rem rgba($jp-color, .66));
             }
-
-            .name {
-              color: $jp-color;
-            }
           }
 
           &.eu {
             .logo {
               filter: drop-shadow(0 0 .75rem rgba($eu-color, .66));
             }
-
-            .name {
-              color: $eu-color;
-            }
           }
 
           &.na {
             .logo {
               filter: drop-shadow(0 0 .75rem rgba($na-color, .66));
-            }
-
-            .name {
-              color: $na-color;
             }
           }
         }
@@ -252,7 +240,7 @@
   }
 }
 
-#overlay-groups {
+#overlay-event-groups {
   position: absolute;
   height: 690px;
   width: 1850px;
@@ -281,14 +269,8 @@
       }
 
       #team-container {
-        display: flex;
-        flex-wrap: wrap;
-        align-content: space-between;
-        justify-content: space-between;
-
         .team {
           display: flex;
-          width: 46%;
           font-size: 1.5rem;
           margin-bottom: .25rem;
           padding: .5rem;
@@ -297,32 +279,26 @@
           text-shadow: 1px 2px 1px #000;
 
           &.jp {
+            //border-bottom: 1px solid $jp-color;
+
             .logo {
               filter: drop-shadow(0 0 .75rem rgba($jp-color, .66));
-            }
-
-            .name {
-              color: $jp-color;
             }
           }
 
           &.eu {
+            //border-bottom: 1px solid $eu-color;
+
             .logo {
               filter: drop-shadow(0 0 .75rem rgba($eu-color, .66));
-            }
-
-            .name {
-              color: $eu-color;
             }
           }
 
           &.na {
+            //border-bottom: 1px solid $na-color;
+
             .logo {
               filter: drop-shadow(0 0 .75rem rgba($na-color, .66));
-            }
-
-            .name {
-              color: $na-color;
             }
           }
 
@@ -354,6 +330,19 @@
             text-align: center;
             line-height: 44px;
           }
+        }
+      }
+    }
+
+    &.double {
+      #team-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-between;
+        justify-content: space-between;
+
+        .team {
+          width: 46%;
         }
       }
     }

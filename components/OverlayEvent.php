@@ -111,6 +111,7 @@ class OverlayEvent extends ComponentBase
 
         $this->page['event'] = $this->event;
         $this->page['groups'] = $groupsTeams;
+        $this->page['group_layout'] = $this->getLayout();
     }
 
     private function getBracketFormatting()
@@ -150,6 +151,17 @@ class OverlayEvent extends ComponentBase
         }
 
         return $bracketSize;
+    }
+
+    private function getLayout()
+    {
+        $double = count($this->event->teams) / $this->event->config['number_of_groups'];
+
+        if ($double >= 3.01) {
+            return ' double';
+        }
+
+        return '';
     }
 
     private function setLocale()

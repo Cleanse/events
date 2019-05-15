@@ -3,8 +3,8 @@
     <p id="best-of">Group Stage Overview</p>
 </div>
 
-<div id="overlay-groups">
-    <div id="group-wrapper" class="group-wrapper">
+<div id="overlay-event-groups">
+    <div id="group-wrapper" class="group-wrapper{{ group_layout }}">
         {% set gn = 0 %}
         {% for group in groups %}
         <div id="group-{{ gn }}" class="group">
