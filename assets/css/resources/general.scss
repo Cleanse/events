@@ -6,7 +6,7 @@ $jp-color: #9472c4;
 $na-color: #ed515b;
 
 body {
-  background-color: rgba(0, 0, 0, .33);
+  background-color: rgba(0, 0, 0, .69);
   font-family: 'Raleway', sans-serif;
 }
 
@@ -79,8 +79,9 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 100px;
   }
 
-  p {
+  #subtitle {
     margin: .5rem 0 0;
+    color: rgb(218, 165, 32);
     font-size: 2.5rem;
   }
 }

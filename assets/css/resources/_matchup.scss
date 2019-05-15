@@ -1,0 +1,41 @@
+.subtitles {
+  margin-top: 14rem;
+}
+
+#event-round,
+.best-of {
+  margin: 0;
+  color: rgba(#EDDB40, .9);
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 1px 2px 1px rgba(0, 0, 0, .33);
+}
+
+#event-round {
+  font-size: 2.5rem;
+}
+
+.best-of {
+  font-size: 1.5rem;
+}
+
+#one-wrapper,
+#two-wrapper {
+  &.eu {
+    .team-logo {
+      filter: drop-shadow(0 0 .75rem rgba($eu-color, .69));
+    }
+  }
+
+  &.jp {
+    .team-logo {
+      filter: drop-shadow(0 0 .75rem rgba($jp-color, .69));
+    }
+  }
+
+  &.na {
+    .team-logo {
+      filter: drop-shadow(0 0 .75rem rgba($na-color, .69));
+    }
+  }
+}

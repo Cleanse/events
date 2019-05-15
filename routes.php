@@ -12,7 +12,7 @@ Route::get('/api/broadcast/{broadcast}/match', function ($broadcastId)
 
     if (isset($broadcast->active_match)) {
         $match = Match::whereId($broadcast->active_match)
-            ->with(['one.logo', 'two.logo'])
+            ->with(['event', 'one.logo', 'two.logo'])
             ->first();
 
         return Response::json($match);

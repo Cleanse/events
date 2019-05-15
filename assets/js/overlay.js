@@ -101,12 +101,16 @@ if (document.getElementById('overlay-matchup')) {
 
         $('#one-score').text(match.team_one_score ? match.team_one_score : 0);
         $('#two-score').text(match.team_two_score ? match.team_two_score : 0);
+
+        if (match.event.config['best_of']) {
+            $('#bo-x').text(match.event.config['best_of']);
+        }
     }
 
     makeAjaxCall(matchApiUrl, makeMatchUpdate);
 }
 
-//Event Round Robin
+//Event Round Robin +
 if (document.getElementById('overlay-event-groups')) {
     let groupsApiUrl = `/api/broadcast/${broadcast_channel}/groups`;
 

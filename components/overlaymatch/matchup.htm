@@ -3,7 +3,12 @@
 
 <div class="title-header">
     <h1>{{ match.event.name }}</h1>
-    <p id="best-of">{{ locale.match.matchup }}</p>
+</div>
+
+<div class="subtitles">
+    {% if match.event.config.best_of %}
+    <p class="best-of text-center">Best-of-<span id="best-of">{{ match.event.config.best_of }}</span></p>
+    {% endif %}
 </div>
 
 <div class="teams-wrapper">
