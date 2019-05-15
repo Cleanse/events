@@ -1,6 +1,14 @@
 //setup if page in [needs_this_set_of_methods] else [do_nothing];
 const types = {
     "round-robin": {
+        "best_of": {
+            "type": "number",
+            "label": "best_of",
+            "description": "Best-of?",
+            "placeholder": "Number of games per match.",
+            "default": "3 (Best-of-3).",
+            "options": false
+        },
         "number_of_groups": {
             "type": "number",
             "label": "number_of_groups",
@@ -49,6 +57,22 @@ const types = {
         }
     },
     'bracket-single': {
+        "best_of": {
+            "type": "number",
+            "label": "best_of",
+            "description": "Best-of?",
+            "placeholder": "Number of games per match.",
+            "default": "3 (Best-of-3).",
+            "options": false
+        },
+        "best_of_finals": {
+            "type": "number",
+            "label": "best_of",
+            "description": "Best-of?",
+            "placeholder": "Number of games per match.",
+            "default": "3 (Best-of-3).",
+            "options": false
+        },
         "randomize": {
             "type": "select",
             "label": "randomize",
@@ -85,6 +109,22 @@ const types = {
         }
     },
     'bracket-double': {
+        "best_of": {
+            "type": "number",
+            "label": "best_of",
+            "description": "Best-of?",
+            "placeholder": "Number of games per match.",
+            "default": "3 (Best-of-3).",
+            "options": false
+        },
+        "best_of_finals": {
+            "type": "number",
+            "label": "best_of",
+            "description": "Best-of?",
+            "placeholder": "Number of games per match.",
+            "default": "3 (Best-of-3).",
+            "options": false
+        },
         "randomize": {
             "type": "select",
             "label": "randomize",
