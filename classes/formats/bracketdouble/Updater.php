@@ -270,11 +270,6 @@ class Updater
         }
     }
 
-    private function revertBracket()
-    {
-        //
-    }
-
     private function updateMatch($order, $team, $teamId)
     {
         $getMatch = Match::where([

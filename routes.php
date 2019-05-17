@@ -1,9 +1,10 @@
 <?php
 
+use Cleanse\Event\Models\Broadcast;
 use Cleanse\Event\Models\Event;
 use Cleanse\Event\Models\Match;
 use Cleanse\Event\Models\Team;
-use Cleanse\Event\Models\Broadcast;
+use Cleanse\WorldCup\Models\Prize;
 
 Route::get('/api/broadcast/{broadcast}/match', function ($broadcastId)
 {
@@ -132,4 +133,16 @@ Route::get('/api/broadcast/{broadcast}/groups', function ($broadcastId)
         'broadcast' => $broadcast,
         'groups' => $groupsTeams
     ]);
+})->where(['broadcast' => '[0-9]+']);
+
+Route::get('/api/broadcast/{broadcast}/prize', function ($broadcastId)
+{
+    $prize = Prize::where(['id' => $broadcastId])
+        ->first();
+
+    if (isset($prize)) {
+        return Response::json($prize);
+    }
+
+    return Response::json([]);
 })->where(['broadcast' => '[0-9]+']);
