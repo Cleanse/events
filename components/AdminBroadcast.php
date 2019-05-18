@@ -82,6 +82,15 @@ class AdminBroadcast extends ComponentBase
         return Redirect::to('/event/broadcast/' . $post['broadcast']);
     }
 
+    public function onRemoveBroadcastMatch()
+    {
+        $post = post();
+
+        $this->removeBroadcastMatch($post);
+
+        return Redirect::to('/event/broadcast/'.$post['broadcast']);
+    }
+
     public function onDeleteBroadcast()
     {
         $broadcastId = post('id');
@@ -101,6 +110,15 @@ class AdminBroadcast extends ComponentBase
         return Redirect::to('/event/broadcast/'.$post['broadcast']);
     }
 
+    public function onUpdateInformationBox()
+    {
+        $post = post();
+
+        $this->updateInformationBox($post);
+
+        return Redirect::to('/event/broadcast/'.$post['broadcast']);
+    }
+
     //private
     private function getBroadcastData()
     {
@@ -114,15 +132,6 @@ class AdminBroadcast extends ComponentBase
         $broadcast = Broadcast::find($post['broadcast']);
         $broadcast->active_match = $post['match'];
         $broadcast->save();
-    }
-
-    public function onRemoveBroadcastMatch()
-    {
-        $post = post();
-
-        $this->removeBroadcastMatch($post);
-
-        return Redirect::to('/event/broadcast/'.$post['broadcast']);
     }
 
     private function deleteBroadcast($id)
@@ -171,5 +180,12 @@ class AdminBroadcast extends ComponentBase
             $b->matches()->updateExistingPivot($match->id, ['lineup' => $i]);
             $i++;
         }
+    }
+
+    private function updateInformationBox($post)
+    {
+        $broadcast = Broadcast::find($post['broadcast']);
+        $broadcast->information = $post['info'];
+        $broadcast->save();
     }
 }

@@ -31,14 +31,14 @@ class Plugin extends PluginBase
             'Cleanse\Event\Components\Events' => 'cleanseEventEvents',
             'Cleanse\Event\Components\Event'  => 'cleanseEventViewEvent',
             'Cleanse\Event\Components\Team'   => 'cleanseEventViewTeam',
-            //Match, Game, Player
 
-            //Broadcast
-            'Cleanse\Event\Components\OverlayMatch'     => 'cleanseEventOverlayMatch',
-            'Cleanse\Event\Components\OverlayScore'     => 'cleanseEventOverlayScore',
-            'Cleanse\Event\Components\OverlayEvent'     => 'cleanseEventOverlayEvent',
-            'Cleanse\Event\Components\OverlayGroups'    => 'cleanseEventOverlayGroups',
-            'Cleanse\Event\Components\OverlayTeamNames' => 'cleanseEventOverlayTeamNames'
+            //Broadcast Overlays
+            'Cleanse\Event\Components\OverlayMatch'       => 'cleanseEventOverlayMatch',
+            'Cleanse\Event\Components\OverlayScore'       => 'cleanseEventOverlayScore',
+            'Cleanse\Event\Components\OverlayEvent'       => 'cleanseEventOverlayEvent',
+            'Cleanse\Event\Components\OverlayGroups'      => 'cleanseEventOverlayGroups',
+            'Cleanse\Event\Components\OverlayTeamNames'   => 'cleanseEventOverlayTeamNames',
+            'Cleanse\Event\Components\OverlayInformation' => 'cleanseEventOverlayInfo'
         ];
     }
 }

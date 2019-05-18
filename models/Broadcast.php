@@ -13,7 +13,7 @@ use Cleanse\Event\Models\Match;
  * @property integer id
  * @property integer event_id
  * @property string  name
- * @property string  description
+ * @property string  information
  * @property string  url
  * @property integer active_match
  * @property string  scheduled_at
@@ -24,7 +24,7 @@ class Broadcast extends Model
 
     protected $fillable = [
         'name',
-        'description',
+        'information',
         'url',
         'scheduled_at'
     ];

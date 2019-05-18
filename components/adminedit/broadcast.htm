@@ -9,8 +9,8 @@
             <ul>
                 {% for broadcast in event.broadcasts %}
                 <li class="mb-1">
-                    <a class="btn btn-outline-primary btn-sm" href="/event/broadcast/{{ broadcast.id }}">Manage: {{ broadcast.name }}
-                        ({{ broadcast.scheduled_at|date("m/d/Y") }}) [Matches: {{ broadcast.matches.count }}]</a>
+                    <a class="btn btn-outline-primary btn-sm" href="/event/broadcast/{{ broadcast.id }}">
+                        Manage: {{ broadcast.name }} (Matches: {{ broadcast.matches.count }})</a>
                 </li>
                 {% endfor %}
             </ul>
@@ -25,18 +25,6 @@
                 <label class="sr-only" for="name">Broadcast Title</label>
                 <input type="text" class="form-control" id="name"
                        name="name" placeholder="Broadcast Title. ex: Day One" required>
-            </div>
-
-            <div class="form-group">
-                <label class="sr-only" for="description">Broadcast Description</label>
-                <textarea class="form-control" id="description"
-                          name="description" rows="3" placeholder="Broadcast description."></textarea>
-            </div>
-
-            <div class="form-group">
-                <label class="sr-only" for="name">Broadcast URL</label>
-                <input type="text" class="form-control" id="url"
-                       name="url" placeholder="Broadcast Stream Link">
             </div>
 
             <button type="submit" class="btn btn-primary btn-block">Create Broadcast</button>

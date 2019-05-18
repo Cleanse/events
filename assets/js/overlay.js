@@ -386,3 +386,17 @@ if (document.getElementById('overlay-prize-pool-wrapper')) {
 
     makeAjaxCall(prizeApiUrl, makePrizeUpdate);
 }
+
+if (document.getElementById('overlay-information')) {
+    let infoApiUrl = `/api/broadcast/${broadcast_channel}/info`;
+
+    function makeInfoUpdate(info) {
+        if (!info) {
+            return;
+        }
+
+        $('#overlay-information').text(info);
+    }
+
+    makeAjaxCall(infoApiUrl, makeInfoUpdate);
+}

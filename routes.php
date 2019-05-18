@@ -146,3 +146,15 @@ Route::get('/api/broadcast/{broadcast}/prize', function ($broadcastId)
 
     return Response::json([]);
 })->where(['broadcast' => '[0-9]+']);
+
+Route::get('/api/broadcast/{broadcast}/info', function ($broadcastId)
+{
+    $broadcast = Broadcast::where(['id' => $broadcastId])
+        ->first();
+
+    if (isset($broadcast)) {
+        return Response::json($broadcast->information);
+    }
+
+    return Response::json([]);
+})->where(['broadcast' => '[0-9]+']);

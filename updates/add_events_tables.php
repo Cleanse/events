@@ -29,7 +29,7 @@ class AddEventsTables extends Migration
             $table->increments('id');
             $table->integer('event_id')->unsigned()->nullable();
             $table->string('name');
-            $table->text('description')->nullable();
+            $table->text('information')->nullable();
             $table->string('url')->nullable();
             $table->integer('active_match')->unsigned()->nullable();
             $table->timestamp('scheduled_at')->nullable();

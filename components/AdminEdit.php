@@ -245,9 +245,7 @@ class AdminEdit extends ComponentBase
         $post = post();
 
         $broadcast = [
-            'name'         => $post['name'],
-            'description'  => $post['description'] ?: '',
-            'url'          => $post['url'] ?: ''
+            'name' => $post['name']
         ];
 
         $event = Event::find($post['be_id']);
@@ -256,8 +254,8 @@ class AdminEdit extends ComponentBase
             return $post['be_id'];
         }
 
-        $test = $event->broadcasts()->create($broadcast);
+        $createdBroadcast = $event->broadcasts()->create($broadcast);
 
-        return $test->id;
+        return $createdBroadcast->id;
     }
 }

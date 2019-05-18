@@ -1,0 +1,18 @@
+<p class="pt-2 lead">Broadcast Lineup</p>
+<p class="text-info">Manage the Broadcast here.</p>
+
+<div class="broadcast-info-box">
+    {{ form_open({ request: __SELF__~'::onUpdateInformationBox' }) }}
+        <input type="hidden" name="broadcast" value="{{ broadcast.id }}">
+
+        <div class="form-group">
+            <label for="info">Information Box Text</label>
+            <input id="info" name="info" type="text" class="form-control form-control-lg"
+                   placeholder="Broadcast Info Box text." value="{{ broadcast.information }}">
+        </div>
+
+        <button type="submit" class="btn btn-info">
+            Update
+        </button>
+    {{ form_close() }}
+</div>
