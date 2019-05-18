@@ -1,84 +1,94 @@
 <p class="pt-2 lead">Browser Source Links</p>
 
-<div class="card-group">
-    <div class="card bg-black text-white" style="width: 18rem;">
+<div class="row justify-content-between">
+    <div class="col-6-lg bg-black text-white">
         {% if broadcast.event.type == 'round-robin' %}
         <img src="/plugins/cleanse/event/assets/images/overlay-preview-event-round-robin.jpg"
-             class="card-img-top" alt="Preview of the RR overlay.">
+             class="img-fluid" alt="Preview of the RR overlay.">
         {% else %}
         <img src="/plugins/cleanse/event/assets/images/overlay-preview-event-bracket.jpg"
-             class="card-img-top" alt="Preview of the Bracket overlay.">
+             class="img-fluid" alt="Preview of the Bracket overlay.">
         {% endif %}
         <div class="card-body">
             <h5 class="card-title">Event Overview</h5>
-            <div class="form-group">
-                <label for="eventFormControl" class="sr-only">Event Overlay Link</label>
-                <textarea class="form-control text-white" id="eventFormControl" rows="3">https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/event</textarea>
-            </div>
+            <a href="/event/broadcast/{{ broadcast.id }}/event" target="_blank">
+                https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/event</a>
         </div>
     </div>
 
     {% if broadcast.event.type == 'round-robin' %}
-    <div class="card bg-black text-white" style="width: 18rem;">
-        <img src="/plugins/cleanse/event/assets/images/overlay-preview-event-round-robin.jpg"
-             class="card-img-top" alt="Preview of the RR overlay.">
+    <div class="col-6-lg bg-black text-white">
+        <img src="/plugins/cleanse/event/assets/images/overlay-preview-groups.jpg"
+             class="img-fluid" alt="Preview of the RR overlay.">
         <div class="card-body">
-            <h5 class="card-title">Groups Overview</h5>
-            <div class="form-group">
-                <label for="groupsFormControl" class="sr-only">Groups Overlay Link</label>
-                <textarea class="form-control text-white" id="groupsFormControl" rows="3">https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/groups</textarea>
-            </div>
+            <h5 class="card-title">Individual Groups</h5>
+            <ul>
+                {% for i in 1..broadcast.event.config.number_of_groups %}
+                <li><a href="/event/broadcast/{{ broadcast.id }}/groups/{{ i }}" target="_blank">
+                    https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/groups/{{ i }}</a></li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
     {% endif %}
 
-    <div class="card bg-black text-white" style="width: 18rem;">
+    <div class="col-6-lg bg-black text-white">
         <img src="/plugins/cleanse/event/assets/images/overlay-preview-matchup.jpg"
-             class="card-img-top" alt="Preview of the matchup overlay.">
+             class="img-fluid" alt="Preview of the matchup overlay.">
         <div class="card-body">
             <h5 class="card-title">Current Matchup</h5>
-            <div class="form-group">
-                <label for="matchFormControl" class="sr-only">Match Overlay Link</label>
-                <textarea class="form-control text-white" id="matchFormControl" rows="3">https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/match</textarea>
-            </div>
+            <a href="/event/broadcast/{{ broadcast.id }}/match" target="_blank">
+                https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/match</a>
         </div>
     </div>
-</div>
 
-<div class="card-group">
-    <div class="card bg-black text-white" style="width: 18rem;">
+    <div class="col-6-lg bg-black text-white">
         <img src="/plugins/cleanse/event/assets/images/overlay-preview-score.jpg"
-             class="card-img-top" alt="Preview of the score overlay.">
+             class="img-fluid" alt="Preview of the score overlay.">
         <div class="card-body">
             <h5 class="card-title">Score</h5>
-            <div class="form-group">
-                <label for="scoreFormControl" class="sr-only">Score Overlay Link</label>
-                <textarea class="form-control text-white" id="scoreFormControl" rows="3">https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/score</textarea>
-            </div>
+            <a href="/event/broadcast/{{ broadcast.id }}/score" target="_blank">
+                https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/score</a>
         </div>
     </div>
 
-    <div class="card bg-black text-white" style="width: 18rem;">
-        <img src="/plugins/cleanse/event/assets/images/overlay-preview-team-names-claws.png"
-             class="card-img-top" alt="Preview of the score overlay.">
+    <div class="col-6-lg bg-black text-white">
+        <img src="/plugins/cleanse/event/assets/images/overlay-preview-name-claws.jpg"
+             class="img-fluid" alt="Preview of the score overlay.">
         <div class="card-body">
             <h5 class="card-title">Claws Team Name</h5>
-            <div class="form-group">
-                <label for="teamNameClawsFormControl" class="sr-only">Claws Team Name Overlay Link</label>
-                <textarea class="form-control text-white" id="teamNameClawsFormControl" rows="3">https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/teams/claws</textarea>
-            </div>
+            <a href="/event/broadcast/{{ broadcast.id }}/teams/claws" target="_blank">
+                https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/teams/claws</a>
         </div>
     </div>
 
-    <div class="card bg-black text-white" style="width: 18rem;">
-        <img src="/plugins/cleanse/event/assets/images/overlay-preview-team-names-fangs.png"
-             class="card-img-top" alt="Preview of the score overlay.">
+    <div class="col-6-lg bg-black text-white">
+        <img src="/plugins/cleanse/event/assets/images/overlay-preview-name-fangs.jpg"
+             class="img-fluid" alt="Preview of the score overlay.">
         <div class="card-body">
             <h5 class="card-title">Fangs Team Name</h5>
-            <div class="form-group">
-                <label for="teamNameFangsFormControl" class="sr-only">Fangs Team Name Overlay Link</label>
-                <textarea class="form-control text-white" id="teamNameFangsFormControl" rows="3">https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/teams/fangs</textarea>
-            </div>
+            <a href="/event/broadcast/{{ broadcast.id }}/teams/fangs" target="_blank">
+                https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/teams/fangs</a>
+        </div>
+    </div>
+
+    <div class="col-6-lg bg-black text-white">
+        <img src="/plugins/cleanse/event/assets/images/overlay-preview-prize.jpg"
+             class="img-fluid" alt="Preview of the score overlay.">
+        <div class="card-body">
+            <h5 class="card-title">Prize Amount</h5>
+            <a href="/event/broadcast/{{ broadcast.id }}/prize" target="_blank">
+                https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/prize</a>
+        </div>
+    </div>
+
+    <div class="col-6-lg bg-black text-white">
+        <img src="/plugins/cleanse/event/assets/images/overlay-preview-info-box.jpg"
+             class="img-fluid" alt="Preview of the score overlay.">
+        <div class="card-body">
+            <h5 class="card-title">Info Box</h5>
+            <a href="/event/broadcast/{{ broadcast.id }}/info" target="_blank">
+                https://pvpaissa.com/event/broadcast/{{ broadcast.id }}/info</a>
         </div>
     </div>
 </div>
