@@ -119,8 +119,8 @@ const types = {
         },
         "best_of_finals": {
             "type": "number",
-            "label": "best_of",
-            "description": "Best-of?",
+            "label": "best_of_finals",
+            "description": "Best-of in the finals?",
             "placeholder": "Number of games per match.",
             "default": "3 (Best-of-3).",
             "options": false

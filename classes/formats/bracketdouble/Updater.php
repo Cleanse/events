@@ -151,7 +151,7 @@ class Updater
                 $this->updateMatch(14, 2, $this->match->winner_id);
                 break;
             case 14:
-                if ($this->match->event->config['grand_finals'] == 2) {
+                if ($this->match->event->config['grand_finals'] === 2) {
                     if ($this->match->winner_id === $this->match->team_one) {
                         $this->updateFinalPlacement($this->match->winner_id, 1);
                         $this->setEventWinner();
@@ -252,7 +252,7 @@ class Updater
                 $this->updateFinalPlacement($team, 3);
                 break;
             case 14:
-                if ($this->match->event->config['grand_finals'] == 2) {
+                if ($this->match->event->config['grand_finals'] === 2) {
                     if ($this->match->winner_id === $this->match->team_one) {
                         $this->updateFinalPlacement($team, 2);
                     } else {

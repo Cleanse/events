@@ -7,7 +7,7 @@
   .upper-bracket-label,
   .lower-bracket-label {
     color: #fff;
-    text-shadow: 1px 2px 1px #000;
+    text-shadow: 1px 2px 1px rgba(0, 0, 0, .69);
   }
 
   .lower-bracket-label {
@@ -16,19 +16,23 @@
 }
 
 .match {
-  border-radius: .25rem;
+  border-radius: .5rem;
   color: #fff;
 
   &.active {
-    box-shadow: 0 0 15px 5px rgba(57, 87, 136, 0.66);
+    box-shadow: 0 0 10px 5px rgba(218, 165, 33, 0.69);
+
+    .match-header span {
+      color: #fff;
+    }
   }
 
   .match-header {
     display: flex;
     justify-content: space-between;
     padding: .25rem;
-    border-top-left-radius: .25rem;
-    border-top-right-radius: .25rem;
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
     background: linear-gradient(33deg, rgba(74, 144, 226, 0.33), rgba(100, 100, 100, 0.1));
     color: #fff;
 
@@ -38,15 +42,15 @@
   }
 
   .opponent-1 {
-    border-top-left-radius: .25rem;
-    border-top-right-radius: .25rem;
-    background: linear-gradient(to right, $claws, rgba($claws, .66));
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+    background: linear-gradient(33deg, $claws, rgba($claws, .66));
   }
 
   .opponent-2 {
-    border-bottom-left-radius: .25rem;
-    border-bottom-right-radius: .25rem;
-    background: linear-gradient(to right, $fangs, rgba($fangs, .66));
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+    background: linear-gradient(33deg, $fangs, rgba($fangs, .66));
   }
 
   .name {
@@ -62,7 +66,7 @@
   }
 
   .score {
-    font-family: 'PT Mono', monospace;
+    background: linear-gradient(33deg, rgba(33, 33, 33, 0.33), rgba(74, 144, 226, 0.1));
   }
 }
 
