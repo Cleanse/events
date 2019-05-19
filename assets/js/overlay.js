@@ -32,14 +32,17 @@ if (document.getElementById('overlay-score')) {
         $('#one-wrapper').addClass(match.one.region ? match.one.region : '');
         $('#two-wrapper').addClass(match.two.region ? match.two.region : '');
 
-        $('#one-logo').attr("src", match.one.logo ? match.one.logo.path : scoreClawsLogo);
-        $('#two-logo').attr("src", match.two.logo ? match.two.logo.path : scoreFangsLogo);
+        $('#one-logo').attr('src', match.one.logo ? match.one.logo.path : scoreClawsLogo);
+        $('#two-logo').attr('src', match.two.logo ? match.two.logo.path : scoreFangsLogo);
 
-        $('#one-name').text(match.one.name ? match.one.name : "Claws");
-        $('#two-name').text(match.two.name ? match.two.name : "Fangs");
+        $('#one-name').text(match.one.name ? match.one.name : 'Claws');
+        $('#two-name').text(match.two.name ? match.two.name : 'Fangs');
 
         $('#one-score').text(match.team_one_score ? match.team_one_score : 0);
         $('#two-score').text(match.team_two_score ? match.team_two_score : 0);
+
+        $('#one-region').text(match.one.region ? match.one.region : '??');
+        $('#two-region').text(match.two.region ? match.two.region : '??');
     }
 
     makeAjaxCall(matchApiUrl, makeScoreUpdate);

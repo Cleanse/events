@@ -4,14 +4,20 @@
 <div id="overlay-score" class="score-wrapper">
     <div id="one-wrapper" class="{{ match.one.region }} {{ match.one.name }}">
         <div class="team-content">
-            <img id="one-logo" class="one-image" src="{{ match.one.getLogoThumb(96) ?? claws_logo }}"/>
-            <h4 id="one-score">{{ match.team_one_score ?? 0 }}</h4>
+            <img id="one-logo" class="one-image" src="{{ match.one.getLogoThumb(128) ?? claws_logo }}"/>
+            <div class="score-region">
+                <h4 id="one-score">{{ match.team_one_score ?? 0 }}</h4>
+                <h5 id="one-region">{{ match.one.region|upper }}</h5>
+            </div>
         </div>
     </div>
     <div id="two-wrapper" class="{{ match.two.region }} {{ match.two.name }}">
         <div class="team-content">
-            <img id="two-logo" class="two-image" src="{{ match.two.getLogoThumb(96) ?? fangs_logo }}"/>
-            <h4 id="two-score">{{ match.team_two_score ?? 0 }}</h4>
+            <img id="two-logo" class="two-image" src="{{ match.two.getLogoThumb(128) ?? fangs_logo }}"/>
+            <div class="score-region">
+                <h4 id="two-score">{{ match.team_two_score ?? 0 }}</h4>
+                <h5 id="two-region">{{ match.two.region|upper }}</h5>
+            </div>
         </div>
     </div>
 </div>
