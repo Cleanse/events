@@ -6,9 +6,15 @@
 </div>
 
 <div class="subtitles">
+    <p id="event-round">
     {% if match.takes_place_during %}
-    <p id="event-round">Group {{ match.takes_place_during }}</p>
+    Group {{ match.takes_place_during }}
     {% endif %}
+    {% if match.order %}
+    Match {{ match.order }}
+    {% endif %}
+    </p>
+
     {% if match.event.config.best_of %}
     <p class="best-of text-center">Best-of-<span id="best-of">{{ match.event.config.best_of }}</span></p>
     {% endif %}

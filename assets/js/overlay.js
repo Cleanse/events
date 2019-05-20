@@ -67,45 +67,49 @@ if (document.getElementById('overlay-team-name')) {
 
 //Match +
 if (document.getElementById('overlay-matchup')) {
-    function makeMatchUpdate(match) {
-        if (!match) {
+    function makeMatchUpdate(event) {
+        if (!event) {
             return;
         }
 
-        if (!match.one || !match.two) {
+        if (!event.match.one || !event.match.two) {
             return;
         }
 
         let one_wrapper = $('#one-wrapper');
         let two_wrapper = $('#two-wrapper');
 
-        let one_region = match.one.region ? match.one.region : 'default';
-        let two_region = match.two.region ? match.two.region : 'default';
+        let one_region = event.match.one.region ? event.match.one.region : 'default';
+        let two_region = event.match.two.region ? event.match.two.region : 'default';
         one_wrapper.removeClass();
         two_wrapper.removeClass();
         one_wrapper.addClass(one_region);
         two_wrapper.addClass(two_region);
 
-        let one_logo = match.one.logo ? match.one.logo.path : scoreClawsLogo;
-        let two_logo = match.two.logo ? match.two.logo.path : scoreFangsLogo;
+        let one_logo = event.match.one.logo ? event.match.one.logo.path : scoreClawsLogo;
+        let two_logo = event.match.two.logo ? event.match.two.logo.path : scoreFangsLogo;
         $('#one-logo').attr("src", one_logo);
         $('#two-logo').attr("src", two_logo);
 
-        $('#one-name').text(match.one.name ? match.one.name : 'Claws');
-        $('#two-name').text(match.two.name ? match.two.name : 'Fangs');
+        $('#one-name').text(event.match.one.name ? event.match.one.name : 'Claws');
+        $('#two-name').text(event.match.two.name ? event.match.two.name : 'Fangs');
 
-        $('#one-description').text(match.one.description ? match.one.description : '');
-        $('#two-description').text(match.two.description ? match.two.description : '');
+        $('#one-description').text(event.match.one.description ? event.match.one.description : '');
+        $('#two-description').text(event.match.two.description ? event.match.two.description : '');
 
-        $('#one-score').text(match.team_one_score ? match.team_one_score : 0);
-        $('#two-score').text(match.team_two_score ? match.team_two_score : 0);
+        $('#one-score').text(event.match.team_one_score ? event.match.team_one_score : 0);
+        $('#two-score').text(event.match.team_two_score ? event.match.team_two_score : 0);
 
-        if (match.event.config['best_of']) {
-            $('#best-of').text(match.event.config['best_of']);
+        if (event.match.event.config['best_of']) {
+            $('#best-of').text(event.match.event.config['best_of']);
         }
 
-        if (match.takes_place_during) {
-            $('#event-round').text('Group '+match.takes_place_during);
+        if (event.match.takes_place_during) {
+            $('#event-round').text('Group '+event.match.takes_place_during);
+        }
+
+        if (event.match.order) {
+            $('#event-round').text(event.round);
         }
     }
 

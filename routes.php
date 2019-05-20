@@ -1,5 +1,6 @@
 <?php
 
+use Cleanse\Event\Classes\Helpers\BracketHelper;
 use Cleanse\Event\Models\Broadcast;
 use Cleanse\Event\Models\Event;
 use Cleanse\Event\Models\Match;
@@ -16,7 +17,17 @@ Route::get('/api/broadcast/{broadcast}/match', function ($broadcastId)
             ->with(['event', 'one.logo', 'two.logo'])
             ->first();
 
-        return Response::json($match);
+        if ($match->event->type === 'bracket-double' or $match->event->type === 'bracket-single') {
+            $teamCount = BracketHelper::getBracketSize(count($match->event->teams));
+            $roundName = BracketHelper::getBracketRoundName($match->order, $teamCount, $match->event->type);
+        } else {
+            $roundName = '';
+        }
+
+        return Response::json([
+            'match' => $match,
+            'round' => $roundName
+        ]);
     }
 
     return Response::json([]);
