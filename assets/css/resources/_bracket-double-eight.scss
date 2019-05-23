@@ -20,7 +20,6 @@
   .lower-bracket {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: center;
 
     .round:not(:last-child) {
       margin-right: 20px;
@@ -31,6 +30,10 @@
     height: 432px;
 
     .round {
+      &.off {
+        display: none;
+      }
+
       &:first-child {
         margin-top: 0;
       }

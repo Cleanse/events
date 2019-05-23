@@ -80,34 +80,34 @@ class BracketHelper
     {
         switch ($matchNumber) {
             case ($matchNumber <= 4):
-                return 'Upper Round 1';
+                return 'Winner\'s Quarter-Finals';
                 break;
             case ($matchNumber <= 6):
-                return 'Lower Round 1';
+                return 'Loser\'s Playoff';
                 break;
             case ($matchNumber <= 8):
-                return 'Round 2';
+                return 'Winner\'s Semi-Finals';
                 break;
             case ($matchNumber <= 10):
-                return 'Lower Round 2';
+                return 'Loser\'s Quarter-Finals';
                 break;
             case ($matchNumber === 11):
-                return 'Lower Round 3';
+                return 'Loser\'s Semi-Finals';
                 break;
             case ($matchNumber === 12):
-                return 'Semi-Finals';
+                return 'Winner\'s Final';
                 break;
             case ($matchNumber === 13):
-                return 'Lower Finals';
+                return 'Loser\'s Final';
                 break;
             case ($matchNumber === 14):
-                return 'Upper Finals';
+                return 'Grand Final';
                 break;
             case ($matchNumber === 15):
-                return 'Grand Finals';
+                return 'Grand Final';
                 break;
             default:
-                return 'Round 1';
+                return 'Round';
                 break;
         }
     }

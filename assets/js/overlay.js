@@ -100,8 +100,12 @@ if (document.getElementById('overlay-matchup')) {
         $('#one-score').text(event.match.team_one_score ? event.match.team_one_score : 0);
         $('#two-score').text(event.match.team_two_score ? event.match.team_two_score : 0);
 
-        if (event.match.event.config['best_of']) {
+        if (event.match.best_of) {
+            $('#best-of').text(event.match.best_of);
+        } else if (event.match.event.config['best_of']) {
             $('#best-of').text(event.match.event.config['best_of']);
+        } else {
+            $('#best-of').text('');
         }
 
         if (event.match.takes_place_during) {
@@ -368,6 +372,10 @@ if (document.getElementById('overlay-event-bracket')) {
             $('#match-'+ i).removeClass().addClass('match');
             if (event_array.event.matches[i].id === event_array.broadcast.active_match) {
                 $('#match-'+ i).addClass('active');
+            }
+
+            if (i === 14 && event_array.event.matches[i].one && event_array.event.matches[i].two) {
+                $('#match-'+ i).closest('.round').removeClass('off');
             }
         }
 
