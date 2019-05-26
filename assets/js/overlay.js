@@ -22,22 +22,22 @@ let bracketApiUrl = `/api/broadcast/${broadcast_channel}/bracket`;
 
 //Score
 if (document.getElementById('overlay-score')) {
-    function makeScoreUpdate(match) {
-        if (!match) {
+    function makeScoreUpdate(event) {
+        if (!event) {
             return;
         }
 
-        $('#one-logo').attr('src', match.one.logo ? match.one.logo.path : scoreClawsLogo);
-        $('#two-logo').attr('src', match.two.logo ? match.two.logo.path : scoreFangsLogo);
+        $('#one-logo').attr('src', event.match.one.logo ? event.match.one.logo.path : scoreClawsLogo);
+        $('#two-logo').attr('src', event.match.two.logo ? event.match.two.logo.path : scoreFangsLogo);
 
-        $('#one-name').text(match.one.name ? match.one.name : 'Claws');
-        $('#two-name').text(match.two.name ? match.two.name : 'Fangs');
+        $('#one-name').text(event.match.one.name ? event.match.one.name : 'Claws');
+        $('#two-name').text(event.match.two.name ? event.match.two.name : 'Fangs');
 
-        $('#one-score').text(match.team_one_score ? match.team_one_score : 0);
-        $('#two-score').text(match.team_two_score ? match.team_two_score : 0);
+        $('#one-score').text(event.match.team_one_score ? event.match.team_one_score : 0);
+        $('#two-score').text(event.match.team_two_score ? event.match.team_two_score : 0);
 
-        $('#one-region').text(match.one.region ? match.one.region : '??');
-        $('#two-region').text(match.two.region ? match.two.region : '??');
+        $('#one-region').text(event.match.one.region ? event.match.one.region : '??');
+        $('#two-region').text(event.match.two.region ? event.match.two.region : '??');
     }
 
     makeAjaxCall(matchApiUrl, makeScoreUpdate);
@@ -45,20 +45,20 @@ if (document.getElementById('overlay-score')) {
 
 //Names +
 if (document.getElementById('overlay-team-name')) {
-    function makeNameUpdate(match) {
-        if (!match) {
+    function makeNameUpdate(event) {
+        if (!event) {
             return;
         }
 
         if (names_team === 'claws') {
-            $('#overlay-team-name.claws .team-name').text(match.one.name ? match.one.name : 'Claws');
-            $('#overlay-team-name.claws .team-logo img').attr('src', match.one.logo ? match.one.logo.path : scoreClawsLogo);
+            $('#overlay-team-name.claws .team-name').text(event.match.one.name ? event.match.one.name : 'Claws');
+            $('#overlay-team-name.claws .team-logo img').attr('src', event.match.one.logo ? event.match.one.logo.path : scoreClawsLogo);
         }
 
         if (names_team === 'fangs') {
             console.log('hi fangs');
-            $('#overlay-team-name.fangs .team-name').text(match.two.name ? match.two.name : 'Fangs');
-            $('#overlay-team-name.fangs .team-logo img').attr('src', match.two.logo ? match.two.logo.path : scoreFangsLogo);
+            $('#overlay-team-name.fangs .team-name').text(event.match.two.name ? event.match.two.name : 'Fangs');
+            $('#overlay-team-name.fangs .team-logo img').attr('src', event.match.two.logo ? event.match.two.logo.path : scoreFangsLogo);
         }
     }
 
